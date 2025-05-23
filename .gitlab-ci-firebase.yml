@@ -20,9 +20,11 @@
     CHECKOUT_CORE_SUBMODULE: "true"
     NUM_SHARDS: 1
     TEST_APP_BASE_NAME: ${ARCHIVES_BASE_NAME}
+    FIREBASE_ENV_VARS: ""
   script:
     - *firebase_authenticate_script
     - date
+    - echo ${FIREBASE_ENV_VARS}
     - gcloud --quiet beta firebase test android
       run firebase-device-config.yml:${TESTS_TYPE}
       --app "$APP"
@@ -31,7 +33,7 @@
       --use-orchestrator
       --num-uniform-shards=${NUM_SHARDS}
       --num-flaky-test-attempts=2
-      --environment-variables clearPackageData=true,useTestStorageService=true,coverage=true,coverageFilePath="/coverage/"
+      --environment-variables clearPackageData=true,useTestStorageService=true,coverage=true,coverageFilePath="/coverage/"${FIREBASE_ENV_VARS}
       --directories-to-pull /sdcard
       --test-targets "class $TEST_SUITE" 2>&1 | tee results.txt
     - echo gcloud end time
@@ -80,10 +82,11 @@ mobile tests test-env:
   variables:
     TESTS_TYPE: mobileTest
     NUM_SHARDS: 1
-    APP_LOCATION: "app/build/outputs/apk/blackGooglePlayStore/debug/"
-    APP_TYPE: "black-google-playStore-debug.apk"
-    TEST_APP_LOCATION: "app/build/outputs/apk/androidTest/blackGooglePlayStore/debug/"
-    TEST_APP_TYPE: "black-google-playStore-debug-androidTest.apk"
+    FIREBASE_ENV_VARS: ",host=$DYNAMIC_DOMAIN,proxyToken=$BLACK_TOKEN"
+    APP_LOCATION: "app/build/outputs/apk/productionGooglePlayStore/debug/"
+    APP_TYPE: "production-google-playStore-debug.apk"
+    TEST_APP_LOCATION: "app/build/outputs/apk/androidTest/productionGooglePlayStore/debug/"
+    TEST_APP_TYPE: "production-google-playStore-debug-androidTest.apk"
     TEST_SUITE: "com.protonvpn.testSuites.MobileBlackSuite"
     TIMEOUT: $TIMEOUT_GENERAL_TESTS
 #    COVERAGE_FOLDER: "mobile_test_env"
