@@ -29,6 +29,7 @@ import com.protonvpn.android.appconfig.periodicupdates.PeriodicUpdateSpec
 import com.protonvpn.android.appconfig.periodicupdates.registerApiCall
 import com.protonvpn.android.auth.usecase.GetActiveAuthenticatedAccount
 import com.protonvpn.android.models.config.bugreport.DynamicReportModel
+import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.ui.home.GetNetZone
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.Storage
@@ -76,6 +77,7 @@ class AppConfig @Inject constructor(
     private val globalSettingsManager: GlobalSettingsManager,
     private val fetchFlags: FetchUnleashTogglesRemote,
     private val getActiveAuthenticatedAccount: GetActiveAuthenticatedAccount,
+    private val bugReportConfigStore: dagger.Lazy<BugReportConfigStore>,
     userPlanManager: UserPlanManager,
     @IsLoggedIn loggedIn: Flow<Boolean>,
     @IsInForeground inForeground: Flow<Boolean>,
@@ -158,7 +160,7 @@ class AppConfig @Inject constructor(
         val sessionId = sessionProvider.getSessionId(userId)
         val dynamicReportModel = api.getDynamicReportConfig(sessionId)
         dynamicReportModel.valueOrNull?.let {
-            Storage.save(it, DynamicReportModel::class.java)
+            bugReportConfigStore.get().save(it)
         }
         return dynamicReportModel
     }

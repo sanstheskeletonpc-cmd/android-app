@@ -21,22 +21,22 @@ package com.protonvpn.tests.reports.mobile
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.protonvpn.android.models.config.bugreport.Category
-import com.protonvpn.android.models.config.bugreport.DynamicReportModel
+import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.redesign.reports.ui.BugReportActivity
-import com.protonvpn.android.utils.FileUtils
-import com.protonvpn.android.utils.Storage
 import com.protonvpn.interfaces.verify
+import com.protonvpn.mocks.TestApiConfig
 import com.protonvpn.robots.mobile.RedesignBugReportRobot
 import com.protonvpn.testRules.AppConfigRefreshTestRule
 import com.protonvpn.testRules.CommonRuleChains.realBackendRule
+import com.protonvpn.testRules.ProtonHiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import kotlinx.serialization.builtins.ListSerializer
+import kotlinx.coroutines.runBlocking
 import me.proton.test.fusion.FusionConfig
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.RuleChain
-import kotlin.collections.orEmpty
+import javax.inject.Inject
 
 @HiltAndroidTest
 class BugReportTestsBlack {
@@ -51,11 +51,13 @@ class BugReportTestsBlack {
 
     private lateinit var categories: List<Category>
 
+    @Inject
+    lateinit var bugReportConfigStore: BugReportConfigStore
+
+
     @Before
     fun setUp() {
-        categories = Storage.load(DynamicReportModel::class.java)
-            ?.categories
-            .orEmpty()
+        categories = runBlocking { bugReportConfigStore.load() }.categories
     }
 
     @Test

@@ -26,6 +26,7 @@ import com.protonvpn.android.auth.usecase.CurrentUser
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
@@ -94,6 +95,14 @@ class SharedStoreProvider<T>(
 
     suspend fun updateForCurrentUser(transform: (current: T) -> T): T? =
         data.first()?.updateData(transform)
+
+    // Methods for updating shared data store even when there is no current user logged in-
+    // they have no counterparts in CurrentUserStoreProvider.
+    // If needed, CurrentUserStoreProvider could be extended with supporting an additional
+    // store for "no user logged in".
+    fun sharedDataFlow(): Flow<T> = flow { emitAll(getDataStore().data) }
+    suspend fun sharedUpdate(transform: (current: T) -> T): T =
+        getDataStore().updateData(transform)
 
     private suspend fun getDataStore() = storeProvider.dataStoreWithSuffix("shared")
 }

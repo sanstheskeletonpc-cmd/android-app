@@ -8,20 +8,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.R
 import com.protonvpn.android.auth.usecase.CurrentUser
-import com.protonvpn.android.concurrency.VpnDispatcherProvider
 import com.protonvpn.android.models.config.bugreport.Category
-import com.protonvpn.android.models.config.bugreport.DynamicReportModel
 import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.models.config.bugreport.Suggestion
 import com.protonvpn.android.models.config.bugreport.TYPE_DROPDOWN
 import com.protonvpn.android.models.login.GenericResponse
+import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.ui.drawer.bugreport.PrepareAndPostBugReport
 import com.protonvpn.android.update.AppUpdateBannerState
 import com.protonvpn.android.update.AppUpdateBannerStateFlow
 import com.protonvpn.android.update.AppUpdateInfo
 import com.protonvpn.android.update.AppUpdateManager
-import com.protonvpn.android.utils.FileUtils
-import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.combine
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -37,17 +34,15 @@ import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import kotlinx.serialization.builtins.ListSerializer
-import me.proton.core.util.kotlin.takeIfNotBlank
 import me.proton.core.network.domain.ApiResult
+import me.proton.core.util.kotlin.takeIfNotBlank
 import javax.inject.Inject
 
 @HiltViewModel
 class BugReportViewModel @Inject constructor(
     private val appUpdateManager: AppUpdateManager,
     private val currentUser: CurrentUser,
-    private val dispatcherProvider: VpnDispatcherProvider,
+    private val bugReportConfigStore: BugReportConfigStore,
     private val mainScope: CoroutineScope,
     private val prepareAndPostBugReport: PrepareAndPostBugReport,
     private val savedStateHandle: SavedStateHandle,
@@ -120,17 +115,7 @@ class BugReportViewModel @Inject constructor(
     private val bugReportFormFlow = MutableStateFlow(value = BugReportForm())
 
     private val categoriesFlow: Flow<List<Category>> = flow {
-        val reportModel = withContext(dispatcherProvider.Io) {
-            Storage.load<DynamicReportModel>(DynamicReportModel::class.java) {
-                DynamicReportModel(
-                    categories = FileUtils.getObjectFromAssets(
-                        serializer = ListSerializer(elementSerializer = Category.serializer()),
-                        jsonAssetPath = BUG_REPORT_FILE_NAME,
-                    )
-                )
-            }
-        }
-
+        val reportModel = bugReportConfigStore.load()
         emit(value = reportModel.categories)
     }
 
@@ -349,7 +334,7 @@ class BugReportViewModel @Inject constructor(
 
     private companion object {
 
-        private const val BUG_REPORT_FILE_NAME = "defaultbugreport.json"
+
 
         private const val SELECTED_CATEGORY_KEY = "bug_report_selected_category"
 

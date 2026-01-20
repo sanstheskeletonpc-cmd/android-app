@@ -22,10 +22,14 @@ package com.protonvpn.app.ui.drawer.bugreport
 import com.protonvpn.android.auth.AuthFlowStartHelper
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.concurrency.VpnDispatcherProvider
+import com.protonvpn.android.redesign.reports.BugReportConfigStore
+import com.protonvpn.android.redesign.reports.BugReportConfigStoreProvider
 import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.ui.drawer.bugreport.PrepareAndPostBugReport
 import com.protonvpn.android.ui.drawer.bugreport.ReportBugActivityViewModel
 import com.protonvpn.app.testRules.RobolectricHiltAndroidRule
+import com.protonvpn.test.shared.InMemoryDataStoreFactory
+import com.protonvpn.test.shared.InMemoryObjectStore
 import com.protonvpn.test.shared.TestCurrentUserProvider
 import com.protonvpn.test.shared.TestUser
 import com.protonvpn.test.shared.createAccountUser
@@ -77,7 +81,7 @@ class ReportBugActivityViewModelTests {
         roboRule.inject()
         viewModel = ReportBugActivityViewModel(
             testScope,
-            dispatcherProvider,
+            BugReportConfigStore(BugReportConfigStoreProvider(InMemoryDataStoreFactory())),
             currentUser,
             isTv,
             authFlowStartHelper,

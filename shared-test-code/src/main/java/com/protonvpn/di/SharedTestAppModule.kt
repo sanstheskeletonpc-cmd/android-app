@@ -35,10 +35,12 @@ import com.protonvpn.android.di.AppDatabaseModule
 import com.protonvpn.android.di.AppModuleProd
 import com.protonvpn.android.di.CoreBaseNetworkModule
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.servers.ServersStore
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
 import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.redesign.reports.BugReportConfigStore
+import com.protonvpn.android.redesign.reports.BugReportConfigStoreProvider
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
+import com.protonvpn.android.servers.ServersStore
 import com.protonvpn.android.telemetry.NoopSnapshotScheduler
 import com.protonvpn.android.telemetry.NoopTelemetryUploadScheduler
 import com.protonvpn.android.telemetry.SnapshotScheduler
@@ -65,7 +67,9 @@ import com.protonvpn.mocks.FakeWorkManager
 import com.protonvpn.mocks.MockUserRepository
 import com.protonvpn.mocks.MockVpnBackend
 import com.protonvpn.mocks.NoopPeriodicUpdateWorkerScheduler
+import com.protonvpn.test.shared.InMemoryDataStore
 import com.protonvpn.test.shared.InMemoryDataStoreFactory
+import com.protonvpn.test.shared.InMemoryObjectStore
 import com.protonvpn.test.shared.MockNetworkManager
 import com.protonvpn.test.shared.MockSharedPreferencesProvider
 import com.protonvpn.test.shared.TestCurrentUserProvider
@@ -131,6 +135,11 @@ class SharedTestAppModule {
     @Provides
     @Singleton
     fun provideServerStore() : ServersStore = createInMemoryServersStore()
+
+    @Provides
+    @Singleton
+    fun providerBugReportConfigStoreProvider() =
+        BugReportConfigStoreProvider(InMemoryDataStoreFactory())
 
     @Singleton
     @Provides
