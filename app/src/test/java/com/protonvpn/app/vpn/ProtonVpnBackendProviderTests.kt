@@ -25,7 +25,6 @@ import com.protonvpn.android.appconfig.FeatureFlags
 import com.protonvpn.android.appconfig.SmartProtocolConfig
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.utils.Storage
@@ -78,7 +77,6 @@ class ProtonVpnBackendProviderTests {
             mockAppConfig,
             mockWireGuardBackend,
             mockProTunBackend,
-            SupportsProtocol(createGetSmartProtocols())
         )
     }
 

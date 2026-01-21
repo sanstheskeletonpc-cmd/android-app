@@ -32,13 +32,12 @@ import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.servers.Server
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.netshield.NetShieldStats
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.settings.data.ApplyEffectiveUserSettings
 import com.protonvpn.android.settings.data.LocalUserSettings
@@ -129,7 +128,7 @@ class GuestHoleVpnConnectionManagerTests {
         val currentUser = CurrentUser(TestCurrentUserProvider(TestUser.freeUser.vpnUser))
         val rawSettingsFlow = flowOf(LocalUserSettings.Default)
         val foregroundActivityTracker = ForegroundActivityTracker(bgScope, flowOf(mockk<ComponentActivity>()))
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
+        val getSmartProtocols = createGetSmartProtocols()
 
         every { mockWakeLock.isHeld } returns true
         every { mockPowerManager.newWakeLock(PARTIAL_WAKE_LOCK, any()) } returns mockWakeLock
@@ -142,10 +141,9 @@ class GuestHoleVpnConnectionManagerTests {
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol,
             emptyList()
         )
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, getSmartProtocols)
         val fakeVpnPermissionDelegate = FakeVpnPermissionDelegate()
 
         vpnStateMonitor = VpnStateMonitor()
@@ -184,7 +182,7 @@ class GuestHoleVpnConnectionManagerTests {
             now = clock,
             currentVpnServiceProvider = mockk(relaxed = true),
             currentUser = currentUser,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = getSmartProtocols,
             powerManager = { mockPowerManager },
             vpnConnectionTelemetry = mockk(relaxed = true),
             autoLoginManager = mockk(relaxed = true),

@@ -49,6 +49,7 @@ import com.protonvpn.test.shared.TestCurrentUserProvider
 import com.protonvpn.test.shared.TestUser
 import com.protonvpn.test.shared.createConnectIntentFastest
 import com.protonvpn.test.shared.createConnectIntentFastestInCountry
+import com.protonvpn.test.shared.createGetSmartProtocols
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -151,6 +152,7 @@ class ObserveDefaultConnectionTests {
             getIntentAvailability = mockGetIntentAvailability,
             recentsDao = mockRecentsDao,
             serverManager2 = mockServerManager2,
+            getSmartProtocols = createGetSmartProtocols()
         )
     }
 
@@ -249,6 +251,7 @@ class ObserveDefaultConnectionTests {
                 connectIntent = recentConnection.connectIntent,
                 vpnUser = vpnUser,
                 settingsProtocol = effectiveCurrentUserSettings.protocol.first(),
+                smartProtocols = any()
             ) } returns ConnectIntentAvailability.ONLINE
 
             observeDefaultConnection().test {
@@ -286,6 +289,7 @@ class ObserveDefaultConnectionTests {
                     connectIntent = recentConnection.connectIntent,
                     vpnUser = vpnUser,
                     settingsProtocol = effectiveCurrentUserSettings.protocol.first(),
+                    smartProtocols = any(),
                 )
             } returns ConnectIntentAvailability.NO_SERVERS
 

@@ -29,8 +29,10 @@ import com.protonvpn.android.servers.api.LogicalServer
 import com.protonvpn.android.servers.api.ServerLocation
 import com.protonvpn.android.servers.api.ServerStatusReference
 import com.protonvpn.android.vpn.ProtocolSelection
+import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.mockk
+import kotlinx.coroutines.flow.flowOf
 
 val dummyConnectingDomain =
     ConnectingDomain(
@@ -46,7 +48,8 @@ val dummyConnectingDomain =
 fun createGetSmartProtocols(
     protocols: List<ProtocolSelection> = ProtocolSelection.REAL_PROTOCOLS
 ): GetSmartProtocols = mockk<GetSmartProtocols>().also {
-    every { it.invoke() } returns protocols
+    coEvery { it.invoke() } returns protocols
+    coEvery { it.observe() } returns flowOf(protocols)
 }
 
 @Suppress("LongParameterList")

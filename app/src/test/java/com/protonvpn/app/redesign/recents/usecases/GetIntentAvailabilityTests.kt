@@ -23,7 +23,9 @@ import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.excludedlocations.data.ExcludedLocationsDao
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.config.TransmissionProtocol
+import com.protonvpn.android.models.config.VpnProtocol
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.recents.usecases.GetIntentAvailability
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
@@ -33,6 +35,7 @@ import com.protonvpn.android.redesign.vpn.ui.ConnectIntentAvailability
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.servers.api.SERVER_FEATURE_P2P
 import com.protonvpn.android.servers.api.SERVER_FEATURE_RESTRICTED
+import com.protonvpn.android.servers.api.ServerEntryInfo
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.vpn.ProtocolSelection
@@ -49,6 +52,7 @@ import com.protonvpn.test.shared.createConnectIntentGateway
 import com.protonvpn.test.shared.createConnectIntentSecureCore
 import com.protonvpn.test.shared.createGetSmartProtocols
 import com.protonvpn.test.shared.createServer
+import com.protonvpn.test.shared.dummyConnectingDomain
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -91,23 +95,18 @@ class GetIntentAvailabilityTests {
         val testDispatcher = StandardTestDispatcher()
         testScope = TestScope(testDispatcher)
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
-
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol = supportsProtocol,
             initialServers = emptyList(),
         )
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, createGetSmartProtocols())
 
         testUserProvider = TestCurrentUserProvider(
             vpnUser = null,
             user = createAccountUser(),
         )
-
         val currentUser = CurrentUser(provider = testUserProvider)
-
         val observeExcludedLocations = ObserveExcludedLocations(
             mainScope = testScope.backgroundScope,
             currentUser = currentUser,
@@ -117,7 +116,6 @@ class GetIntentAvailabilityTests {
 
         getIntentAvailability = GetIntentAvailability(
             serverManager = serverManager2,
-            supportsProtocol = supportsProtocol,
             observeExcludedLocations = observeExcludedLocations,
         )
     }
@@ -247,9 +245,41 @@ class GetIntentAvailabilityTests {
         runAvailabilityTestCases(casesList = casesList, vpnUser = vpnUser)
     }
 
-    private suspend fun runAvailabilityTestCases(casesList: List<Pair<ConnectIntent, ConnectIntentAvailability>>, vpnUser: VpnUser) {
+    @Test
+    fun `smart protocol filtering`() = testScope.runTest {
+        val physicalUdp = dummyConnectingDomain.copy(
+            entryIp = null, entryIpPerProtocol = mapOf("WireGuardUDP" to ServerEntryInfo("1.2.3.4"))
+        )
+        val physicalTcp = dummyConnectingDomain.copy(
+            entryIp = null, entryIpPerProtocol = mapOf("WireGuardTCP" to ServerEntryInfo("1.2.3.4"))
+        )
+        val serverUdp = createServer("UDP", exitCountry = "CH", connectingDomains = listOf(physicalUdp))
+        val serverTcp = createServer("TCP", exitCountry = "SE", connectingDomains = listOf(physicalTcp))
+        serverManager.setServers(listOf(serverTcp, serverUdp), "1")
+
+        val tcpOnly = listOf(ProtocolSelection(VpnProtocol.WireGuard, TransmissionProtocol.TCP))
+        runAvailabilityTestCases(
+            listOf(
+                ConnectIntent.FastestInCountry(CountryId.switzerland, emptySet()) to ConnectIntentAvailability.UNAVAILABLE_PROTOCOL,
+                ConnectIntent.FastestInCountry(CountryId.sweden, emptySet()) to ConnectIntentAvailability.ONLINE
+            ),
+            userPlus,
+            tcpOnly
+        )
+    }
+
+    private suspend fun runAvailabilityTestCases(
+        casesList: List<Pair<ConnectIntent, ConnectIntentAvailability>>,
+        vpnUser: VpnUser,
+        smartProtocols: SmartProtocols = ProtocolSelection.REAL_PROTOCOLS,
+    ) {
         casesList.forEachIndexed { index, (intent, expectedAvailability) ->
-            val result = getIntentAvailability(intent, vpnUser, ProtocolSelection.SMART)
+            val result = getIntentAvailability(
+                intent,
+                vpnUser,
+                ProtocolSelection.SMART,
+                smartProtocols,
+            )
             assertEquals("Case $index", expectedAvailability, result)
         }
     }

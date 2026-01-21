@@ -30,7 +30,6 @@ import androidx.test.platform.app.InstrumentationRegistry
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.db.AppDatabase
 import com.protonvpn.android.db.AppDatabase.Companion.buildDatabase
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.profiles.data.ProfilesDao
 import com.protonvpn.android.redesign.recents.data.RecentsDao
 import com.protonvpn.android.redesign.recents.data.toConnectIntent
@@ -115,16 +114,14 @@ class RecentsListValidatorTestsIntegration {
             accountManager.addAccount(AccountTestHelper.TestAccount2, AccountTestHelper.TestSession2)
         }
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
         recentsDao = db.recentsDao()
         profilesDao = db.profilesDao()
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol,
             emptyList()
         )
-        serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        serverManager2 = ServerManager2(serverManager, createGetSmartProtocols())
     }
 
     @After

@@ -20,27 +20,37 @@
 package com.protonvpn.android.models.vpn.usecase
 
 import com.protonvpn.android.servers.Server
+import com.protonvpn.android.servers.api.ConnectingDomain
 import com.protonvpn.android.vpn.ProtocolSelection
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class GetConnectingDomain @Inject constructor(
-    val supportsProtocol: SupportsProtocol
+    private val smartProtocols: GetSmartProtocols
 ) {
-    fun online(server: Server, protocol: ProtocolSelection?) =
-        if (protocol == null)
+    fun online(server: Server, protocol: ProtocolSelection?, smartProtocols: SmartProtocols) =
+        if (protocol == null) {
             server.connectingDomains.filter { it.isOnline }
-        else
-            server.connectingDomains.filter { it.isOnline && supportsProtocol(it, protocol) }
+        } else {
+            server.connectingDomains.filter {
+                it.isOnline && supportsProtocol(it, protocol, smartProtocols)
+            }
+        }
 
-    private fun supportingProtocol(server: Server, protocol: ProtocolSelection?) =
-        if (protocol == null)
+    suspend fun random(server: Server, protocol: ProtocolSelection?): ConnectingDomain? {
+        val smartProtocols = smartProtocols()
+        return online(server, protocol, smartProtocols).randomOrNull()
+            ?: supportingProtocol(server, protocol, smartProtocols).randomOrNull()
+    }
+
+    private fun supportingProtocol(
+        server: Server,
+        protocol: ProtocolSelection?,
+        smartProtocols: SmartProtocols,
+    ) = if (protocol == null) {
             server.connectingDomains
-        else
-            server.connectingDomains.filter { supportsProtocol(it, protocol) }
-
-    fun random(server: Server, protocol: ProtocolSelection?) =
-        online(server, protocol).randomOrNull()
-            ?: supportingProtocol(server, protocol).randomOrNull()
+        } else {
+            server.connectingDomains.filter { supportsProtocol(it, protocol, smartProtocols) }
+        }
 }

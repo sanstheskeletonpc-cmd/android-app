@@ -21,6 +21,8 @@ package com.protonvpn.android.redesign.recents.usecases
 import com.protonvpn.android.R
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.recents.data.DefaultConnection
 import com.protonvpn.android.redesign.recents.data.RecentConnection
 import com.protonvpn.android.redesign.recents.data.getRecentIdOrNull
@@ -97,21 +99,24 @@ class DefaultConnectionViewStateFlow @Inject constructor(
     private val getConnectIntentViewState: GetConnectIntentViewState,
     private val getIntentAvailability: GetIntentAvailability,
     private val serverManager: ServerManager2,
+    private val getSmartProtocols: GetSmartProtocols,
     currentUser: CurrentUser
 ) : Flow<DefaultConnectionViewState> {
 
     private val viewState: Flow<DefaultConnectionViewState> = combine(
         currentUser.vpnUserFlow,
         effectiveCurrentUserSettings.protocol,
-    ) { vpnUser, settingsProtocol ->
-        vpnUser?.let { user -> Pair(user, settingsProtocol) }
-    }.flatMapLatestNotNull { (vpnUser, settingsProtocol) ->
+        getSmartProtocols.observe(),
+    ) { vpnUser, settingsProtocol, smartProtocols ->
+        vpnUser?.let { user -> Triple(user, settingsProtocol, smartProtocols) }
+    }.flatMapLatestNotNull { (vpnUser, settingsProtocol, smartProtocols) ->
         if (vpnUser.isFreeUser) {
             val recentsViewState = createRecentsViewState(
                 recents = emptyList(),
                 vpnUser = vpnUser,
                 defaultConnection = Constants.DEFAULT_CONNECTION,
                 settingsProtocol = settingsProtocol,
+                smartProtocols = smartProtocols,
             )
 
             flowOf(DefaultConnectionViewState(recents = recentsViewState)).filterNotNull()
@@ -120,12 +125,14 @@ class DefaultConnectionViewStateFlow @Inject constructor(
                 serverManager.serverListVersion,
                 recentsManager.getRecentsList(),
                 observeDefaultConnection(),
-            ) { _, recents, defaultConnection ->
+                getSmartProtocols.observe(),
+            ) { _, recents, defaultConnection, smartProtocols ->
                 val recentsViewState = createRecentsViewState(
                     recents = recents,
                     vpnUser = vpnUser,
                     defaultConnection = defaultConnection,
                     settingsProtocol = settingsProtocol,
+                    smartProtocols = smartProtocols,
                 )
 
                 DefaultConnectionViewState(recents = recentsViewState)
@@ -141,8 +148,9 @@ class DefaultConnectionViewStateFlow @Inject constructor(
         vpnUser: VpnUser?,
         defaultConnection: DefaultConnection,
         settingsProtocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): List<DefaultConnItem> = buildList {
-        if (hasServersFor(ConnectIntent.Fastest, vpnUser, settingsProtocol)) {
+        if (hasServersFor(ConnectIntent.Fastest, vpnUser, settingsProtocol, smartProtocols)) {
             val fastestItem = DefaultConnItem.FastestItem(
                 titleRes = R.string.fastest_country,
                 subtitleRes = R.string.fastest_country_description,
@@ -168,6 +176,7 @@ class DefaultConnectionViewStateFlow @Inject constructor(
                     connectIntent = recent.connectIntent,
                     vpnUser = vpnUser,
                     settingsProtocol = settingsProtocol,
+                    smartProtocols = smartProtocols,
                 )
             }
             .map { recentConnection ->
@@ -193,10 +202,12 @@ class DefaultConnectionViewStateFlow @Inject constructor(
         connectIntent: ConnectIntent,
         vpnUser: VpnUser?,
         settingsProtocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): Boolean = getIntentAvailability(
         connectIntent = connectIntent,
         vpnUser = vpnUser,
         settingsProtocol = settingsProtocol,
+        smartProtocols = smartProtocols,
     ) != ConnectIntentAvailability.NO_SERVERS
 
     private suspend fun mapToRecentItemViewState(

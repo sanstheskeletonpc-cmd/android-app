@@ -28,7 +28,6 @@ import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.models.profiles.SavedProfilesV3
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.settings.data.ApplyEffectiveUserSettings
@@ -48,6 +47,7 @@ import com.protonvpn.android.userstorage.ProfileManager
 import com.protonvpn.android.utils.CountryTools
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
+import com.protonvpn.android.vpn.ProtocolSelection
 import com.protonvpn.android.vpn.RecentsManager
 import com.protonvpn.android.vpn.VpnState
 import com.protonvpn.android.vpn.VpnStateMonitor
@@ -136,14 +136,12 @@ class TvMainViewModelTests {
         vpnStateMonitor.updateStatus(VpnStateMonitor.Status(VpnState.Disabled, null))
         vpnStatusProviderUI = VpnStatusProviderUI(bgScope, vpnStateMonitor)
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
         profileManager =
             ProfileManager(SavedProfilesV3.defaultProfiles(), bgScope, userSettingsCached, userSettingsManager)
 
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol,
             MockedServers.serverList,
         )
 
@@ -167,9 +165,8 @@ class TvMainViewModelTests {
             getCountryCard = mockk(),
             currentUser = mockCurrentUser,
             logoutUseCase = mockk(relaxed = true),
-            purchaseEnabled = mockk(relaxed = true),
             effectiveCurrentUserSettingsCached = userSettingsCached,
-            autoConnectVpn = mockk(relaxed = true),
+            getSmartProtocols = createGetSmartProtocols(),
             isTvAutoConnectFeatureFlagEnabled = FakeIsTvAutoConnectFeatureFlagEnabled(true),
             isTvNetShieldSettingFeatureFlagEnabled = FakeIsTvNetShieldSettingFeatureFlagEnabled(true),
             isTvCustomDnsSettingFeatureFlagEnabled = FakeIsTvCustomDnsSettingFeatureFlagEnabled(true),
@@ -270,8 +267,12 @@ class TvMainViewModelTests {
         }
 
         // Note: this assumes that defaultConnection is for the fastest server.
-        val firstDefaultServer =
-            serverManager.getServerForProfile(profileManager.getDefaultOrFastest(), vpnUserFlow.value, userSettingsCached.value.protocol)!!
+        val firstDefaultServer = serverManager.getServerForProfile(
+            profileManager.getDefaultOrFastest(),
+            vpnUserFlow.value,
+            userSettingsCached.value.protocol,
+            smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
+        )!!
         val firstConnectionParams = ConnectionParams(ConnectIntent.Default, firstDefaultServer, null, null)
         val firstCountry = firstDefaultServer.exitCountry
 
@@ -285,8 +286,12 @@ class TvMainViewModelTests {
         runBlocking {
             serverManager.setServers(listOf(server2), null)
         }
-        val secondDefaultServer =
-            serverManager.getServerForProfile(profileManager.getDefaultOrFastest(), vpnUserFlow.value, userSettingsCached.value.protocol)!!
+        val secondDefaultServer = serverManager.getServerForProfile(
+            profileManager.getDefaultOrFastest(),
+            vpnUserFlow.value,
+            userSettingsCached.value.protocol,
+            smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
+        )!!
         val secondConnectionParams = ConnectionParams(ConnectIntent.Default, secondDefaultServer, null, null)
 
         vpnStateMonitor.updateStatus(VpnStateMonitor.Status(VpnState.Connected, secondConnectionParams))

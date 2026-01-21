@@ -36,6 +36,7 @@ import com.protonvpn.test.shared.TestUser
 import com.protonvpn.test.shared.createConnectIntentFastest
 import com.protonvpn.test.shared.createConnectIntentFastestInCountry
 import com.protonvpn.test.shared.createConnectIntentGateway
+import com.protonvpn.test.shared.createGetSmartProtocols
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.every
@@ -88,6 +89,7 @@ class GetQuickConnectIntentTests {
             mockGetIntentAvailability(
                 any(),
                 any(),
+                any(),
                 any()
             )
         } returns ConnectIntentAvailability.ONLINE
@@ -99,6 +101,7 @@ class GetQuickConnectIntentTests {
             observeDefaultConnection = mockObserveDefaultConnection,
             getDefaultConnectIntent = mockGetDefaultConnectIntent,
             userSettings = effectiveUserSettings,
+            getSmartProtocols = createGetSmartProtocols()
         )
     }
 
@@ -154,6 +157,7 @@ class GetQuickConnectIntentTests {
                     connectIntent = recent.connectIntent,
                     vpnUser = plusUser,
                     settingsProtocol = settingsFlow.value.protocol,
+                    smartProtocols = any(),
                 )
             } returns intentAvailability
 
@@ -195,12 +199,14 @@ class GetQuickConnectIntentTests {
                     connectIntent = recent.connectIntent,
                     vpnUser = plusUser,
                     settingsProtocol = settingsFlow.value.protocol,
+                    smartProtocols = any()
                 )
             } returns intentAvailability
             coEvery {
                 mockGetDefaultConnectIntent(
                     vpnUser = plusUser,
                     protocolSelection = settingsFlow.value.protocol,
+                    smartProtocols = any(),
                 )
             } returns expectedQuickConnectIntent
 
@@ -227,6 +233,7 @@ class GetQuickConnectIntentTests {
                 mockGetDefaultConnectIntent(
                     vpnUser = plusUser,
                     protocolSelection = settingsFlow.value.protocol,
+                    smartProtocols = any(),
                 )
             } returns expectedQuickConnectIntent
 

@@ -26,6 +26,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.profiles.data.Profile
 import com.protonvpn.android.profiles.data.ProfileInfo
@@ -40,7 +42,7 @@ import com.protonvpn.android.redesign.vpn.ui.ConnectIntentViewStateProfile
 import com.protonvpn.android.redesign.vpn.ui.GetConnectIntentViewState
 import com.protonvpn.android.settings.data.EffectiveCurrentUserSettings
 import com.protonvpn.android.ui.storage.UiStateStorage
-import com.protonvpn.android.utils.Quadruple
+import com.protonvpn.android.utils.Quintuple
 import com.protonvpn.android.utils.flatMapLatestNotNull
 import com.protonvpn.android.vpn.ConnectTrigger
 import com.protonvpn.android.vpn.ProtocolSelection
@@ -96,6 +98,7 @@ class ProfilesViewModel @Inject constructor(
     private val shouldShowcaseRecents: ShouldShowcaseRecents,
     vpnStatusProviderUI: VpnStatusProviderUI,
     private val getIntentAvailability: GetIntentAvailability,
+    private val getSmartProtocols: GetSmartProtocols,
     private val getConnectIntentViewState: GetConnectIntentViewState,
     private val effectiveCurrentUserSettings: EffectiveCurrentUserSettings,
     private val uiStateStorage: UiStateStorage,
@@ -132,13 +135,16 @@ class ProfilesViewModel @Inject constructor(
         connectedProfileIdFlow,
         savedStateHandle.getStateFlow(SELECTED_PROFILE_KEY, selectedProfileId),
         effectiveCurrentUserSettings.protocol,
-    ) { vpnUser, connectedProfileId, profileId, settingsProtocol ->
-        Quadruple(vpnUser, connectedProfileId, profileId, settingsProtocol)
-    }.flatMapLatest { (vpnUser, connectedProfileId, profileId, settingsProtocol) ->
-        if (profileId == null || vpnUser == null)
+        getSmartProtocols.observe(),
+    ) { vpnUser, connectedProfileId, profileId, settingsProtocol, smartProtocols ->
+        Quintuple(vpnUser, connectedProfileId, profileId, settingsProtocol, smartProtocols)
+    }.flatMapLatest { (vpnUser, connectedProfileId, profileId, settingsProtocol, smartProtocols) ->
+        if (profileId == null || vpnUser == null) {
             flowOf(null)
-        else
-            profilesDao.getProfileByIdFlow(profileId).map { it?.toItem(vpnUser, connectedProfileId, settingsProtocol) }
+        } else {
+            profilesDao.getProfileByIdFlow(profileId)
+                .map { it?.toItem(vpnUser, connectedProfileId, settingsProtocol, smartProtocols) }
+        }
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     val state = currentUser.vpnUserFlow.flatMapLatestNotNull { vpnUser ->
@@ -154,8 +160,9 @@ class ProfilesViewModel @Inject constructor(
         combine(
             connectedProfileIdFlow,
             effectiveCurrentUserSettings.protocol,
-        ) { connectedProfileId, settingsProtocol ->
-            val items = profiles.map { it.toItem(vpnUser, connectedProfileId, settingsProtocol) }
+            getSmartProtocols.observe(),
+        ) { connectedProfileId, settingsProtocol, smartProtocols ->
+            val items = profiles.map { it.toItem(vpnUser, connectedProfileId, settingsProtocol, smartProtocols) }
             ProfilesState.ProfilesList(items)
         }
 
@@ -225,13 +232,14 @@ class ProfilesViewModel @Inject constructor(
     private suspend fun Profile.toItem(
         vpnUser: VpnUser,
         connectedProfileId: Long?,
-        settingsProtocol: ProtocolSelection
+        settingsProtocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
     ): ProfileViewItem {
         val isConnected = info.id == connectedProfileId
         val intent = connectIntent
         val availability = when {
             vpnUser.isFreeUser -> ConnectIntentAvailability.UNAVAILABLE_PLAN
-            else -> getIntentAvailability(intent, vpnUser, settingsProtocol)
+            else -> getIntentAvailability(intent, vpnUser, settingsProtocol, smartProtocols)
         }
         val intentViewState = getConnectIntentViewState.forProfile(this)
         val netShieldEnabled = intent.settingsOverrides?.netShield == NetShieldProtocol.ENABLED_EXTENDED

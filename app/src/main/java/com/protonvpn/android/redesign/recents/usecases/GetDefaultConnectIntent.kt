@@ -20,6 +20,7 @@
 package com.protonvpn.android.redesign.recents.usecases
 
 import com.protonvpn.android.auth.data.VpnUser
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentAvailability
 import com.protonvpn.android.servers.ServerManager2
@@ -36,8 +37,9 @@ class GetDefaultConnectIntent @Inject constructor(
     suspend operator fun invoke(
         vpnUser: VpnUser?,
         protocolSelection: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): ConnectIntent {
-        if (hasServersFor(ConnectIntent.Default, vpnUser, protocolSelection)) {
+        if (hasServersFor(ConnectIntent.Default, vpnUser, protocolSelection, smartProtocols)) {
             return ConnectIntent.Default
         }
 
@@ -50,6 +52,7 @@ class GetDefaultConnectIntent @Inject constructor(
                     ),
                     vpnUser = vpnUser,
                     settingsProtocol = protocolSelection,
+                    smartProtocols = smartProtocols
                 )
             }
             ?.let { firstAvailableGatewayGroup ->
@@ -65,10 +68,12 @@ class GetDefaultConnectIntent @Inject constructor(
         connectIntent: ConnectIntent,
         vpnUser: VpnUser?,
         settingsProtocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): Boolean = getIntentAvailability(
         connectIntent = connectIntent,
         vpnUser = vpnUser,
         settingsProtocol = settingsProtocol,
+        smartProtocols = smartProtocols,
     ) != ConnectIntentAvailability.NO_SERVERS
 
 }

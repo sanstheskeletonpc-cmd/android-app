@@ -21,15 +21,11 @@ package com.protonvpn.app.redesign.recents.usecases
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.protonvpn.android.auth.usecase.CurrentUser
-import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.excludedlocations.data.ExcludedLocationsDao
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
+import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.servers.api.ConnectingDomain
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.servers.Server
-import com.protonvpn.android.servers.api.ServerEntryInfo
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.profiles.data.Profile
 import com.protonvpn.android.profiles.data.ProfileAutoOpen
 import com.protonvpn.android.profiles.data.ProfileColor
@@ -54,7 +50,10 @@ import com.protonvpn.android.redesign.vpn.ui.ConnectIntentSecondaryLabel
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentViewState
 import com.protonvpn.android.redesign.vpn.ui.GetConnectIntentViewState
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.ServerManager2
+import com.protonvpn.android.servers.api.ConnectingDomain
+import com.protonvpn.android.servers.api.ServerEntryInfo
 import com.protonvpn.android.settings.data.ApplyEffectiveUserSettings
 import com.protonvpn.android.settings.data.EffectiveCurrentUserSettings
 import com.protonvpn.android.settings.data.LocalUserSettings
@@ -162,7 +161,7 @@ class RecentsListViewStateFlowTests {
         vpnStateMonitor = VpnStateMonitor()
         val vpnStatusProviderUI = VpnStatusProviderUI(bgScope, vpnStateMonitor)
 
-        coEvery { mockGetDefaultConnectIntent(any(), any()) } returns createConnectIntentFastest()
+        coEvery { mockGetDefaultConnectIntent(any(), any(), any()) } returns createConnectIntentFastest()
         coEvery { mockRecentsManager.getRecentsList() } returns flowOf(emptyList())
         coEvery { mockRecentsManager.getMostRecentConnection() } returns flowOf(null)
         coEvery { mockRecentsManager.getRecentById(any()) } returns null
@@ -173,7 +172,6 @@ class RecentsListViewStateFlowTests {
         profiles = FakeGetProfileById()
         settingsFlow = MutableStateFlow(LocalUserSettings.Default)
         val effectiveUserSettings = EffectiveCurrentUserSettings(bgScope, settingsFlow)
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
         val settingsForConnection = SettingsForConnection(
             settingsFlow,
             profiles,
@@ -186,15 +184,15 @@ class RecentsListViewStateFlowTests {
             vpnStatusProviderUI
         )
 
+        val getSmartProtocols = createGetSmartProtocols()
         mockkObject(CountryTools)
         every { CountryTools.getPreferredLocale() } returns Locale.US
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol,
             listOf(serverCh, serverIs, serverSe, serverSecureCore)
         )
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, getSmartProtocols)
 
         val observeExcludedLocations = ObserveExcludedLocations(
             mainScope = testScope.backgroundScope,
@@ -205,7 +203,6 @@ class RecentsListViewStateFlowTests {
 
         val getIntentAvailability = GetIntentAvailability(
             serverManager = serverManager2,
-            supportsProtocol = supportsProtocol,
             observeExcludedLocations = observeExcludedLocations,
         )
 
@@ -229,7 +226,8 @@ class RecentsListViewStateFlowTests {
             currentUser = currentUser,
             getDefaultConnectIntent = mockGetDefaultConnectIntent,
             vpnStatusProvider = vpnStatusProviderUI,
-            changeServerManager = mockChangeServerManager
+            changeServerManager = mockChangeServerManager,
+            getSmartProtocols = getSmartProtocols,
         )
     }
 

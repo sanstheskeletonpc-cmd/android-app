@@ -25,7 +25,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.R
-import com.protonvpn.android.appconfig.CachedPurchaseEnabled
 import com.protonvpn.android.appconfig.GetFeatureFlags
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
@@ -33,6 +32,8 @@ import com.protonvpn.android.auth.usecase.Logout
 import com.protonvpn.android.components.BaseTvActivity
 import com.protonvpn.android.excludedlocations.ExcludedLocations
 import com.protonvpn.android.models.profiles.Profile
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.settings.data.EffectiveCurrentUserSettingsCached
@@ -55,13 +56,13 @@ import com.protonvpn.android.utils.AndroidUtils.toInt
 import com.protonvpn.android.utils.CountryTools
 import com.protonvpn.android.utils.DebugUtils
 import com.protonvpn.android.utils.ServerManager
+import com.protonvpn.android.utils.SyncStateFlow
 import com.protonvpn.android.vpn.ConnectTrigger
 import com.protonvpn.android.vpn.DisconnectTrigger
 import com.protonvpn.android.vpn.RecentsManager
 import com.protonvpn.android.vpn.VpnState
 import com.protonvpn.android.vpn.VpnStateMonitor
 import com.protonvpn.android.vpn.VpnStatusProviderUI
-import com.protonvpn.android.vpn.autoconnect.AutoConnectVpn
 import com.protonvpn.android.vpn.usecases.IsIPv6FeatureFlagEnabled
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -94,12 +95,11 @@ class TvMainViewModel @Inject constructor(
     private val currentUser: CurrentUser,
     private val logoutUseCase: Logout,
     private val effectiveCurrentUserSettingsCached: EffectiveCurrentUserSettingsCached,
-    val purchaseEnabled: CachedPurchaseEnabled,
+    getSmartProtocols: GetSmartProtocols,
     isTvAutoConnectFeatureFlagEnabled: IsTvAutoConnectFeatureFlagEnabled,
     isTvNetShieldSettingFeatureFlagEnabled: IsTvNetShieldSettingFeatureFlagEnabled,
     isTvCustomDnsSettingFeatureFlagEnabled: IsTvCustomDnsSettingFeatureFlagEnabled,
     isIPv6FeatureFlagEnabled: IsIPv6FeatureFlagEnabled,
-    autoConnectVpn: AutoConnectVpn,
 ) : ViewModel() {
 
     data class VpnViewState(val vpnStatus: VpnStateMonitor.Status, val ipToDisplay: String?)
@@ -108,6 +108,9 @@ class TvMainViewModel @Inject constructor(
     val selectedCountryFlag = MutableLiveData<String?>()
     val connectedCountryFlag = MutableLiveData<String>()
     val mapRegion = MutableLiveData<MapRegion>()
+
+    private val smartProtocolsCached = SyncStateFlow(viewModelScope, getSmartProtocols.observe())
+    private val smartProtocols: SmartProtocols get() = smartProtocolsCached.value
 
     val vpnViewState: Flow<VpnViewState> = combine(
         vpnStatusProviderUI.status,
@@ -274,6 +277,7 @@ class TvMainViewModel @Inject constructor(
             connectIntent = connectIntent,
             vpnUser = currentUser.vpnUserCached(),
             protocol = settingsProtocol,
+            smartProtocols = smartProtocols,
             excludedLocations = ExcludedLocations.Empty,
         )
         return when {
@@ -288,7 +292,7 @@ class TvMainViewModel @Inject constructor(
     @DrawableRes
     private fun quickConnectTitleIcon(): Int {
         val defaultConnection = profileManager.getDefaultOrFastest()
-        val server = serverManager.getServerForProfile(defaultConnection, currentUser.vpnUserCached(), settingsProtocol)
+        val server = serverManager.getServerForProfile(defaultConnection, currentUser.vpnUserCached(), settingsProtocol, smartProtocols)
         return when {
             isConnected() || isEstablishingConnection() -> 0
             server?.online == true ->
@@ -368,10 +372,10 @@ class TvMainViewModel @Inject constructor(
     }
 
     private fun getConnectCountry(profile: Profile): String =
-        getConnectCountry(serverManager, currentUser, settingsProtocol, profile)
+        getConnectCountry(serverManager, currentUser, settingsProtocol, smartProtocols, profile)
 
     private fun createIntentForDefaultProfile(profile: Profile): ConnectIntent =
-        createIntentForDefaultProfile(serverManager, currentUser, settingsProtocol, profile)
+        createIntentForDefaultProfile(serverManager, currentUser, settingsProtocol, smartProtocols, profile)
 
     private fun createIntentForCountry(countryCode: String): ConnectIntent =
         ConnectIntent.FastestInCountry(CountryId(countryCode), emptySet())

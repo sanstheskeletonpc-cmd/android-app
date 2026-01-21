@@ -35,6 +35,7 @@ import com.protonvpn.android.logging.toLog
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -165,6 +166,7 @@ class VpnConnectionErrorHandler @Inject constructor(
     private val networkManager: NetworkManager,
     private val vpnBackendProvider: Lazy<VpnBackendProvider>,
     private val currentUser: CurrentUser,
+    private val getSmartProtocols: GetSmartProtocols,
     private val getConnectingDomain: GetConnectingDomain,
     private val getOnlineServersForIntent: GetOnlineServersForIntent,
     @ElapsedRealtimeClock private val elapsedMs: () -> Long,
@@ -451,13 +453,14 @@ class VpnConnectionErrorHandler @Inject constructor(
         val orgIsTor = orgPhysicalServer?.server?.isTor == true
         val orgEntryIp = orgPhysicalServer?.connectingDomain?.getEntryIp(protocol)
 
+        val smartProtocols = getSmartProtocols()
         val scoredServers = sortServersByScore(
             servers = eligibleOnlineServersResult.servers,
             connectIntent = orgIntent,
             vpnUser = vpnUser,
         ).filter { candicate ->
             val ipCondition = orgPhysicalServer == null ||
-                getConnectingDomain.online(candicate, protocol).any { domain ->
+                getConnectingDomain.online(candicate, protocol, smartProtocols).any { domain ->
                     domain.getEntryIp(protocol) != orgEntryIp
                 }
             val torCondition = orgIsTor || !candicate.isTor
@@ -467,7 +470,7 @@ class VpnConnectionErrorHandler @Inject constructor(
         candidateList += scoredServers
             .asSequence()
             .mapNotNull { server ->
-                getConnectingDomain.online(server, protocol).filter {
+                getConnectingDomain.online(server, protocol, smartProtocols).filter {
                     // Ignore connecting domains with the same IP as current connection.
                     it.getEntryIp(protocol) != orgPhysicalServer?.connectingDomain?.getEntryIp(protocol)
                 }.randomOrNull()?.let { connectingDomain ->

@@ -45,7 +45,8 @@ import com.protonvpn.android.managed.AutoLoginManager
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.netshield.NetShieldStats
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -150,7 +151,7 @@ class VpnConnectionManager @Inject constructor(
     @param:WallClock private val now: () -> Long,
     private val currentVpnServiceProvider: CurrentVpnServiceProvider,
     private val currentUser: CurrentUser,
-    private val supportsProtocol: SupportsProtocol,
+    private val getSmartProtocols: GetSmartProtocols,
     powerManager: Lazy<PowerManager>,
     private val vpnConnectionTelemetry: VpnConnectionTelemetry,
     private val autoLoginManager: AutoLoginManager,
@@ -465,7 +466,7 @@ class VpnConnectionManager @Inject constructor(
         }
     }
 
-    private fun getFallbackSmartProtocol(server: Server): ProtocolSelection {
+    private suspend fun getFallbackSmartProtocol(server: Server): ProtocolSelection {
         val wireGuardTxxEnabled = getFeatureFlags.value.wireguardTlsEnabled
         val fallbackOrder = buildList {
             add(ProtocolSelection(VpnProtocol.WireGuard))
@@ -474,7 +475,8 @@ class VpnConnectionManager @Inject constructor(
                 add(ProtocolSelection(VpnProtocol.WireGuard, TransmissionProtocol.TLS))
             }
         }
-        return fallbackOrder.firstOrNull { supportsProtocol(server, it) } ?: ProtocolSelection(VpnProtocol.WireGuard)
+        val smartProtocols = getSmartProtocols()
+        return fallbackOrder.firstOrNull { supportsProtocol(server, it, smartProtocols) } ?: ProtocolSelection(VpnProtocol.WireGuard)
     }
 
     private suspend fun preparedConnect(preparedConnection: PrepareResult, disconnectTrigger: DisconnectTrigger) {
@@ -598,7 +600,7 @@ class VpnConnectionManager @Inject constructor(
         ) {
             val protocol = if (connectIntent is AnyConnectIntent.GuestHole) GuestHole.PROTOCOL else settings.protocol
             val protocolAllowed = trigger is ConnectTrigger.GuestHole || protocol.isSupported(getFeatureFlags.value)
-            if (supportsProtocol(server, protocol.vpn) && protocolAllowed) {
+            if (supportsProtocol(server, protocol.vpn, getSmartProtocols()) && protocolAllowed) {
                 smartConnect(connectIntent, protocol, server, disconnectTrigger)
             } else {
                 vpnConnectionTelemetry.onConnectionAbort(sentryInfo = "no protocol supported")

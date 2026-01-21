@@ -3,7 +3,6 @@ package com.protonvpn.app.redesign.main_screen.ui
 import app.cash.turbine.test
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.managed.AutoLoginManager
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.app.ui.MainActivityViewModel
 import com.protonvpn.android.redesign.vpn.ui.VpnStatusViewStateFlow
 import com.protonvpn.android.servers.Server
@@ -71,20 +70,17 @@ class MainActivityViewModelTests {
 
         val currentUser = CurrentUser(TestCurrentUserProvider(TestUser.plusUser.vpnUser))
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
-
         testScope = TestScope(testDispatcher)
 
         serverManager = createInMemoryServerManager(
             testScope = testScope,
             testDispatcherProvider = TestDispatcherProvider(testDispatcher),
-            supportsProtocol = supportsProtocol,
             initialServers = emptyList(),
         )
 
         serverManager2 = ServerManager2(
             serverManager = serverManager,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = createGetSmartProtocols()
         )
 
         uiStateStorage = UiStateStorage(

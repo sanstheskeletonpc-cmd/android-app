@@ -24,7 +24,6 @@ import com.protonvpn.android.api.ProtonApiRetroFit
 import com.protonvpn.android.appconfig.periodicupdates.UpdateState
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.managed.ManagedConfig
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.app.ui.VpnAppViewModel
 import com.protonvpn.android.redesign.reports.FakeIsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.servers.ServerManager2
@@ -112,14 +111,13 @@ class VpnAppViewModelTests {
 
         coEvery { mockApi.getVPNInfo(any()) } returns vpnInfoSuccessResponse
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
+
         serverManager = createInMemoryServerManager(
             testScope = testScope,
             testDispatcherProvider = TestDispatcherProvider(testDispatcher),
-            supportsProtocol = supportsProtocol,
             initialServers = emptyList()
         )
-        serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        serverManager2 = ServerManager2(serverManager, createGetSmartProtocols())
 
         userPlanManager = UserPlanManager(
             mainScope = testScope.backgroundScope,

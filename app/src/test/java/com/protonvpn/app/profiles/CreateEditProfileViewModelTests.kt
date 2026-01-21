@@ -32,7 +32,6 @@ import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.login.toVpnUserEntity
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.profiles.data.Profile
 import com.protonvpn.android.profiles.data.ProfileAutoOpen
@@ -205,15 +204,14 @@ class CreateEditProfileViewModelTests {
             wallClock = { testScope.currentTime },
             getPrivateBrowsingAvailability = { PrivateBrowsingAvailability.AvailableWithDefault }
         )
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
+
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(dispatcher),
-            supportsProtocol,
             servers
         )
         vpnStateMonitor = VpnStateMonitor()
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, createGetSmartProtocols())
 
         val observeExcludedLocations = ObserveExcludedLocations(
             mainScope = testScope.backgroundScope,

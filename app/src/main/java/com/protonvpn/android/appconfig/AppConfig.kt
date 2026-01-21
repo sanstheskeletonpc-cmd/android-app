@@ -195,35 +195,36 @@ class AppConfig @Inject constructor(
             result
     }
 
-    private fun getDefaultConfig(): AppConfigResponse {
-        val defaultPorts = DefaultPortsConfig.defaultConfig
-        val defaultFeatureFlags = FeatureFlags()
-        val defaultSmartProtocolConfig = SmartProtocolConfig(
-            wireguardEnabled = true,
-            wireguardTcpEnabled = true,
-            wireguardTlsEnabled = true,
-        )
-
-        return AppConfigResponse(
-            defaultPortsConfig = defaultPorts,
-            featureFlags = defaultFeatureFlags,
-            smartProtocolConfig = defaultSmartProtocolConfig,
-            ratingConfig = getDefaultRatingConfig()
-        )
-    }
-
-    private fun getDefaultRatingConfig(): RatingConfig = RatingConfig(
-        eligiblePlans = listOf("plus"),
-        successfulConnectionCount = 3,
-        daysSinceLastRatingCount = 3,
-        daysConnectedCount = 3,
-        daysFromFirstConnectionCount = 3
-    )
-
     companion object {
         private val UPDATE_DELAY = TimeUnit.HOURS.toMillis(12)
         private val UPDATE_DELAY_UI = TimeUnit.HOURS.toMillis(2)
         private val UPDATE_DELAY_FAIL = TimeUnit.HOURS.toMillis(2)
         private val BUG_REPORT_UPDATE_DELAY = TimeUnit.DAYS.toMillis(2)
+
+        fun getDefaultConfig(): AppConfigResponse {
+            val defaultPorts = DefaultPortsConfig.defaultConfig
+            val defaultFeatureFlags = FeatureFlags()
+
+            return AppConfigResponse(
+                defaultPortsConfig = defaultPorts,
+                featureFlags = defaultFeatureFlags,
+                smartProtocolConfig = getDefaultSmartProtocolConfig(),
+                ratingConfig = getDefaultRatingConfig()
+            )
+        }
+
+        fun getDefaultSmartProtocolConfig() = SmartProtocolConfig(
+            wireguardEnabled = true,
+            wireguardTcpEnabled = true,
+            wireguardTlsEnabled = true,
+        )
+
+        private fun getDefaultRatingConfig(): RatingConfig = RatingConfig(
+            eligiblePlans = listOf("plus"),
+            successfulConnectionCount = 3,
+            daysSinceLastRatingCount = 3,
+            daysConnectedCount = 3,
+            daysFromFirstConnectionCount = 3
+        )
     }
 }

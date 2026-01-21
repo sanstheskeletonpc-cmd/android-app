@@ -32,7 +32,6 @@ import com.protonvpn.android.models.login.SessionListResponse
 import com.protonvpn.android.models.vpn.ConnectionParams
 import com.protonvpn.android.models.vpn.ConnectionParamsWireguard
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
@@ -98,6 +97,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
@@ -191,11 +191,11 @@ class VpnConnectionErrorHandlerTests {
         serverListVersion = MutableStateFlow(0)
         prepareServerManager(MockedServers.serverList)
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
-        val getConnectingDomain = GetConnectingDomain(supportsProtocol)
+        val getSmartProtocols = createGetSmartProtocols()
+        val getConnectingDomain = GetConnectingDomain(getSmartProtocols)
 
         val protocol = ProtocolSelection(VpnProtocol.WireGuard)
-        val connectingDomain = getConnectingDomain.random(directConnectServer, protocol)!!
+        val connectingDomain = runBlocking { getConnectingDomain.random(directConnectServer, protocol)!! }
         directConnectionParams = ConnectionParamsWireguard(directConnectIntent, directConnectServer, 443,
             connectingDomain, connectingDomain.getEntryIp(protocol), protocol.transmission!!, ipv6SettingEnabled = true)
 
@@ -215,13 +215,11 @@ class VpnConnectionErrorHandlerTests {
             excludedLocationsDao = mockExcludedLocationsDao,
             isAutomaticConnectionEnabled = FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled(enabled = true),
         )
-
         getOnlineServersForIntent = GetOnlineServersForIntent(
             serverManager2 = serverManager2,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = getSmartProtocols,
             observeExcludedLocations = observeExcludedLocations,
         )
-
         val settingsForConnection = SettingsForConnection(
             rawSettingsFlow = userSettingsFlow,
             getProfileById = FakeGetProfileById(),
@@ -246,6 +244,7 @@ class VpnConnectionErrorHandlerTests {
             networkManager = networkManager,
             vpnBackendProvider = { vpnBackendProvider },
             currentUser = currentUser,
+            getSmartProtocols = getSmartProtocols,
             getConnectingDomain = getConnectingDomain,
             getOnlineServersForIntent = getOnlineServersForIntent,
             elapsedMs = testScope::currentTime,

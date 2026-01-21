@@ -25,7 +25,7 @@ import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.logging.toLog
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.utils.AndroidUtils.whenNotNullNorEmpty
@@ -39,7 +39,6 @@ class ProtonVpnBackendProvider(
     val config: AppConfig,
     val wireGuard: VpnBackend,
     val proTunBackend: VpnBackend,
-    val supportsProtocol: SupportsProtocol,
 ) : VpnBackendProvider {
 
     override suspend fun prepareConnection(
@@ -130,7 +129,7 @@ class ProtonVpnBackendProvider(
             val wireGuardTxxEnabled =
                 config.getFeatureFlags().wireguardTlsEnabled && (wireguardTcpEnabled || wireguardTlsEnabled)
             val wireGuardEnabled = wireguardEnabled || wireGuardTxxEnabled
-            if (wireGuardEnabled && supportsProtocol(server, VpnProtocol.WireGuard))
+            if (wireGuardEnabled && supportsProtocol(server, VpnProtocol.WireGuard, getSmartProtocols()))
                 add(wireGuard)
             if (orgVpnProtocol != null) {
                 getBackendFor(orgVpnProtocol)?.let { orgBackend ->

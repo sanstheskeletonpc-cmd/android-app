@@ -25,3 +25,11 @@ data class Quadruple<T1, T2, T3, T4>(
     val third: T3,
     val fourth: T4
 )
+
+data class Quintuple<T1, T2, T3, T4, T5>(
+    val first: T1,
+    val second: T2,
+    val third: T3,
+    val fourth: T4,
+    val fifth: T5,
+)

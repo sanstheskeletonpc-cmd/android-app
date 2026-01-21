@@ -93,11 +93,12 @@ class MockVpnBackend(
         if (scan && failScanning) {
             emptyList()
         } else {
+            val connectingDomain = getConnectingDomain.random(server, null)
             val connectionParams = object :
                 ConnectionParams(
                     connectIntent = connectIntent,
                     server = server,
-                    connectingDomain = getConnectingDomain.random(server, null),
+                    connectingDomain = connectingDomain,
                     protocol = protocol,
                     entryIp = null,
                     transmissionProtocol = transmissionProtocols.first()

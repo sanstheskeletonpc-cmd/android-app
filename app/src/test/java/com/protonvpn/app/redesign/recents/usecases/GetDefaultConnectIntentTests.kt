@@ -19,7 +19,6 @@
 
 package com.protonvpn.app.redesign.recents.usecases
 
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.recents.usecases.GetDefaultConnectIntent
 import com.protonvpn.android.redesign.recents.usecases.GetIntentAvailability
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -77,18 +76,14 @@ class GetDefaultConnectIntentTests {
 
         testScope = TestScope(context = testDispatcher)
 
-        val supportsProtocol = SupportsProtocol(getSmartProtocols = createGetSmartProtocols())
-
         serverManager = createInMemoryServerManager(
             testScope = testScope,
             testDispatcherProvider = TestDispatcherProvider(testDispatcher = testDispatcher),
-            supportsProtocol = supportsProtocol,
             initialServers = emptyList(),
         )
-
         val serverManager2 = ServerManager2(
             serverManager = serverManager,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = createGetSmartProtocols(),
         )
 
         getDefaultConnectIntent = GetDefaultConnectIntent(
@@ -108,12 +103,14 @@ class GetDefaultConnectIntentTests {
                     connectIntent = ConnectIntent.Default,
                     vpnUser = vpnUser,
                     settingsProtocol = ProtocolSelection.SMART,
+                    smartProtocols = any()
                 )
             } returns defaultIntentAvailability
 
             val connectIntent = getDefaultConnectIntent(
                 vpnUser = vpnUser,
                 protocolSelection = ProtocolSelection.SMART,
+                smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
             )
 
             assertEquals(expectedConnectIntent, connectIntent)
@@ -136,12 +133,14 @@ class GetDefaultConnectIntentTests {
                     connectIntent = ConnectIntent.Default,
                     vpnUser = vpnUser,
                     settingsProtocol = ProtocolSelection.SMART,
+                    smartProtocols = any(),
                 )
             } returns defaultIntentAvailability
 
             val connectIntent = getDefaultConnectIntent(
                 vpnUser = vpnUser,
                 protocolSelection = ProtocolSelection.SMART,
+                smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
             )
 
             assertEquals(expectedConnectIntent, connectIntent)
@@ -170,6 +169,7 @@ class GetDefaultConnectIntentTests {
                     connectIntent = ConnectIntent.Default,
                     vpnUser = vpnUser,
                     settingsProtocol = ProtocolSelection.SMART,
+                    smartProtocols = any()
                 )
             } returns defaultIntentAvailability
 
@@ -178,6 +178,7 @@ class GetDefaultConnectIntentTests {
                     connectIntent = ConnectIntent.Gateway(gatewayName = gatewayName1, serverId = null),
                     vpnUser = vpnUser,
                     settingsProtocol = protocolSelection,
+                    smartProtocols = any()
                 )
             } returns ConnectIntentAvailability.NO_SERVERS
 
@@ -186,12 +187,14 @@ class GetDefaultConnectIntentTests {
                     connectIntent = ConnectIntent.Gateway(gatewayName = gatewayName2, serverId = null),
                     vpnUser = vpnUser,
                     settingsProtocol = protocolSelection,
+                    smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
                 )
             } returns ConnectIntentAvailability.ONLINE
 
             val connectIntent = getDefaultConnectIntent(
                 vpnUser = vpnUser,
                 protocolSelection = ProtocolSelection.SMART,
+                smartProtocols = ProtocolSelection.REAL_PROTOCOLS,
             )
 
             assertEquals(expectedConnectIntent, connectIntent)

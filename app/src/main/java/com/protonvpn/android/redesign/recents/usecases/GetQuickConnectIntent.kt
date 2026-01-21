@@ -19,6 +19,7 @@
 package com.protonvpn.android.redesign.recents.usecases
 
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
 import com.protonvpn.android.redesign.recents.data.DefaultConnection
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentAvailability
@@ -35,6 +36,7 @@ class GetQuickConnectIntent @Inject constructor(
     private val getDefaultConnectIntent: GetDefaultConnectIntent,
     private val userSettings: EffectiveCurrentUserSettings,
     private val observeDefaultConnection: ObserveDefaultConnection,
+    private val getSmartProtocols: GetSmartProtocols,
 ) {
     suspend operator fun invoke(): ConnectIntent {
         val vpnUser = currentUser.vpnUser()
@@ -44,6 +46,7 @@ class GetQuickConnectIntent @Inject constructor(
         }
 
         val protocolSelection = userSettings.protocol.first()
+        val smartProtocols = getSmartProtocols()
 
         return when (val defaultConnection = observeDefaultConnection().first()) {
             DefaultConnection.LastConnection -> recentsManager.getMostRecentConnection().first()?.connectIntent
@@ -54,7 +57,8 @@ class GetQuickConnectIntent @Inject constructor(
                 connectIntent = quickConnectIntent,
                 vpnUser = vpnUser,
                 settingsProtocol = protocolSelection,
+                smartProtocols = smartProtocols,
             ) == ConnectIntentAvailability.ONLINE
-        } ?: getDefaultConnectIntent(vpnUser = vpnUser, protocolSelection = protocolSelection)
+        } ?: getDefaultConnectIntent(vpnUser, protocolSelection, smartProtocols)
     }
 }

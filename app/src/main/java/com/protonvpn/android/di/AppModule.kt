@@ -58,17 +58,15 @@ import com.protonvpn.android.concurrency.DefaultDispatcherProvider
 import com.protonvpn.android.concurrency.VpnDispatcherProvider
 import com.protonvpn.android.managed.usecase.AutoLogin
 import com.protonvpn.android.managed.usecase.AutoLoginImpl
-import com.protonvpn.android.models.config.bugreport.DynamicReportModel
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
 import com.protonvpn.android.models.vpn.usecase.ProvideLocalNetworks
 import com.protonvpn.android.models.vpn.usecase.ProvideLocalNetworksImpl
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.profiles.usecases.GetPrivateBrowsingAvailability
 import com.protonvpn.android.profiles.usecases.GetPrivateBrowsingAvailabilityImpl
 import com.protonvpn.android.profiles.usecases.GetProfileById
 import com.protonvpn.android.profiles.usecases.GetProfileByIdImpl
 import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingFeatureFlagEnabled
 import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingFeatureFlagEnabledImpl
-import com.protonvpn.android.redesign.countries.TranslationsData
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapter
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapterLegacy
 import com.protonvpn.android.redesign.reports.BugReportConfigStore
@@ -116,11 +114,8 @@ import com.protonvpn.android.userstorage.DefaultLocalDataStoreFactory
 import com.protonvpn.android.userstorage.LocalDataStoreFactory
 import com.protonvpn.android.utils.AndroidSharedPreferencesProvider
 import com.protonvpn.android.utils.BuildConfigUtils
-import com.protonvpn.android.utils.BytesFileWriter
 import com.protonvpn.android.utils.DefaultLocaleProvider
 import com.protonvpn.android.utils.DefaultLocaleProviderImpl
-import com.protonvpn.android.utils.FileObjectStore
-import com.protonvpn.android.utils.KotlinCborObjectSerializer
 import com.protonvpn.android.utils.SharedPreferencesProvider
 import com.protonvpn.android.vpn.CertStorageCrypto
 import com.protonvpn.android.vpn.CertStorageCryptoImpl
@@ -227,13 +222,11 @@ object AppModuleProd {
         appConfig: AppConfig,
         wireguardBackend: WireguardBackend,
         proTunBackend: ProTunBackend,
-        supportsProtocol: SupportsProtocol,
     ): VpnBackendProvider =
         ProtonVpnBackendProvider(
             appConfig,
             wireguardBackend,
             proTunBackend,
-            supportsProtocol
         )
 
     @Provides

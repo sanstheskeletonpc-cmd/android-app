@@ -36,7 +36,6 @@ import com.protonvpn.android.di.AppModuleProd
 import com.protonvpn.android.di.CoreBaseNetworkModule
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.redesign.reports.BugReportConfigStoreProvider
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
@@ -217,7 +216,6 @@ class SharedTestAppModule {
         localAgentUnreachableTracker: LocalAgentUnreachableTracker,
         currentUser: CurrentUser,
         getNetZone: GetNetZone,
-        supportsProtocol: SupportsProtocol,
         getConnectingDomain: GetConnectingDomain,
         foregroundActivityTracker: ForegroundActivityTracker,
     ): VpnBackendProvider =
@@ -252,14 +250,12 @@ class SharedTestAppModule {
                     foregroundActivityTracker,
                     getConnectingDomain,
                 ),
-                supportsProtocol = supportsProtocol
             )
         } else {
             ProtonVpnBackendProvider(
                 config = appConfig,
                 wireGuard = wireguardBackend,
                 proTunBackend = proTunBackend,
-                supportsProtocol = supportsProtocol
             )
         }
 

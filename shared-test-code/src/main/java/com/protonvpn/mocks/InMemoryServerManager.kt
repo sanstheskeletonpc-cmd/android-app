@@ -21,9 +21,7 @@ package com.protonvpn.mocks
 
 import com.protonvpn.android.appconfig.UserCountryIpBased
 import com.protonvpn.android.appconfig.UserCountryPhysical
-import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.servers.Server
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.servers.ServersDataManager
 import com.protonvpn.android.servers.UpdateServersWithBinaryStatus
 import com.protonvpn.android.servers.api.LogicalsStatusId
@@ -43,7 +41,6 @@ import kotlinx.coroutines.test.runCurrent
 fun createInMemoryServerManager(
     testScope: TestScope,
     testDispatcherProvider: TestDispatcherProvider,
-    supportsProtocol: SupportsProtocol,
     initialServers: List<Server>,
     initialStatusId: LogicalsStatusId? = null,
     updateWithBinaryStatus: UpdateServersWithBinaryStatus = FakeUpdateServersWithBinaryStatus(),
@@ -59,7 +56,6 @@ fun createInMemoryServerManager(
     val serverManager = ServerManager(
         testScope.backgroundScope,
         testScope::currentTime,
-        supportsProtocol,
         serversDataManager,
         physicalUserCountry,
     )

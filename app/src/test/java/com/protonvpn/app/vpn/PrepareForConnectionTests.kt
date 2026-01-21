@@ -24,7 +24,6 @@ import com.protonvpn.android.appconfig.DefaultPorts
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.api.ConnectingDomain
 import com.protonvpn.android.servers.api.ServerEntryInfo
@@ -94,8 +93,7 @@ class PrepareForConnetionTests {
         every {
             appConfig.getWireguardPorts()
         } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPortsInternal = listOf(1))
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
-        val getConnectingDomain = GetConnectingDomain(supportsProtocol)
+        val getConnectingDomain = GetConnectingDomain(createGetSmartProtocols())
         prepareForConnetion = PrepareForConnection(appConfig, serverAvailabilityCheck, getConnectingDomain)
     }
 

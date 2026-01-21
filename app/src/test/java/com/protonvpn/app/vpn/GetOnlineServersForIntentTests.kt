@@ -24,7 +24,6 @@ import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.excludedlocations.data.ExcludedLocationsDao
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -104,19 +103,17 @@ class GetOnlineServersForIntentTests {
             )),
         )
 
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols())
+        val getSmartProtocols = createGetSmartProtocols()
         serverManager = ServerManager2(
             createInMemoryServerManager(
                 testScope,
                 TestDispatcherProvider(testDispatcher),
-                supportsProtocol,
                 servers
             ),
-            supportsProtocol
+            getSmartProtocols
         )
 
         currentUserProvider = TestCurrentUserProvider(vpnUser = vpnUser)
-
         val currentUser = CurrentUser(provider = currentUserProvider)
 
         val observeExcludedLocations = ObserveExcludedLocations(
@@ -128,7 +125,7 @@ class GetOnlineServersForIntentTests {
 
         getOnlineServersForIntent = GetOnlineServersForIntent(
             serverManager2 = serverManager,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = getSmartProtocols,
             observeExcludedLocations = observeExcludedLocations,
         )
     }

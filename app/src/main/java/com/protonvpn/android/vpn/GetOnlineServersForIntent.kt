@@ -19,7 +19,8 @@
 package com.protonvpn.android.vpn
 
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.ServerManager2
@@ -35,7 +36,7 @@ import javax.inject.Inject
 @Reusable
 class GetOnlineServersForIntent @Inject constructor(
     val serverManager2: ServerManager2,
-    private val supportsProtocol: SupportsProtocol,
+    private val getSmartProtocols: GetSmartProtocols,
     private val observeExcludedLocations: ObserveExcludedLocations,
 ) {
 
@@ -49,12 +50,14 @@ class GetOnlineServersForIntent @Inject constructor(
         excludedLocations = observeExcludedLocations().first(),
         onServersResult = { serversResult -> serversResult },
     ).let { serversResult ->
+        val smartProtocols = getSmartProtocols()
         ServersResult.Regular(
             servers = serversResult.servers
                 .sortedBy(Server::score)
                 .asSequence()
                 .filter { server ->
-                    server.tier <= maxTier && server.online && supportsProtocol(server, protocolOverride)
+                    server.tier <= maxTier && server.online &&
+                            supportsProtocol(server, protocolOverride, smartProtocols)
                 }
                 .toList(),
             hasAppliedExclusions = serversResult.hasAppliedExclusions,

@@ -32,12 +32,12 @@ import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.servers.Server
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.settings.data.ApplyEffectiveUserSettings
 import com.protonvpn.android.settings.data.LocalUserSettings
@@ -145,7 +145,7 @@ class VpnConnectionManagerTests {
 
     private lateinit var testScheduler: TestCoroutineScheduler
     private lateinit var testScope: TestScope
-    private lateinit var supportsProtocol: SupportsProtocol
+    private lateinit var getSmartProtocols: GetSmartProtocols
 
     private val clock get() = testScheduler::currentTime
 
@@ -195,11 +195,10 @@ class VpnConnectionManagerTests {
         Storage.setPreferences(MockSharedPreference())
         vpnStateMonitor = VpnStateMonitor()
         vpnStatusProviderUI = VpnStatusProviderUI(testScope.backgroundScope, vpnStateMonitor)
-        supportsProtocol = SupportsProtocol(createGetSmartProtocols())
+        getSmartProtocols = createGetSmartProtocols()
         serverManager = createInMemoryServerManager(
             testScope,
             TestDispatcherProvider(testDispatcher),
-            supportsProtocol,
             MockedServers.serverList
         )
 
@@ -207,7 +206,7 @@ class VpnConnectionManagerTests {
     }
 
     private fun createManager() {
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, getSmartProtocols)
         val settingsForConnection = SettingsForConnection(
             rawSettingsFlow = flowOf(LocalUserSettings.Default),
             getProfileById = FakeGetProfileById(),
@@ -243,7 +242,7 @@ class VpnConnectionManagerTests {
             scope = testScope.backgroundScope,
             now = clock,
             powerManager = dagger.Lazy { mockPowerManager },
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = getSmartProtocols,
             vpnConnectionTelemetry = mockVpnConnectionTelemetry,
             autoLoginManager = mockk(relaxed = true),
             vpnErrorAndFallbackObservability = mockk(relaxed = true),

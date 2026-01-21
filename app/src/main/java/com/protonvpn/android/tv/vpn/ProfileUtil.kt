@@ -22,6 +22,7 @@ package com.protonvpn.android.tv.vpn
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.models.profiles.Profile
 import com.protonvpn.android.models.profiles.ServerWrapper
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.utils.CountryTools
@@ -44,13 +45,19 @@ fun getConnectCountry(
     serverManager: ServerManager,
     currentUser: CurrentUser,
     protocol: ProtocolSelection,
-    profile: Profile
+    smartProtocols: SmartProtocols,
+    profile: Profile,
 ): String {
     DebugUtils.debugAssert("Random profile not supported in TV") {
         profile.wrapper.type != ServerWrapper.ProfileType.RANDOM
     }
     return profile.country.takeIfNotBlank()
-        ?: serverManager.getServerForProfile(profile, currentUser.vpnUserCached(), protocol)?.exitCountry
+        ?: serverManager.getServerForProfile(
+            profile,
+            currentUser.vpnUserCached(),
+            protocol,
+            smartProtocols
+        )?.exitCountry
         ?: ""
 }
 
@@ -58,9 +65,10 @@ fun createIntentForDefaultProfile(
     serverManager: ServerManager,
     currentUser: CurrentUser,
     protocol: ProtocolSelection,
+    smartProtocols: SmartProtocols,
     profile: Profile
 ): ConnectIntent {
-    val countryCode = getConnectCountry(serverManager, currentUser, protocol, profile)
+    val countryCode = getConnectCountry(serverManager, currentUser, protocol, smartProtocols, profile)
     val countryId = if (countryCode.isNotEmpty()) CountryId(countryCode) else CountryId.fastest
     return ConnectIntent.FastestInCountry(countryId, emptySet())
 }

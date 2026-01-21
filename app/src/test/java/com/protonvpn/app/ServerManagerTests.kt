@@ -27,7 +27,6 @@ import com.protonvpn.android.excludedlocations.ExcludedLocations
 import com.protonvpn.android.excludedlocations.data.ExcludedLocationsDao
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -146,7 +145,12 @@ class ServerManagerTests {
         createServerManagers()
         val country = manager.getVpnExitCountry("CA", false)
         val protocol = currentSettings.value.protocol
-        val countryBestServer = manager.getBestScoreServer(country!!.serverList, currentUser.vpnUser(), protocol)
+        val countryBestServer = manager.getBestScoreServer(
+            country!!.serverList,
+            currentUser.vpnUser(),
+            protocol,
+            ProtocolSelection.REAL_PROTOCOLS
+        )
         assertEquals("CA#2", countryBestServer!!.serverName)
     }
 
@@ -155,7 +159,12 @@ class ServerManagerTests {
         createServerManagers()
         val protocol = currentSettings.value.protocol
         val countryServers = manager.allServersByScore.filter { !it.isGatewayServer }
-        val server = manager.getBestScoreServer(countryServers, currentUser.vpnUser(), protocol)
+        val server = manager.getBestScoreServer(
+            countryServers,
+            currentUser.vpnUser(),
+            protocol,
+            ProtocolSelection.REAL_PROTOCOLS
+        )
         assertNotNull(server)
         assertEquals("DE#1", server.serverName)
     }
@@ -407,14 +416,13 @@ class ServerManagerTests {
         servers: List<Server> = regularServers + gatewayServer,
         supportedSmartProtocols: List<ProtocolSelection> = ProtocolSelection.REAL_PROTOCOLS
     ) {
-        val supportsProtocol = SupportsProtocol(createGetSmartProtocols(supportedSmartProtocols))
+        val getSmartProtocols = createGetSmartProtocols(supportedSmartProtocols)
         manager = createInMemoryServerManager(
             this,
             testDispatcherProvider,
-            supportsProtocol,
             servers,
         )
-        serverManager2 = ServerManager2(manager, supportsProtocol)
+        serverManager2 = ServerManager2(manager, getSmartProtocols)
     }
 
 }

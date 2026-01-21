@@ -28,9 +28,9 @@ import com.protonvpn.android.logging.LogCategory
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.servers.Server
 import com.protonvpn.android.notifications.NotificationHelper
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.ui.ForegroundActivityTracker
 import com.protonvpn.android.ui.vpn.VpnUiActivityDelegate
 import com.protonvpn.android.utils.Constants
@@ -116,7 +116,7 @@ class GuestHole @Inject constructor(
         val holes = if (serverManager.get().isDownloadedAtLeastOnce) {
             // Mix downloaded and builtin servers
             shuffler(builtInHoles).take(GUEST_HOLE_SERVER_COUNT_MIXED) +
-                serverManager.get().getDownloadedServersForGuestHole(GUEST_HOLE_SERVER_COUNT_MIXED, PROTOCOL)
+                serverManager.get().getDownloadedServersForGuestHole(GUEST_HOLE_SERVER_COUNT_MIXED, PROTOCOL, emptyList())
         } else {
             shuffler(builtInHoles).take(GUEST_HOLE_SERVER_COUNT).apply {
                 serverManager.get().setGuestHoleServers(this)

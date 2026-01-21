@@ -25,37 +25,41 @@ import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.servers.api.ConnectingDomain
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.vpn.ProtocolSelection
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @Distinct
 class GetSmartProtocols @Inject constructor(
     val appConfig: AppConfig
 ) {
-    operator fun invoke(): List<ProtocolSelection> = appConfig.getSmartProtocols()
+    suspend operator fun invoke(): List<ProtocolSelection> = appConfig.getSmartProtocols()
+    fun observe(): Flow<List<ProtocolSelection>> = appConfig.appConfigFlow.map {
+        (it.smartProtocolConfig ?: AppConfig.getDefaultSmartProtocolConfig()).getSmartProtocols()
+    }.distinctUntilChanged()
 }
 
-@Singleton
-class SupportsProtocol @Inject constructor(
-    val getSmartProtocols: GetSmartProtocols
-) {
-    operator fun invoke(server: Server, protocol: ProtocolSelection) =
-        server.connectingDomains.any { invoke(it, protocol) }
+typealias SmartProtocols = List<ProtocolSelection>
 
-    operator fun invoke(server: Server, vpnProtocol: VpnProtocol): Boolean =
-        if (vpnProtocol == VpnProtocol.Smart)
-            invoke(server, ProtocolSelection.SMART)
-        else ProtocolSelection.PROTOCOLS_FOR[vpnProtocol]?.any {
-            invoke(server, it)
-        } == true
+fun supportsProtocol(server: Server, protocol: ProtocolSelection, smartProtocols: SmartProtocols): Boolean =
+    server.connectingDomains.any { supportsProtocol(it, protocol, smartProtocols) }
 
-    // When AppConfig changes, list needs to be re-filtered
-    operator fun invoke(connectingDomain: ConnectingDomain, protocol: ProtocolSelection) =
-        if (protocol.vpn == VpnProtocol.Smart)
-            getSmartProtocols().any { connectingDomain.supportsRealProtocol(it) }
-        else
-            connectingDomain.supportsRealProtocol(protocol)
+fun supportsProtocol(server: Server, vpnProtocol: VpnProtocol, smartProtocols: SmartProtocols): Boolean =
+    if (vpnProtocol == VpnProtocol.Smart) {
+        supportsProtocol(server, ProtocolSelection.SMART, smartProtocols)
+    } else {
+        ProtocolSelection.PROTOCOLS_FOR[vpnProtocol]
+            ?.any { supportsProtocol(server, it, smartProtocols) } == true
+    }
 
-    private fun ConnectingDomain.supportsRealProtocol(protocol: ProtocolSelection) =
-        getEntryIp(protocol) != null && ((protocol.vpn != VpnProtocol.WireGuard && protocol.vpn != VpnProtocol.ProTun) || !publicKeyX25519.isNullOrBlank())
-}
+fun supportsProtocol(connectingDomain: ConnectingDomain, protocol: ProtocolSelection, smartProtocols: SmartProtocols) =
+    if (protocol.vpn == VpnProtocol.Smart) {
+        smartProtocols.any { connectingDomain.supportsRealProtocol(it) }
+    } else {
+        connectingDomain.supportsRealProtocol(protocol)
+    }
+
+private fun ConnectingDomain.supportsRealProtocol(protocol: ProtocolSelection) =
+    getEntryIp(protocol) != null &&
+            ((protocol.vpn !in arrayOf(VpnProtocol.WireGuard, VpnProtocol.ProTun)) || !publicKeyX25519.isNullOrBlank())

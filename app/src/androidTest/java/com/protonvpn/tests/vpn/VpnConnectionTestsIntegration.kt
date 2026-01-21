@@ -43,7 +43,8 @@ import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
 import com.protonvpn.android.models.vpn.usecase.GetConnectingDomain
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.profiles.data.profileSettingsOverrides
 import com.protonvpn.android.profiles.usecases.GetProfileByIdImpl
 import com.protonvpn.android.redesign.CountryId
@@ -204,7 +205,7 @@ class VpnConnectionTestsIntegration {
     private lateinit var mockWireguard: MockVpnBackend
     private lateinit var mockProTun: MockVpnBackend
     private lateinit var settingsForConnection: SettingsForConnection
-    private lateinit var supportsProtocol: SupportsProtocol
+    private lateinit var getSmartProtocols: GetSmartProtocols
     private lateinit var vpnStatusProviderUI: VpnStatusProviderUI
     private lateinit var userSettingsFlow: MutableStateFlow<LocalUserSettings>
 
@@ -253,7 +254,7 @@ class VpnConnectionTestsIntegration {
         val getFeatureFlags = GetFeatureFlags(featureFlagsFlow)
         every { appConfig.getFeatureFlags() } answers { featureFlagsFlow.value }
 
-        supportsProtocol = SupportsProtocol(createGetSmartProtocols(smartProtocolsConfig.getSmartProtocols()))
+        getSmartProtocols = createGetSmartProtocols(smartProtocolsConfig.getSmartProtocols())
         currentUserProvider = TestCurrentUserProvider(vpnUser = TestUser.plusUser.vpnUser)
         val currentUser = CurrentUser(currentUserProvider)
 
@@ -305,9 +306,7 @@ class VpnConnectionTestsIntegration {
             config = appConfig,
             wireGuard = mockWireguard,
             proTunBackend = mockProTun,
-            supportsProtocol = supportsProtocol
         )
-
 
         val serverListUpdaterPrefs = ServerListUpdaterPrefs(MockSharedPreferencesProvider())
         val mockConnectivityMonitor = mockk<ConnectivityMonitor>()
@@ -326,11 +325,10 @@ class VpnConnectionTestsIntegration {
         serverManager = createInMemoryServerManager(
             scope,
             testDispatcherProvider,
-            supportsProtocol,
             MockedServers.serverList,
-            builtInGuestHoles = MockedServers.serverList.filter { supportsProtocol(it, GuestHole.PROTOCOL) }
+            builtInGuestHoles = MockedServers.serverList.filter { supportsProtocol(it, GuestHole.PROTOCOL, emptyList()) }
         )
-        val serverManager2 = ServerManager2(serverManager, supportsProtocol)
+        val serverManager2 = ServerManager2(serverManager, getSmartProtocols)
         manager = VpnConnectionManager(
             permissionDelegate = permissionDelegate,
             getFeatureFlags = getFeatureFlags,
@@ -346,7 +344,7 @@ class VpnConnectionTestsIntegration {
             now = clock,
             currentVpnServiceProvider = mockk(relaxed = true),
             currentUser = currentUser,
-            supportsProtocol = supportsProtocol,
+            getSmartProtocols = getSmartProtocols,
             powerManager = { mockk(relaxed = true) },
             vpnConnectionTelemetry = vpnConnectionTelemetry,
             autoLoginManager = mockk(relaxed = true),
@@ -1076,7 +1074,7 @@ class VpnConnectionTestsIntegration {
             currentUser,
             getNetZone,
             foregroundActivityTracker,
-            GetConnectingDomain(supportsProtocol),
+            GetConnectingDomain(getSmartProtocols),
         )
 
     private fun createServerSwitch(

@@ -23,6 +23,8 @@ import androidx.annotation.StringRes
 import com.protonvpn.android.R
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.recents.data.DefaultConnection
 import com.protonvpn.android.redesign.recents.data.RecentConnection
 import com.protonvpn.android.redesign.recents.ui.CardLabel
@@ -39,6 +41,7 @@ import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.settings.data.EffectiveCurrentUserSettings
 import com.protonvpn.android.settings.data.LocalUserSettings
+import com.protonvpn.android.utils.combine
 import com.protonvpn.android.utils.flatMapLatestNotNull
 import com.protonvpn.android.vpn.ProtocolSelection
 import com.protonvpn.android.vpn.VpnState
@@ -65,6 +68,7 @@ class RecentsListViewStateFlow @Inject constructor(
     private val userSettings: EffectiveCurrentUserSettings,
     private val settingsForConnection: SettingsForConnection,
     private val getIntentAvailability: GetIntentAvailability,
+    private val getSmartProtocols: GetSmartProtocols,
     private val observeDefaultConnection: ObserveDefaultConnection,
     private val getDefaultConnectIntent: GetDefaultConnectIntent,
     vpnStatusProvider: VpnStatusProviderUI,
@@ -106,7 +110,8 @@ class RecentsListViewStateFlow @Inject constructor(
                 serverManager.serverListVersion, // Update whenever servers change.
                 userSettings.effectiveSettings,
                 observeDefaultConnection(),
-            ) { status, isChangingServer, _, settings, defaultConnection ->
+                getSmartProtocols.observe(),
+            ) { status, isChangingServer, _, settings, defaultConnection, smartProtocols ->
                 val connectedIntent = status.connectIntent?.takeIf { status.state.isConnectedOrConnecting() }
                 val connectedServer = status.server?.takeIf { status.state.isConnectedOrConnecting() }
 
@@ -119,8 +124,9 @@ class RecentsListViewStateFlow @Inject constructor(
                         connectIntent = connectIntent,
                         vpnUser = vpnUser,
                         settingsProtocol = settings.protocol,
+                        smartProtocols = smartProtocols
                     ) == ConnectIntentAvailability.ONLINE
-                } ?: getDefaultConnectIntent(vpnUser, settings.protocol)
+                } ?: getDefaultConnectIntent(vpnUser, settings.protocol, smartProtocols)
 
                 val connectIntentViewState = getConnectIntentViewState.forConnectedIntent(
                     connectionCardIntent,
@@ -141,7 +147,8 @@ class RecentsListViewStateFlow @Inject constructor(
                         connectedServer,
                         connectionCardIntent,
                         vpnUser,
-                        settings
+                        settings,
+                        smartProtocols,
                     ),
                     recents.find { it.connectIntent == connectionCardIntent }?.id
                 )
@@ -157,7 +164,8 @@ class RecentsListViewStateFlow @Inject constructor(
         connectedServer: Server?,
         connectionCardIntent: ConnectIntent,
         vpnUser: VpnUser?,
-        globalSettings: LocalUserSettings
+        globalSettings: LocalUserSettings,
+        smartProtocols: SmartProtocols,
     ): List<RecentItemViewState> =
         // Note: the loop below calls suspending functions in each iteration making it potentially slow.
         // The suspending functions being called need to have a fast, non-suspending path (e.g. by using some form of
@@ -166,7 +174,7 @@ class RecentsListViewStateFlow @Inject constructor(
             val intent = recentConnection.connectIntent
             if (intent != connectionCardIntent || recentConnection.isPinned) {
                 val protocol = settingsForConnection.fastGetFor(globalSettings, intent).protocol
-                mapToRecentItemViewState(recentConnection, connectedIntent, connectedServer, vpnUser, protocol)
+                mapToRecentItemViewState(recentConnection, connectedIntent, connectedServer, vpnUser, protocol, smartProtocols)
             } else {
                 null
             }
@@ -177,7 +185,8 @@ class RecentsListViewStateFlow @Inject constructor(
         connectedIntent: ConnectIntent?,
         connectedServer: Server?,
         vpnUser: VpnUser?,
-        protocol: ProtocolSelection
+        protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): RecentItemViewState =
         with (recentConnection) {
             RecentItemViewState(
@@ -185,7 +194,7 @@ class RecentsListViewStateFlow @Inject constructor(
                 isPinned = isPinned,
                 isConnected = connectedIntent == connectIntent &&
                     connectedServer.isCompatibleWith(connectIntent, matchFastest = true),
-                availability = getIntentAvailability(connectIntent, vpnUser, protocol),
+                availability = getIntentAvailability(connectIntent, vpnUser, protocol, smartProtocols),
                 connectIntent = getConnectIntentViewState.forRecent(recentConnection, vpnUser?.isFreeUser == true)
             )
         }

@@ -31,7 +31,8 @@ import com.protonvpn.android.models.profiles.Profile
 import com.protonvpn.android.models.profiles.ServerWrapper.ProfileType
 import com.protonvpn.android.models.vpn.GatewayGroup
 import com.protonvpn.android.models.vpn.VpnCountry
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.ConnectIntent
@@ -62,7 +63,6 @@ import javax.inject.Singleton
 class ServerManager @Inject constructor(
     @Transient private val mainScope: CoroutineScope,
     @Transient @WallClock private val wallClock: () -> Long,
-    @Transient val supportsProtocol: SupportsProtocol,
     @Transient val serversData: ServersDataManager,
     @Transient val physicalUserCountry: UserCountryPhysical,
 ) : Serializable {
@@ -191,11 +191,20 @@ class ServerManager @Inject constructor(
         guestHoleServers = serverList
     }
 
-    fun getDownloadedServersForGuestHole(serverCount: Int, protocol: ProtocolSelection): List<Server> {
-        val servers =
-            listOfNotNull(getBestScoreServer(allServersByScore.filter { it.online }, vpnUser = null, protocol)) +
+    fun getDownloadedServersForGuestHole(
+        serverCount: Int,
+        protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
+    ): List<Server> {
+        val bestScoreServer = getBestScoreServer(
+            allServersByScore.filter { it.online },
+            vpnUser = null,
+            protocol,
+            smartProtocols
+        )
+        val servers = listOfNotNull(bestScoreServer) +
             getExitCountries(false).flatMap { country ->
-                country.serverList.filter { it.online && supportsProtocol(it, protocol) }
+                country.serverList.filter { it.online && supportsProtocol(it, protocol, smartProtocols) }
             }
 
         return servers.takeRandomStable(serverCount).shuffled().distinct()
@@ -275,9 +284,14 @@ class ServerManager @Inject constructor(
         getExitCountries(secureCoreCountry).firstOrNull { it.flag == countryCode }
 
     @VisibleForTesting
-    fun getBestScoreServer(serverList: Iterable<Server>, vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
+    fun getBestScoreServer(
+        serverList: Iterable<Server>,
+        vpnUser: VpnUser?,
+        protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
+    ): Server? {
         val eligibleServers = serverList.sortedBy { it.score }.asSequence()
-            .filter { supportsProtocol(it, protocol) }
+            .filter { supportsProtocol(it, protocol, smartProtocols) }
         return with(eligibleServers) {
             firstOrNull { vpnUser.hasAccessToServer(it) && it.online }
                 ?: firstOrNull { vpnUser.hasAccessToServer(it) }
@@ -285,18 +299,25 @@ class ServerManager @Inject constructor(
         }
     }
 
-    fun getRandomServer(vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
+    fun getRandomServer(vpnUser: VpnUser?, protocol: ProtocolSelection, smartProtocols: SmartProtocols): Server? {
         val allCountries = getExitCountries(secureCore = false)
         val accessibleCountries = allCountries.filter { it.hasAccessibleOnlineServer(vpnUser) }
         return accessibleCountries
             .ifEmpty { allCountries }
             .randomNullable()
-            ?.let { getRandomServer(it, vpnUser, protocol) }
+            ?.let { getRandomServer(it, vpnUser, protocol, smartProtocols) }
     }
 
-    private fun getRandomServer(country: VpnCountry, vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
+    private fun getRandomServer(
+        country: VpnCountry,
+        vpnUser: VpnUser?,
+        protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
+    ): Server? {
         val online = country.serverList.filter(Server::online)
-        val accessible = online.filter { vpnUser.hasAccessToServer(it) && supportsProtocol(it, protocol) }
+        val accessible = online.filter {
+            vpnUser.hasAccessToServer(it) && supportsProtocol(it, protocol, smartProtocols)
+        }
         return accessible.randomNullable()
     }
 
@@ -304,26 +325,31 @@ class ServerManager @Inject constructor(
         serversData.secureCoreExitCountries.sortedByLocaleAware { it.countryName }
 
     @Deprecated("Use getServerForConnectIntent")
-    fun getServerForProfile(profile: Profile, vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
+    fun getServerForProfile(
+        profile: Profile,
+        vpnUser: VpnUser?,
+        protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
+    ): Server? {
         val wrapper = profile.wrapper
         val needsSecureCore = profile.isSecureCore ?: false
         return when (wrapper.type) {
             ProfileType.FASTEST -> {
                 val tvServers = allServersByScore.filter { it.online && !it.isGatewayServer }
-                getBestScoreServer(tvServers, vpnUser, protocol)
+                getBestScoreServer(tvServers, vpnUser, protocol, smartProtocols)
             }
 
             ProfileType.RANDOM ->
-                getRandomServer(vpnUser, protocol)
+                getRandomServer(vpnUser, protocol, smartProtocols)
 
             ProfileType.RANDOM_IN_COUNTRY ->
                 getVpnExitCountry(wrapper.country, needsSecureCore)?.let {
-                    getRandomServer(it, vpnUser, protocol)
+                    getRandomServer(it, vpnUser, protocol, smartProtocols)
                 }
 
             ProfileType.FASTEST_IN_COUNTRY ->
                 getVpnExitCountry(wrapper.country, needsSecureCore)?.let {
-                    getBestScoreServer(it.serverList, vpnUser, protocol)
+                    getBestScoreServer(it.serverList, vpnUser, protocol, smartProtocols)
                 }
 
             ProfileType.DIRECT ->
@@ -335,13 +361,14 @@ class ServerManager @Inject constructor(
         connectIntent: AnyConnectIntent,
         vpnUser: VpnUser?,
         protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
         excludedLocations: ExcludedLocations,
     ): Server? = forConnectIntent(
         connectIntent = connectIntent,
         fallbackResult = null,
         excludedLocations = excludedLocations,
     ) { serversResult ->
-        getBestScoreServer(serversResult.servers, vpnUser, protocol)
+        getBestScoreServer(serversResult.servers, vpnUser, protocol, smartProtocols)
     }
 
     /*

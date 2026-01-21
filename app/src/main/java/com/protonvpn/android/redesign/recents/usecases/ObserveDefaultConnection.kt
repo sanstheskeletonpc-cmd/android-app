@@ -21,6 +21,8 @@ package com.protonvpn.android.redesign.recents.usecases
 
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
 import com.protonvpn.android.redesign.recents.data.DefaultConnection
 import com.protonvpn.android.redesign.recents.data.DefaultConnectionDao
 import com.protonvpn.android.redesign.recents.data.RecentsDao
@@ -31,6 +33,7 @@ import com.protonvpn.android.settings.data.EffectiveCurrentUserSettings
 import com.protonvpn.android.utils.flatMapLatestNotNull
 import com.protonvpn.android.vpn.ProtocolSelection
 import dagger.Reusable
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
@@ -43,15 +46,18 @@ class ObserveDefaultConnection @Inject constructor(
     private val effectiveCurrentUserSettings: EffectiveCurrentUserSettings,
     private val defaultConnectionDao: DefaultConnectionDao,
     private val getIntentAvailability: GetIntentAvailability,
+    private val getSmartProtocols: GetSmartProtocols,
     private val recentsDao: RecentsDao,
     private val serverManager2: ServerManager2,
 ) {
 
+    @OptIn(ExperimentalCoroutinesApi::class)
     operator fun invoke(): Flow<DefaultConnection> = combine(
         serverManager2.hasAnyCountryFlow,
         effectiveCurrentUserSettings.protocol,
-        ::Pair,
-    ).flatMapLatest { (hasCountries, protocolSelection) ->
+        getSmartProtocols.observe(),
+        ::Triple
+    ).flatMapLatest { (hasCountries, protocolSelection, smartProtocols) ->
         currentUser.vpnUserFlow.flatMapLatestNotNull { vpnUser ->
             defaultConnectionDao.getDefaultConnectionFlow(vpnUser.userId).map { entity ->
                 calculateDefaultConnection(
@@ -59,6 +65,7 @@ class ObserveDefaultConnection @Inject constructor(
                     hasCountries = hasCountries,
                     vpnUser = vpnUser,
                     protocolSelection = protocolSelection,
+                    smartProtocols = smartProtocols
                 )
             }
         }
@@ -69,6 +76,7 @@ class ObserveDefaultConnection @Inject constructor(
         hasCountries: Boolean,
         vpnUser: VpnUser,
         protocolSelection: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): DefaultConnection = when (currentDefaultConnection) {
         null,
         DefaultConnection.FastestConnection -> {
@@ -87,6 +95,7 @@ class ObserveDefaultConnection @Inject constructor(
                         connectIntent = recent.connectIntent,
                         vpnUser = vpnUser,
                         settingsProtocol = protocolSelection,
+                        smartProtocols = smartProtocols,
                     )
 
                     when (intentAvailability) {
@@ -104,6 +113,7 @@ class ObserveDefaultConnection @Inject constructor(
                     hasCountries = hasCountries,
                     vpnUser = vpnUser,
                     protocolSelection = protocolSelection,
+                    smartProtocols = smartProtocols
                 )
         }
     }

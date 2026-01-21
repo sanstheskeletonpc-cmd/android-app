@@ -21,7 +21,8 @@ package com.protonvpn.android.redesign.recents.usecases
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.data.hasAccessToServer
 import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.SmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentAvailability
 import com.protonvpn.android.servers.Server
@@ -34,7 +35,6 @@ import javax.inject.Inject
 @Reusable
 class GetIntentAvailability @Inject constructor(
     private val serverManager: ServerManager2,
-    private val supportsProtocol: SupportsProtocol,
     private val observeExcludedLocations: ObserveExcludedLocations,
 ) {
     // Note: this is a suspending function being called in a loop which makes it potentially slow.
@@ -42,6 +42,7 @@ class GetIntentAvailability @Inject constructor(
         connectIntent: ConnectIntent,
         vpnUser: VpnUser?,
         settingsProtocol: ProtocolSelection,
+        smartProtocols: SmartProtocols
     ): ConnectIntentAvailability {
         val excludedLocations = observeExcludedLocations().first()
 
@@ -56,6 +57,7 @@ class GetIntentAvailability @Inject constructor(
                 serversResult.servers.getAvailability(
                     vpnUser = vpnUser,
                     protocol = connectIntent.settingsOverrides?.protocol ?: settingsProtocol,
+                    smartProtocols = smartProtocols,
                 )
             }
         }
@@ -64,6 +66,7 @@ class GetIntentAvailability @Inject constructor(
     private fun Iterable<Server>.getAvailability(
         vpnUser: VpnUser?,
         protocol: ProtocolSelection,
+        smartProtocols: SmartProtocols,
     ): ConnectIntentAvailability {
 
         fun Server.hasAvailability(availability: ConnectIntentAvailability) = when (availability) {
@@ -72,7 +75,7 @@ class GetIntentAvailability @Inject constructor(
             ConnectIntentAvailability.UNAVAILABLE_PLAN -> true
 
             ConnectIntentAvailability.UNAVAILABLE_PROTOCOL -> vpnUser.hasAccessToServer(this)
-            ConnectIntentAvailability.AVAILABLE_OFFLINE -> supportsProtocol(this, protocol)
+            ConnectIntentAvailability.AVAILABLE_OFFLINE -> supportsProtocol(this, protocol, smartProtocols)
             ConnectIntentAvailability.ONLINE -> online
         }
 

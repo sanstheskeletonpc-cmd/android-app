@@ -25,7 +25,8 @@ import com.protonvpn.android.excludedlocations.ExcludedLocations
 import com.protonvpn.android.models.profiles.Profile
 import com.protonvpn.android.models.vpn.GatewayGroup
 import com.protonvpn.android.models.vpn.VpnCountry
-import com.protonvpn.android.models.vpn.usecase.SupportsProtocol
+import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
+import com.protonvpn.android.models.vpn.usecase.supportsProtocol
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.isNotExcluded
 import com.protonvpn.android.servers.api.ConnectingDomain
@@ -47,7 +48,7 @@ import javax.inject.Singleton
 @Singleton
 class ServerManager2 @Inject constructor(
     private val serverManager: ServerManager,
-    private val supportsProtocol: SupportsProtocol,
+    private val getSmartProtocols: GetSmartProtocols,
 ) {
 
     // Same as ServerManager.serverListVersion but emits states only after servers are loaded.
@@ -68,7 +69,7 @@ class ServerManager2 @Inject constructor(
 
     suspend fun getServerForProfile(profile: Profile, vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
         serverManager.ensureLoaded()
-        return serverManager.getServerForProfile(profile, vpnUser, protocol)
+        return serverManager.getServerForProfile(profile, vpnUser, protocol, getSmartProtocols())
     }
 
     suspend fun getVpnExitCountry(countryCode: String, secureCoreCountry: Boolean): VpnCountry? {
@@ -99,17 +100,19 @@ class ServerManager2 @Inject constructor(
     ): Server? {
         serverManager.ensureLoaded()
 
+        val protocolOverride = connectIntent.settingsOverrides?.protocol
         return serverManager.getBestServerForConnectIntent(
             connectIntent = connectIntent,
             vpnUser = vpnUser,
             protocol = connectIntent.settingsOverrides?.protocol ?: protocol,
+            smartProtocols = getSmartProtocols(),
             excludedLocations = excludedLocations,
         )
     }
 
     suspend fun getRandomServer(vpnUser: VpnUser?, protocol: ProtocolSelection): Server? {
         serverManager.ensureLoaded()
-        return serverManager.getRandomServer(vpnUser, protocol)
+        return serverManager.getRandomServer(vpnUser, protocol, getSmartProtocols())
     }
 
     suspend fun getCountriesCount(): Int {
@@ -170,6 +173,7 @@ class ServerManager2 @Inject constructor(
 
         var hasAppliedExclusions = false
 
+        val smartProtocols = getSmartProtocols()
         return when {
             secureCore -> serverManager.getExitCountries(secureCore = true)
             gatewayName != null -> serversByGatewayName(gatewayName)
@@ -181,7 +185,7 @@ class ServerManager2 @Inject constructor(
                     .filter { server ->
                         server.online &&
                         vpnUser.hasAccessToServer(server) &&
-                        supportsProtocol(server, protocol) &&
+                        supportsProtocol(server, protocol, smartProtocols) &&
                         server.isNotExcluded(excludedLocations).also { isNotExcluded ->
                             if (!isNotExcluded) {
                                 hasAppliedExclusions = true
