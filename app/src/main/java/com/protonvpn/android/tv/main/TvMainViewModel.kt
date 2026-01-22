@@ -25,7 +25,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.R
-import com.protonvpn.android.appconfig.GetFeatureFlags
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.auth.usecase.Logout
@@ -90,7 +89,6 @@ class TvMainViewModel @Inject constructor(
     vpnStateMonitor: VpnStateMonitor,
     private val connectHelper: TvUiConnectDisconnectHelper,
     private val recentsManager: RecentsManager,
-    private val featureFlags: GetFeatureFlags,
     private val getCountryCard: GetCountryCard,
     private val currentUser: CurrentUser,
     private val logoutUseCase: Logout,
@@ -104,7 +102,6 @@ class TvMainViewModel @Inject constructor(
 
     data class VpnViewState(val vpnStatus: VpnStateMonitor.Status, val ipToDisplay: String?)
 
-    val displayStreamingIcons get() = featureFlags.value.streamingServicesLogos
     val selectedCountryFlag = MutableLiveData<String?>()
     val connectedCountryFlag = MutableLiveData<String>()
     val mapRegion = MutableLiveData<MapRegion>()

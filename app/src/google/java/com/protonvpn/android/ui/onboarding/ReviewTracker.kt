@@ -20,10 +20,9 @@ package com.protonvpn.android.ui.onboarding
 
 import android.app.Activity
 import androidx.annotation.VisibleForTesting
-import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.play.core.ktx.requestReview
 import com.google.android.play.core.review.ReviewManagerFactory
-import com.protonvpn.android.appconfig.AppConfig
+import com.protonvpn.android.appconfig.GetRatingConfig
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.di.WallClock
 import com.protonvpn.android.logging.LogCategory
@@ -34,8 +33,12 @@ import com.protonvpn.android.utils.TrafficMonitor
 import com.protonvpn.android.vpn.VpnState
 import com.protonvpn.android.vpn.VpnStateMonitor
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.filterNotNull
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
 import java.util.concurrent.TimeUnit
@@ -47,7 +50,7 @@ import kotlin.time.Duration.Companion.milliseconds
 class ReviewTracker constructor(
     @WallClock private val wallClock: () -> Long,
     scope: CoroutineScope,
-    private val appConfig: AppConfig,
+    private val ratingConfigFlow: GetRatingConfig,
     private val currentUser: CurrentUser,
     vpnMonitor: VpnStateMonitor,
     private val foregroundActivityTracker: ForegroundActivityTracker,
@@ -61,7 +64,7 @@ class ReviewTracker constructor(
     constructor(
         @WallClock wallClock: () -> Long,
         scope: CoroutineScope,
-        appConfig: AppConfig,
+        ratingConfigFlow: GetRatingConfig,
         currentUser: CurrentUser,
         vpnMonitor: VpnStateMonitor,
         foregroundActivityTracker: ForegroundActivityTracker,
@@ -71,7 +74,7 @@ class ReviewTracker constructor(
     ) : this(
         wallClock,
         scope,
-        appConfig,
+        ratingConfigFlow,
         currentUser,
         vpnMonitor,
         foregroundActivityTracker,
@@ -87,18 +90,20 @@ class ReviewTracker constructor(
             reviewTrackerPrefs.successConnectionsInRow = 0
         }.launchIn(scope)
 
-        trafficMonitor.trafficStatus.filterNotNull()
-            .onEach { update ->
-                val sessionTimeInMillis = TimeUnit.SECONDS.toMillis(update.sessionTimeSeconds.toLong())
-                val toBeEligableInMillis =
-                    TimeUnit.DAYS.toMillis(appConfig.getRatingConfig().daysConnectedCount.toLong())
-                if (sessionTimeInMillis > toBeEligableInMillis) {
-                    reviewTrackerPrefs.longSessionReached = true
-                    scope.launch {
-                        if (shouldRate()) createInAppReview()
-                    }
+        combine(
+            trafficMonitor.trafficStatus.filterNotNull(),
+            ratingConfigFlow.map { it.daysConnectedCount }.distinctUntilChanged(),
+        ) { trafficUpdate, daysConnectedCount ->
+            val sessionTimeInMillis = TimeUnit.SECONDS.toMillis(trafficUpdate.sessionTimeSeconds.toLong())
+            val toBeEligableInMillis =
+                TimeUnit.DAYS.toMillis(daysConnectedCount.toLong())
+            if (sessionTimeInMillis > toBeEligableInMillis) {
+                reviewTrackerPrefs.longSessionReached = true
+                scope.launch {
+                    if (shouldRate()) createInAppReview()
                 }
-            }.launchIn(scope)
+            }
+        }.launchIn(scope)
 
         vpnMonitor.status.onEach {
             if (it.state == VpnState.Connected) {
@@ -150,7 +155,7 @@ class ReviewTracker constructor(
         if (!isEligibleForReviewNow()) return false
         if (foregroundActivityTracker.foregroundActivity == null) return false
 
-        val ratingConfig = appConfig.getRatingConfig()
+        val ratingConfig = ratingConfigFlow.first()
         log("Connections in queue: " + (reviewTrackerPrefs.successConnectionsInRow >= ratingConfig.successfulConnectionCount))
         log("Long session reached: " + (reviewTrackerPrefs.longSessionReached))
         log("---------")
@@ -160,8 +165,7 @@ class ReviewTracker constructor(
     }
 
     private suspend fun isEligibleForReviewNow(): Boolean {
-        val ratingConfig = appConfig.getRatingConfig()
-
+        val ratingConfig = ratingConfigFlow.first()
         val isPlanEligible = ratingConfig.eligiblePlans.contains(currentUser.vpnUser()?.planName)
         log("User plan eligable for review suggestion: $isPlanEligible")
         if (!isPlanEligible) return false

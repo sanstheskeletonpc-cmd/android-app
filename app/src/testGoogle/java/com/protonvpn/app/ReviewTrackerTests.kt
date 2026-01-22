@@ -19,8 +19,7 @@
 package com.protonvpn.app
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.lifecycle.MutableLiveData
-import com.protonvpn.android.appconfig.AppConfig
+import com.protonvpn.android.appconfig.GetRatingConfig
 import com.protonvpn.android.appconfig.RatingConfig
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.bus.TrafficUpdate
@@ -47,12 +46,12 @@ import io.mockk.mockk
 import io.mockk.mockkObject
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceTimeBy
 import kotlinx.coroutines.test.currentTime
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.yield
 import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
@@ -72,9 +71,6 @@ class ReviewTrackerTests {
     private lateinit var reviewTracker: ReviewTracker
 
     @RelaxedMockK
-    private lateinit var appConfig: AppConfig
-
-    @RelaxedMockK
     private lateinit var trafficMonitor: TrafficMonitor
 
     @RelaxedMockK
@@ -88,7 +84,7 @@ class ReviewTrackerTests {
     private lateinit var testController: TestController
     private val START_TIME = 1_000_000_000L
 
-    private val RATING_CONFIG = RatingConfig(
+    private val ratingConfig = RatingConfig(
         eligiblePlans = listOf(TestUser.plusUser.planName),
         successfulConnectionCount = 3,
         daysSinceLastRatingCount = 1,
@@ -117,7 +113,6 @@ class ReviewTrackerTests {
         vpnStateMonitor = VpnStateMonitor()
         every { trafficMonitor.trafficStatus } returns trafficStatus
         every { foregroundActivityTracker.foregroundActivity } returns mockk()
-        every { appConfig.getRatingConfig() } returns RATING_CONFIG
 
         testController = TestController(testScope, trafficStatus, vpnStateMonitor)
 
@@ -128,7 +123,7 @@ class ReviewTrackerTests {
         reviewTracker = ReviewTracker(
             testScope::currentTime,
             testScope.backgroundScope,
-            appConfig,
+            GetRatingConfig(flowOf(ratingConfig)),
             CurrentUser(testCurrentUserProvider),
             vpnStateMonitor,
             foregroundActivityTracker,
@@ -164,7 +159,7 @@ class ReviewTrackerTests {
 
     @Test
     fun `trigger if last review was triggered earlier than daysSinceLastRatingCount`() = testScope.runTest {
-        val fakeTimestamp = currentTime - TimeUnit.DAYS.toMillis(RATING_CONFIG.daysSinceLastRatingCount.toLong())
+        val fakeTimestamp = currentTime - TimeUnit.DAYS.toMillis(ratingConfig.daysSinceLastRatingCount.toLong())
         mockOldConnectionSuccess()
         trackerPrefs.lastReviewTimestamp = fakeTimestamp
         testController.addLongSession()
@@ -189,7 +184,7 @@ class ReviewTrackerTests {
     fun `trigger also if connection count exceeds required limit`() = testScope.runTest {
         every { foregroundActivityTracker.foregroundActivity } returns null
         mockOldConnectionSuccess()
-        repeat(RATING_CONFIG.successfulConnectionCount * 2) {
+        repeat(ratingConfig.successfulConnectionCount * 2) {
             testController.reconnect()
         }
         assertFalse(wasReviewRequested)
@@ -208,7 +203,7 @@ class ReviewTrackerTests {
     @Test
     fun `any vpn error resets success count`() = testScope.runTest {
         addSuccessfulConnections()
-        Assert.assertEquals(RATING_CONFIG.successfulConnectionCount, reviewTracker.connectionCount())
+        Assert.assertEquals(ratingConfig.successfulConnectionCount, reviewTracker.connectionCount())
 
         vpnStateMonitor.vpnConnectionNotificationFlow.emit(VpnFallbackResult.Error(mockk(), mockk(), reason = null))
         Assert.assertEquals(0, reviewTracker.connectionCount())
@@ -224,7 +219,7 @@ class ReviewTrackerTests {
     @Test
     fun `days since last request reported to telemetry`() = testScope.runTest {
         testController.connect()
-        val minDays = with(RATING_CONFIG) { max(daysSinceLastRatingCount, daysFromFirstConnectionCount) }
+        val minDays = with(ratingConfig) { max(daysSinceLastRatingCount, daysFromFirstConnectionCount) }
         listOf(minDays, minDays, minDays + 2).forEach { delayDays ->
             testTelemetry.reset()
             testController.advanceTimeBy(delayDays.days)
@@ -238,22 +233,22 @@ class ReviewTrackerTests {
     @Test
     fun `connections since last request reported to telemetry`() = testScope.runTest {
         testController.connect()
-        val minDays = with(RATING_CONFIG) { max(daysSinceLastRatingCount, daysFromFirstConnectionCount) }
+        val minDays = with(ratingConfig) { max(daysSinceLastRatingCount, daysFromFirstConnectionCount) }
         advanceTimeBy(minDays.days)
         assertFalse(wasReviewRequested) // Not enough connections yet.
-        repeat(RATING_CONFIG.successfulConnectionCount - 1) {
+        repeat(ratingConfig.successfulConnectionCount - 1) {
             testController.reconnect()
         }
         assertTrue(wasReviewRequested)
 
         assertEquals(
-            RATING_CONFIG.successfulConnectionCount.toLong(),
+            ratingConfig.successfulConnectionCount.toLong(),
             testTelemetry.collectedEvents.last().values["connections_since_last_prompt"]
         )
 
         testTelemetry.reset()
         testController.reconnect()
-        testController.advanceTimeBy(RATING_CONFIG.daysSinceLastRatingCount.days)
+        testController.advanceTimeBy(ratingConfig.daysSinceLastRatingCount.days)
         testController.reconnect()
         assertEquals(
             2L,
@@ -263,7 +258,7 @@ class ReviewTrackerTests {
 
     private fun addSuccessfulConnections() {
         mockOldConnectionSuccess()
-        repeat(RATING_CONFIG.successfulConnectionCount - 1) {
+        repeat(ratingConfig.successfulConnectionCount - 1) {
             testController.reconnect()
         }
     }
@@ -271,7 +266,7 @@ class ReviewTrackerTests {
     private fun mockOldConnectionSuccess() {
         with(testController) {
             connect()
-            advanceTimeBy(RATING_CONFIG.daysFromFirstConnectionCount.days)
+            advanceTimeBy(ratingConfig.daysFromFirstConnectionCount.days)
         }
     }
 

@@ -35,7 +35,7 @@ class VpnErrorAndFallbackObservability @Inject constructor(
     private val largeMetricsSampler: LargeMetricsSampler,
 ) {
 
-    fun reportError(error: ErrorType) {
+    suspend fun reportError(error: ErrorType) {
         largeMetricsSampler { multiplier ->
             val vpnError = VpnErrorsTotal(error.toObservabiliy(), multiplier)
             observabilityManager.enqueue(vpnError)

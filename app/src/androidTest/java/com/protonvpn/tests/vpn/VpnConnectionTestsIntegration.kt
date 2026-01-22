@@ -248,11 +248,9 @@ class VpnConnectionTestsIntegration {
         val profilesDao = db.profilesDao()
         val smartProtocolsConfig = SmartProtocolConfig(
             wireguardEnabled = true, wireguardTcpEnabled = true, wireguardTlsEnabled = true)
-        every { appConfig.getSmartProtocolConfig() } returns smartProtocolsConfig
 
         featureFlagsFlow = MutableStateFlow(FeatureFlags())
         val getFeatureFlags = GetFeatureFlags(featureFlagsFlow)
-        every { appConfig.getFeatureFlags() } answers { featureFlagsFlow.value }
 
         getSmartProtocols = createGetSmartProtocols(smartProtocolsConfig.getSmartProtocols())
         currentUserProvider = TestCurrentUserProvider(vpnUser = TestUser.plusUser.vpnUser)
@@ -339,7 +337,6 @@ class VpnConnectionTestsIntegration {
             vpnStateMonitor = monitor,
             vpnBackgroundUiDelegate = mockVpnBackgroundUiDelegate,
             serverManager = serverManager2,
-            certificateRepository = certificateRepository,
             scope = scope.backgroundScope,
             now = clock,
             currentVpnServiceProvider = mockk(relaxed = true),

@@ -24,6 +24,7 @@ import com.protonvpn.android.appconfig.GetFeatureFlags
 import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.utils.ServerManager
 import dagger.Reusable
+import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
 data class StreamingService(val name: String, val iconUrl: String?)
@@ -34,10 +35,10 @@ class GetStreamingServices @Inject constructor(
     private val featureFlags: GetFeatureFlags,
     isTvCheck: IsTvCheck
 ) {
-    private val displayStreamingIcons get() = featureFlags.value.streamingServicesLogos
     private val isTV = isTvCheck.invoke()
-    operator fun invoke(countryCode: String): List<StreamingService> =
+    suspend operator fun invoke(countryCode: String): List<StreamingService> =
         serverManager.streamingServicesModel?.let { streamingServices ->
+            val displayStreamingIcons = featureFlags.first().streamingServicesLogos
             streamingServices.getForAllTiers(countryCode).map { streamingService ->
                 val iconName = if (isTV) streamingService.iconName else streamingService.coloredIconName
                 StreamingService(

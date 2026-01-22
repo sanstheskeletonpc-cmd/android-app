@@ -131,8 +131,6 @@ class ConnectionDetailsViewModel @Inject constructor(
     )
 
     private fun createConnectedViewState(connectionParams: ConnectionParams): Flow<ConnectionDetailsViewState> {
-        val streamingList = streamingServices.invoke(connectionParams.server.entryCountry)
-
         // connectionParams.server is initialized at connection attempt time, and will be outdated after loads update
         val serverFlow = serverManager2.serverListVersion
             .map { serverManager2.getServerById(connectionParams.server.serverId) ?: connectionParams.server }
@@ -146,6 +144,7 @@ class ConnectionDetailsViewModel @Inject constructor(
             serverFlow,
             translator.flow,
         ) { vpnUser, exitIp, userIp, trafficHistory, server, translations ->
+            val streamingList = streamingServices.invoke(connectionParams.server.entryCountry)
             val connectIntent = connectionParams.connectIntent as ConnectIntent
             val protocol = connectionParams.protocolSelection?.displayName ?: 0
             ConnectionDetailsViewState.Connected(

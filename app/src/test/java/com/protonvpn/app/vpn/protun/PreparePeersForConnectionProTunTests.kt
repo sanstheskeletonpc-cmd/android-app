@@ -26,7 +26,7 @@ import com.protonvpn.android.servers.api.ServerEntryInfo
 import com.protonvpn.android.vpn.protun.PreparePeersForConnectionProTun
 import com.protonvpn.test.shared.createServer
 import io.mockk.MockKAnnotations
-import io.mockk.impl.annotations.RelaxedMockK
+import kotlinx.coroutines.test.runTest
 import me.proton.vpn.sdk.api.Peer
 import me.proton.vpn.sdk.api.VpnProtocol
 import org.junit.Before
@@ -39,8 +39,6 @@ class PreparePeersForConnectionProTunTests {
 
     private lateinit var wireguardPorts: DefaultPorts
     private lateinit var prepare: PreparePeersForConnectionProTun
-    @RelaxedMockK
-    private lateinit var random: Random
 
     @Before
     fun setup() {
@@ -50,11 +48,11 @@ class PreparePeersForConnectionProTunTests {
             tcpPorts = listOf(10),
             tlsPortsInternal = listOf(20)
         )
-        prepare = PreparePeersForConnectionProTun(::wireguardPorts)
+        prepare = PreparePeersForConnectionProTun { wireguardPorts }
     }
 
     @Test
-    fun `ports from ConnectingDomain get preference over default ports from config`() {
+    fun `ports from ConnectingDomain get preference over default ports from config`() = runTest {
         val server = createServer(
             connectingDomains = listOf(ConnectingDomain(
                 entryIp = "1.1.1.1",
@@ -82,7 +80,7 @@ class PreparePeersForConnectionProTunTests {
     }
 
     @Test
-    fun `multiple peers are created when multiple entry IPs are present`() {
+    fun `multiple peers are created when multiple entry IPs are present`() = runTest {
         val server = createServer(
             connectingDomains = listOf(ConnectingDomain(
                 entryIp = "1.1.1.1",
@@ -122,7 +120,7 @@ class PreparePeersForConnectionProTunTests {
     }
 
     @Test
-    fun `when no domain supports selected transmissions return null`() {
+    fun `when no domain supports selected transmissions return null`() = runTest {
         val server = createServer(
             connectingDomains = listOf(ConnectingDomain(
                 entryIp = null,

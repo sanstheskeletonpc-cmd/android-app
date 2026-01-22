@@ -23,7 +23,6 @@ import android.content.Context
 import com.protonvpn.android.R
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.models.vpn.VpnCountry
-import com.protonvpn.android.servers.GetStreamingServices
 import com.protonvpn.android.tv.models.CountryCard
 import com.protonvpn.android.tv.models.DrawableImage
 import com.protonvpn.android.utils.CountryTools

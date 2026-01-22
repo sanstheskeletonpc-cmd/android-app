@@ -47,6 +47,7 @@ import com.protonvpn.android.vpn.DisconnectTrigger
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.launch
 import me.proton.core.presentation.utils.viewBinding
 import me.proton.core.presentation.R as CoreR
 
@@ -81,13 +82,15 @@ class CountryDetailFragment : Fragment(R.layout.fragment_tv_country_details) {
         postponeEnterTransition()
         isPostponedTransition = true
 
-        setupUi()
-        viewModel.getState( getCountryCode())
-            .onEach {updateState(it) }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
+        viewLifecycleOwner.lifecycleScope.launch {
+            setupUi()
+            viewModel.getState(getCountryCode())
+                .onEach { updateState(it) }
+                .launchIn(viewLifecycleOwner.lifecycleScope)
+        }
     }
 
-    private fun setupUi() = with(binding) {
+    private suspend fun setupUi() = with(binding) {
         flag.transitionName = transitionNameForCountry(getCountryCode())
         connectFastest.setOnClickListener(::onConnectClicked) // TODO: how is connectFastest different from connectStreaming?
         disconnect.setOnClickListener {

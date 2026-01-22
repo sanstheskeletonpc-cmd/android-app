@@ -146,7 +146,6 @@ class VpnConnectionManager @Inject constructor(
     private val vpnStateMonitor: VpnStateMonitor,
     private val vpnBackgroundUiDelegate: VpnBackgroundUiDelegate,
     private val serverManager: ServerManager2,
-    private val certificateRepository: CertificateRepository,
     private val scope: CoroutineScope,
     @param:WallClock private val now: () -> Long,
     private val currentVpnServiceProvider: CurrentVpnServiceProvider,
@@ -467,7 +466,7 @@ class VpnConnectionManager @Inject constructor(
     }
 
     private suspend fun getFallbackSmartProtocol(server: Server): ProtocolSelection {
-        val wireGuardTxxEnabled = getFeatureFlags.value.wireguardTlsEnabled
+        val wireGuardTxxEnabled = getFeatureFlags.first().wireguardTlsEnabled
         val fallbackOrder = buildList {
             add(ProtocolSelection(VpnProtocol.WireGuard))
             if (wireGuardTxxEnabled) {
@@ -599,7 +598,7 @@ class VpnConnectionManager @Inject constructor(
             (delegate.shouldSkipAccessRestrictions() || vpnUser.hasAccessToServer(server))
         ) {
             val protocol = if (connectIntent is AnyConnectIntent.GuestHole) GuestHole.PROTOCOL else settings.protocol
-            val protocolAllowed = trigger is ConnectTrigger.GuestHole || protocol.isSupported(getFeatureFlags.value)
+            val protocolAllowed = trigger is ConnectTrigger.GuestHole || protocol.isSupported(getFeatureFlags.first())
             if (supportsProtocol(server, protocol.vpn, getSmartProtocols()) && protocolAllowed) {
                 smartConnect(connectIntent, protocol, server, disconnectTrigger)
             } else {

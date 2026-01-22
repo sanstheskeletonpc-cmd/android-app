@@ -161,7 +161,6 @@ class TvMainViewModelTests {
             vpnStateMonitor = vpnStateMonitor,
             connectHelper = mockk(),
             recentsManager = RecentsManager(bgScope, vpnStatusProviderUI, serverManager),
-            featureFlags = GetFeatureFlags(MutableStateFlow(FeatureFlags())),
             getCountryCard = mockk(),
             currentUser = mockCurrentUser,
             logoutUseCase = mockk(relaxed = true),

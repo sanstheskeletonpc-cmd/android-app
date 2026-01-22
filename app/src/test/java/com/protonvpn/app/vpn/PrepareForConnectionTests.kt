@@ -90,7 +90,7 @@ class PrepareForConnetionTests {
             serverAvailabilityCheck.pingInParallel(any(), true)
         } answers { firstArg() }
 
-        every {
+        coEvery {
             appConfig.getWireguardPorts()
         } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPortsInternal = listOf(1))
         val getConnectingDomain = GetConnectingDomain(createGetSmartProtocols())
@@ -130,7 +130,7 @@ class PrepareForConnetionTests {
 
     @Test
     fun `TLS falls back to TCP port`() = runTest {
-        every {
+        coEvery {
             appConfig.getWireguardPorts()
         } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPortsInternal = null)
         val result = prepareForConnetion.prepare(

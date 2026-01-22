@@ -78,7 +78,7 @@ class ProtonVpnBackendProvider(
             }
     }
 
-    private fun getSmartTransmissionProtocols(vpnProtocol: VpnProtocol, orgProtocol: ProtocolSelection?) =
+    private suspend fun getSmartTransmissionProtocols(vpnProtocol: VpnProtocol, orgProtocol: ProtocolSelection?) =
         mutableSetOf<TransmissionProtocol>().apply {
             with(config.getSmartProtocolConfig()) {
                 when (vpnProtocol) {
@@ -124,7 +124,10 @@ class ProtonVpnBackendProvider(
         return null
     }
 
-    private fun getSmartEnabledBackends(server: Server, orgVpnProtocol: VpnProtocol?): List<VpnBackend> = buildList {
+    private suspend fun getSmartEnabledBackends(
+        server: Server,
+        orgVpnProtocol: VpnProtocol?
+    ): List<VpnBackend> = buildList {
         with(config.getSmartProtocolConfig()) {
             val wireGuardTxxEnabled =
                 config.getFeatureFlags().wireguardTlsEnabled && (wireguardTcpEnabled || wireguardTlsEnabled)

@@ -75,7 +75,7 @@ class PrepareForConnection @Inject constructor(
         }
     }
 
-    private fun getFallbackPorts(
+    private suspend fun getFallbackPorts(
         protocol: ProtocolSelection,
     ) = when (protocol.vpn) {
         VpnProtocol.WireGuard -> appConfig.getWireguardPorts()

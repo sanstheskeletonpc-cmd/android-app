@@ -184,8 +184,8 @@ class VpnConnectionErrorHandlerTests {
         val vpnUser = TestVpnUser.create(maxTier = 2, maxConnect = 2)
         currentUser.mockVpnUser { vpnUser }
         coEvery { currentUser.vpnUserFlow } returns flowOf(vpnUser)
-        every { appConfig.isMaintenanceTrackerEnabled() } returns true
-        every { appConfig.getSmartProtocols() } returns ProtocolSelection.REAL_PROTOCOLS
+        coEvery { appConfig.isMaintenanceTrackerEnabled() } returns true
+        coEvery { appConfig.getSmartProtocols() } returns ProtocolSelection.REAL_PROTOCOLS
         every { networkManager.isConnectedToNetwork() } returns true
         coEvery { api.getSession() } returns ApiResult.Success(SessionListResponse(1000, listOf()))
         serverListVersion = MutableStateFlow(0)

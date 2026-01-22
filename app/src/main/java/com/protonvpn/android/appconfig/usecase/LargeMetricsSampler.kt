@@ -21,16 +21,27 @@ package com.protonvpn.android.appconfig.usecase
 
 import com.protonvpn.android.appconfig.AppConfig
 import dagger.Reusable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.shareIn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 import kotlin.random.Random
 
 @Reusable
 class LargeMetricsSampler @Inject constructor(
-    private val appConfig: dagger.Lazy<AppConfig>,
+    mainScope: CoroutineScope,
+    appConfig: AppConfig,
     private val random: Random,
 ) {
-    operator fun invoke(block: (Long) -> Unit) {
-        val multiplier = appConfig.get().appConfigFlow.value.largeMetricsSamplingMultiplier.toLong()
+    private val appConfig = appConfig.appConfigFlow.shareIn(
+        mainScope, SharingStarted.Eagerly, replay = 1
+    )
+
+    /// The method is suspending but should execute immediately once AppConfig is cached.
+    suspend operator fun invoke(block: (Long) -> Unit) {
+        val multiplier = appConfig.first().largeMetricsSamplingMultiplier.toLong()
         val randomValue = random.nextLong(multiplier)
         if (randomValue == 0L)
             block(multiplier)

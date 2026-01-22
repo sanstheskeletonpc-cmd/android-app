@@ -33,7 +33,8 @@ class MaintenanceTracker @Inject constructor(
         }
     }
 
-    private fun getScheduleDelay(): Long = jitterMs(TimeUnit.MINUTES.toMillis(appConfig.getMaintenanceTrackerDelay()))
+    private suspend fun getScheduleDelay(): Long =
+        jitterMs(TimeUnit.MINUTES.toMillis(appConfig.getMaintenanceTrackerDelay()))
 
     private fun now() = SystemClock.elapsedRealtime()
 

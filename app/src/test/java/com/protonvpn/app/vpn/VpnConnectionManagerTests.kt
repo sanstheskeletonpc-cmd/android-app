@@ -176,8 +176,8 @@ class VpnConnectionManagerTests {
 
         every { mockWakeLock.isHeld } returns true
         every { mockPowerManager.newWakeLock(PARTIAL_WAKE_LOCK, any()) } returns mockWakeLock
-        every { appConfig.getFeatureFlags() } returns FeatureFlags()
-        every { appConfig.getSmartProtocols() } returns ProtocolSelection.REAL_PROTOCOLS
+        coEvery { appConfig.getFeatureFlags() } returns FeatureFlags()
+        coEvery { appConfig.getSmartProtocols() } returns ProtocolSelection.REAL_PROTOCOLS
         every { mockNetworkManager.isConnectedToNetwork() } returns true
         every { mockBackend.vpnProtocol } returns connectionParams.protocolSelection!!.vpn
         every { mockBackend.selfStateFlow } returns mockBackendSelfState
@@ -236,7 +236,6 @@ class VpnConnectionManagerTests {
             vpnStateMonitor = vpnStateMonitor,
             vpnBackgroundUiDelegate = mockVpnBackgroundUiDelegate,
             serverManager = serverManager2,
-            certificateRepository = mockk(),
             currentVpnServiceProvider = mockk(relaxed = true),
             currentUser = mockCurrentUser,
             scope = testScope.backgroundScope,

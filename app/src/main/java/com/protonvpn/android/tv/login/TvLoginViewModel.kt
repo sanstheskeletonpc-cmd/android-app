@@ -22,10 +22,12 @@ package com.protonvpn.android.tv.login
 import androidx.annotation.StringRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.protonvpn.android.R
 import com.protonvpn.android.api.ProtonApiRetroFit
 import com.protonvpn.android.appconfig.AppConfig
 import com.protonvpn.android.appconfig.ForkedSessionResponse
+import com.protonvpn.android.appconfig.GetFeatureFlags
 import com.protonvpn.android.appconfig.SessionForkSelectorResponse
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.di.ElapsedRealtimeClock
@@ -38,6 +40,7 @@ import com.protonvpn.android.utils.ServerManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withTimeoutOrNull
 import me.proton.core.account.domain.entity.Account
@@ -70,7 +73,7 @@ class TvLoginViewModel @Inject constructor(
 
     val state = MutableLiveData<TvLoginViewState>()
 
-    val displayStreamingIcons get() = appConfig.getFeatureFlags().streamingServicesLogos
+    suspend fun displayStreamingIcons() = appConfig.getFeatureFlags().streamingServicesLogos
 
     suspend fun onEnterScreen(scope: CoroutineScope) {
         val user = currentUser.user()
@@ -83,7 +86,7 @@ class TvLoginViewModel @Inject constructor(
                 loadInitialConfig(user.userId)
             }
         } else {
-            state.value = TvLoginViewState.Welcome
+            state.value = TvLoginViewState.Welcome(displayStreamingIcons())
         }
     }
 
@@ -206,12 +209,14 @@ sealed class TvLoginViewState(
     @StringRes val buttonLabelRes: Int = 0,
     @StringRes val descriptionRes: Int = 0,
     @StringRes val description2Res: Int = 0,
-    val helpLink: String? = null
+    val helpLink: String? = null,
+    open val displayStreamingIcons: Boolean = false,
 ) {
-    object Welcome : TvLoginViewState(
+    data class Welcome(override val displayStreamingIcons: Boolean) : TvLoginViewState(
         titleRes = R.string.tv_login_title_welcome,
         buttonLabelRes = R.string.tv_login_welcome_button,
-        descriptionRes = R.string.tv_login_welcome_description)
+        descriptionRes = R.string.tv_login_welcome_description,
+    )
 
     object Success : TvLoginViewState()
     object FetchingCode : TvLoginViewState(titleRes = R.string.tv_login_title_loading)

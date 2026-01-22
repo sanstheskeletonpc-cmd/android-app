@@ -34,7 +34,6 @@ import com.protonvpn.android.ui.home.GetNetZone
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.UserPlanManager
-import com.protonvpn.android.utils.mapState
 import com.protonvpn.android.utils.runCatchingCheckedExceptions
 import com.protonvpn.android.vpn.ProtocolSelection
 import dagger.Reusable
@@ -43,8 +42,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
@@ -59,12 +59,22 @@ import javax.inject.Singleton
 
 @Reusable
 class GetFeatureFlags @VisibleForTesting constructor(
-    featureFlagsFlow: StateFlow<FeatureFlags>
-) : StateFlow<FeatureFlags> by featureFlagsFlow {
+    featureFlagsFlow: Flow<FeatureFlags>
+) : Flow<FeatureFlags> by featureFlagsFlow {
     @Inject
     constructor(appConfig: AppConfig) : this(
-        appConfig.appConfigFlow.mapState { it.featureFlags }
+        appConfig.appConfigFlow.map { it.featureFlags }
     )
+}
+
+@Reusable
+class GetRatingConfig @VisibleForTesting constructor(
+    ratingConfigFlow: Flow<RatingConfig>
+) : Flow<RatingConfig> by ratingConfigFlow {
+    @Inject
+    constructor(appConfig: AppConfig) : this(appConfig.appConfigFlow.map {
+        it.ratingConfig ?: AppConfig.getDefaultRatingConfig()
+    })
 }
 
 @Singleton
@@ -93,9 +103,8 @@ class AppConfig @Inject constructor(
         mainScope,
         started = SharingStarted.Eagerly,
         initialValue = Storage.load(AppConfigResponse::class.java, getDefaultConfig())
-    )
+    ) as Flow<AppConfigResponse>
 
-    private val appConfigResponse get() = appConfigFlow.value
     private val appConfigUpdate = periodicUpdateManager.registerApiCall(
         "app_config",
         ::updateInternal,
@@ -132,29 +141,30 @@ class AppConfig @Inject constructor(
         }
     }
 
-    fun getMaintenanceTrackerDelay(): Long =
-        maxOf(Constants.MINIMUM_MAINTENANCE_CHECK_MINUTES, appConfigResponse.underMaintenanceDetectionDelay)
+    suspend fun getMaintenanceTrackerDelay(): Long =
+        maxOf(Constants.MINIMUM_MAINTENANCE_CHECK_MINUTES, appConfigFlow.first().underMaintenanceDetectionDelay)
 
-    fun isMaintenanceTrackerEnabled(): Boolean = appConfigResponse.featureFlags.maintenanceTrackerEnabled
+    suspend fun isMaintenanceTrackerEnabled(): Boolean = appConfigFlow.first().featureFlags.maintenanceTrackerEnabled
 
-    fun getWireguardPorts(): DefaultPorts = getDefaultPortsConfig().getWireguardPorts()
+    suspend fun getWireguardPorts(): DefaultPorts = getDefaultPortsConfig().getWireguardPorts()
 
-    private fun getDefaultPortsConfig(): DefaultPortsConfig =
-        appConfigResponse.defaultPortsConfig ?: DefaultPortsConfig.defaultConfig
+    private suspend fun getDefaultPortsConfig(): DefaultPortsConfig =
+        appConfigFlow.first().defaultPortsConfig ?: DefaultPortsConfig.defaultConfig
 
-    fun getSmartProtocolConfig(): SmartProtocolConfig {
-        val smartConfig = appConfigResponse.smartProtocolConfig
+    suspend fun getSmartProtocolConfig(): SmartProtocolConfig {
+        val smartConfig = appConfigFlow.first().smartProtocolConfig
         return smartConfig ?: getDefaultConfig().smartProtocolConfig!!
     }
 
-    fun getSmartProtocols(): List<ProtocolSelection> = smartProtocolsCached
+    suspend fun getSmartProtocols(): List<ProtocolSelection> = smartProtocolsCached
         ?: getSmartProtocolConfig().getSmartProtocols().apply {
             smartProtocolsCached = this
         }
 
-    fun getFeatureFlags(): FeatureFlags = appConfigResponse.featureFlags
+    suspend fun getFeatureFlags(): FeatureFlags = appConfigFlow.first().featureFlags
 
-    fun getRatingConfig(): RatingConfig = appConfigResponse.ratingConfig ?: getDefaultRatingConfig()
+    suspend fun getRatingConfig(): RatingConfig =
+        appConfigFlow.first().ratingConfig ?: getDefaultRatingConfig()
 
     private suspend fun updateBugReportInternal(userId: UserId?): ApiResult<DynamicReportModel> {
         val sessionId = sessionProvider.getSessionId(userId)
@@ -219,7 +229,7 @@ class AppConfig @Inject constructor(
             wireguardTlsEnabled = true,
         )
 
-        private fun getDefaultRatingConfig(): RatingConfig = RatingConfig(
+        fun getDefaultRatingConfig(): RatingConfig = RatingConfig(
             eligiblePlans = listOf("plus"),
             successfulConnectionCount = 3,
             daysSinceLastRatingCount = 3,

@@ -177,7 +177,6 @@ class GuestHoleVpnConnectionManagerTests {
             vpnStateMonitor = vpnStateMonitor,
             vpnBackgroundUiDelegate = mockk(), // Create a fake?
             serverManager = serverManager2,
-            certificateRepository = mockk(),
             scope = bgScope,
             now = clock,
             currentVpnServiceProvider = mockk(relaxed = true),

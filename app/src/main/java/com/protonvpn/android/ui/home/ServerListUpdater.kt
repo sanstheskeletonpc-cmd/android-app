@@ -46,7 +46,6 @@ import com.protonvpn.android.servers.api.StreamingServicesResponse
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.UserPlanManager
-import com.protonvpn.android.utils.mapState
 import com.protonvpn.android.vpn.VpnState
 import com.protonvpn.android.vpn.VpnStateMonitor
 import dagger.Reusable
@@ -57,8 +56,8 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.drop
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
@@ -71,13 +70,13 @@ import javax.inject.Singleton
 @OptIn(ExperimentalForInheritanceCoroutinesApi::class)
 @Reusable
 class ServerListUpdaterRemoteConfig(
-    private val flow: StateFlow<Config>
-) : StateFlow<ServerListUpdaterRemoteConfig.Config> by flow {
+    private val flow: Flow<Config>
+) : Flow<ServerListUpdaterRemoteConfig.Config> by flow {
     data class Config(val backgroundDelayMs: Long, val foregroundDelayMs: Long)
 
     @Inject
     constructor(appConfig: AppConfig)
-        : this(appConfig.appConfigFlow.mapState { response ->
+        : this(appConfig.appConfigFlow.map { response ->
             Config(
                 backgroundDelayMs = TimeUnit.MINUTES.toMillis(response.logicalsRefreshBackgroundDelayMinutes),
                 foregroundDelayMs = TimeUnit.MINUTES.toMillis(response.logicalsRefreshForegroundDelayMinutes),
@@ -135,7 +134,7 @@ class ServerListUpdater @Inject constructor(
         !binaryServerStatusEnabled() && currentUser.vpnUser()?.isFreeUser == true
 
     suspend fun needsUpdate() = serverManager.needsUpdate() ||
-        wallClock() - serverManager.lastUpdateTimestamp >= 4 * remoteConfig.value.foregroundDelayMs
+        wallClock() - serverManager.lastUpdateTimestamp >= 4 * remoteConfig.first().foregroundDelayMs
 
     init {
         migrateIpAddress()

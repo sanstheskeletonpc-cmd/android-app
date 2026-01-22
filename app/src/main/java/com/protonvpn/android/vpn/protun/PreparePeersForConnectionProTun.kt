@@ -37,11 +37,11 @@ import kotlin.random.Random
 // Instead of port-pinging with ProTUN we just return all ports and transmission protocols
 @Singleton
 class PreparePeersForConnectionProTun(
-    private val getWireGuardPorts: () -> DefaultPorts,
+    private val getWireGuardPorts: suspend () -> DefaultPorts,
 ) {
     @Inject constructor(appConfig: AppConfig) : this(appConfig::getWireguardPorts)
 
-    operator fun invoke(
+    suspend operator fun invoke(
         server: Server,
         transmissionProtocols: Set<TransmissionProtocol>,
         random: Random = Random.Default,
