@@ -123,9 +123,6 @@ class ApiNotificationManagerTests {
         appConfigFlow = MutableStateFlow(
             AppConfigResponse(
                 featureFlags = FeatureFlags(pollApiNotifications = true),
-                defaultPortsConfig = null,
-                smartProtocolConfig = null,
-                ratingConfig = null
             )
         )
 

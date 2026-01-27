@@ -46,7 +46,7 @@ class PreparePeersForConnectionProTunTests {
         wireguardPorts = DefaultPorts(
             udpPorts = listOf(1, 2),
             tcpPorts = listOf(10),
-            tlsPortsInternal = listOf(20)
+            tlsPorts = listOf(20)
         )
         prepare = PreparePeersForConnectionProTun { wireguardPorts }
     }

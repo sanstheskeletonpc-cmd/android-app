@@ -32,7 +32,6 @@ import com.protonvpn.android.models.config.bugreport.DynamicReportModel
 import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.ui.home.GetNetZone
 import com.protonvpn.android.utils.Constants
-import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.UserPlanManager
 import com.protonvpn.android.utils.runCatchingCheckedExceptions
 import com.protonvpn.android.vpn.ProtocolSelection
@@ -41,12 +40,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import me.proton.core.domain.entity.UserId
 import me.proton.core.featureflag.domain.usecase.FetchUnleashTogglesRemote
@@ -64,6 +62,7 @@ class GetFeatureFlags @VisibleForTesting constructor(
     @Inject
     constructor(appConfig: AppConfig) : this(
         appConfig.appConfigFlow.map { it.featureFlags }
+            .distinctUntilChanged()
     )
 }
 
@@ -72,15 +71,18 @@ class GetRatingConfig @VisibleForTesting constructor(
     ratingConfigFlow: Flow<RatingConfig>
 ) : Flow<RatingConfig> by ratingConfigFlow {
     @Inject
-    constructor(appConfig: AppConfig) : this(appConfig.appConfigFlow.map {
-        it.ratingConfig ?: AppConfig.getDefaultRatingConfig()
-    })
+    constructor(appConfig: AppConfig) : this(
+        appConfig.appConfigFlow
+            .map { it.ratingConfig }
+            .distinctUntilChanged()
+    )
 }
 
 @Singleton
 class AppConfig @Inject constructor(
     mainScope: CoroutineScope,
     private val periodicUpdateManager: PeriodicUpdateManager,
+    private val appConfigStore: AppConfigStore,
     private val api: ProtonApiRetroFit,
     private val sessionProvider: SessionProvider,
     private val getNetZone: GetNetZone,
@@ -99,11 +101,7 @@ class AppConfig @Inject constructor(
     private suspend fun currentUserId(): UserId? = getActiveAuthenticatedAccount()?.userId
 
     val appConfigUpdateEvent = MutableSharedFlow<AppConfigResponse>(extraBufferCapacity = 1)
-    val appConfigFlow = appConfigUpdateEvent.stateIn(
-        mainScope,
-        started = SharingStarted.Eagerly,
-        initialValue = Storage.load(AppConfigResponse::class.java, getDefaultConfig())
-    ) as Flow<AppConfigResponse>
+    val appConfigFlow = appConfigStore.observe()
 
     private val appConfigUpdate = periodicUpdateManager.registerApiCall(
         "app_config",
@@ -149,12 +147,10 @@ class AppConfig @Inject constructor(
     suspend fun getWireguardPorts(): DefaultPorts = getDefaultPortsConfig().getWireguardPorts()
 
     private suspend fun getDefaultPortsConfig(): DefaultPortsConfig =
-        appConfigFlow.first().defaultPortsConfig ?: DefaultPortsConfig.defaultConfig
+        appConfigFlow.first().defaultPortsConfig
 
-    suspend fun getSmartProtocolConfig(): SmartProtocolConfig {
-        val smartConfig = appConfigFlow.first().smartProtocolConfig
-        return smartConfig ?: getDefaultConfig().smartProtocolConfig!!
-    }
+    suspend fun getSmartProtocolConfig(): SmartProtocolConfig =
+        appConfigFlow.first().smartProtocolConfig
 
     suspend fun getSmartProtocols(): List<ProtocolSelection> = smartProtocolsCached
         ?: getSmartProtocolConfig().getSmartProtocols().apply {
@@ -162,9 +158,6 @@ class AppConfig @Inject constructor(
         }
 
     suspend fun getFeatureFlags(): FeatureFlags = appConfigFlow.first().featureFlags
-
-    suspend fun getRatingConfig(): RatingConfig =
-        appConfigFlow.first().ratingConfig ?: getDefaultRatingConfig()
 
     private suspend fun updateBugReportInternal(userId: UserId?): ApiResult<DynamicReportModel> {
         val sessionId = sessionProvider.getSessionId(userId)
@@ -194,7 +187,7 @@ class AppConfig @Inject constructor(
         }
 
         result.valueOrNull?.let { config ->
-            Storage.save(config, AppConfigResponse::class.java)
+            appConfigStore.save(config)
             smartProtocolsCached = null
             appConfigUpdateEvent.tryEmit(config)
         }
@@ -210,31 +203,5 @@ class AppConfig @Inject constructor(
         private val UPDATE_DELAY_UI = TimeUnit.HOURS.toMillis(2)
         private val UPDATE_DELAY_FAIL = TimeUnit.HOURS.toMillis(2)
         private val BUG_REPORT_UPDATE_DELAY = TimeUnit.DAYS.toMillis(2)
-
-        fun getDefaultConfig(): AppConfigResponse {
-            val defaultPorts = DefaultPortsConfig.defaultConfig
-            val defaultFeatureFlags = FeatureFlags()
-
-            return AppConfigResponse(
-                defaultPortsConfig = defaultPorts,
-                featureFlags = defaultFeatureFlags,
-                smartProtocolConfig = getDefaultSmartProtocolConfig(),
-                ratingConfig = getDefaultRatingConfig()
-            )
-        }
-
-        fun getDefaultSmartProtocolConfig() = SmartProtocolConfig(
-            wireguardEnabled = true,
-            wireguardTcpEnabled = true,
-            wireguardTlsEnabled = true,
-        )
-
-        fun getDefaultRatingConfig(): RatingConfig = RatingConfig(
-            eligiblePlans = listOf("plus"),
-            successfulConnectionCount = 3,
-            daysSinceLastRatingCount = 3,
-            daysConnectedCount = 3,
-            daysFromFirstConnectionCount = 3
-        )
     }
 }

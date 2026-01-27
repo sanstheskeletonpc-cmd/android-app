@@ -20,33 +20,45 @@ package com.protonvpn.android.appconfig
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
-import me.proton.core.network.data.protonApi.IntToBoolSerializer
 
 @Serializable
 data class FeatureFlags(
-    @Serializable(with = IntToBoolSerializer::class)
+    // TODO: consider updating the defaults
     @SerialName(value = "ServerRefresh") val maintenanceTrackerEnabled: Boolean = true,
-    @Serializable(with = IntToBoolSerializer::class)
     @SerialName(value = "GuestHoles") val guestHoleEnabled: Boolean = false,
-    @Serializable(with = IntToBoolSerializer::class)
     @SerialName(value = "PollNotificationAPI") val pollApiNotifications: Boolean = false,
-    @Serializable(with = IntToBoolSerializer::class)
     @SerialName(value = "StreamingServicesLogos") val streamingServicesLogos: Boolean = false,
-    @Serializable(with = IntToBoolSerializer::class)
     @SerialName(value = "WireGuardTls") val wireguardTlsEnabled: Boolean = true,
     // Deprecated:
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "NetShield") val netShieldEnabled: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "NetShieldStats") val netShieldV2: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "PromoCode") val promoCodeEnabled: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "VpnAccelerator") val vpnAccelerator: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "SafeMode") val safeMode: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "ShowNewFreePlan") val showNewFreePlan: Boolean = false,
-//    @Serializable(with = IntToBoolSerializer::class)
+//    @Serializable(with = VpnIntToBoolSerializer::class)
 //    @SerialName(value = "Telemetry") val telemetry: Boolean = true,
 ) : java.io.Serializable
+
+@Serializable
+data class FeatureFlagsLegacyStorage(
+    val maintenanceTrackerEnabled: Boolean = true,
+    val guestHoleEnabled: Boolean = false,
+    val pollApiNotifications: Boolean = true,
+    val streamingServicesLogos: Boolean = false,
+    val wireguardTlsEnabled: Boolean = true,
+)
+
+fun FeatureFlagsLegacyStorage.migrate() = FeatureFlags(
+    maintenanceTrackerEnabled = maintenanceTrackerEnabled,
+    guestHoleEnabled = guestHoleEnabled,
+    pollApiNotifications = pollApiNotifications,
+    streamingServicesLogos = streamingServicesLogos,
+    wireguardTlsEnabled = wireguardTlsEnabled,
+)

@@ -92,7 +92,7 @@ class PrepareForConnetionTests {
 
         coEvery {
             appConfig.getWireguardPorts()
-        } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPortsInternal = listOf(1))
+        } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPorts = listOf(1))
         val getConnectingDomain = GetConnectingDomain(createGetSmartProtocols())
         prepareForConnetion = PrepareForConnection(appConfig, serverAvailabilityCheck, getConnectingDomain)
     }
@@ -125,27 +125,6 @@ class PrepareForConnetionTests {
         assertEquals(listOf(
             PrepareForConnection.ProtocolInfo(connectingDomainNoDedicatedEntry, TransmissionProtocol.TCP, "", 0),
             PrepareForConnection.ProtocolInfo(connectingDomainNoDedicatedEntry, TransmissionProtocol.TLS, "", 1),
-        ), result)
-    }
-
-    @Test
-    fun `TLS falls back to TCP port`() = runTest {
-        coEvery {
-            appConfig.getWireguardPorts()
-        } returns DefaultPorts(udpPorts = listOf(10), tcpPorts = listOf(0), tlsPortsInternal = null)
-        val result = prepareForConnetion.prepare(
-            testServerNoDedicatedEntry,
-            VpnProtocol.WireGuard,
-            setOf(TransmissionProtocol.TCP, TransmissionProtocol.TLS),
-            scan = true,
-            numberOfPorts = Int.MAX_VALUE,
-            waitForAll = true,
-            primaryTcpPort = 0,
-            includeTls = true
-        )
-        assertEquals(listOf(
-            PrepareForConnection.ProtocolInfo(connectingDomainNoDedicatedEntry, TransmissionProtocol.TCP, "", 0),
-            PrepareForConnection.ProtocolInfo(connectingDomainNoDedicatedEntry, TransmissionProtocol.TLS, "", 0),
         ), result)
     }
 

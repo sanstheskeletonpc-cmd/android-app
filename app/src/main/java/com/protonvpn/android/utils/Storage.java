@@ -98,7 +98,7 @@ public final class Storage {
     }
 
     @Nullable
-    public static <K,V extends K> V load(Class<K> keyClass, Class<V> objClass) {
+    public static <K, V> V load(Class<K> keyClass, Class<V> objClass) {
         String key = keyClass.getName();
         if (!preferences.contains(key)) {
             return null;
@@ -114,6 +114,11 @@ public final class Storage {
             return null;
         }
         return fromJson;
+    }
+
+    public static <K> Boolean containsKey(Class<K> keyClass) {
+        String key = keyClass.getName();
+        return preferences.contains(key);
     }
 
     public static void delete(String key) {

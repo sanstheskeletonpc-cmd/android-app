@@ -21,4 +21,26 @@ data class SmartProtocolConfig(
             if (wireguardTlsEnabled)
                 add(ProtocolSelection(VpnProtocol.WireGuard, TransmissionProtocol.TLS))
         }
+
+    companion object {
+        // TODO: or set defaults directly on the fields of the SmartProtocolConfig class?
+        val default = SmartProtocolConfig(
+            wireguardEnabled = true,
+            wireguardTcpEnabled = true,
+            wireguardTlsEnabled = true,
+        )
+    }
 }
+
+@Serializable
+data class SmartProtocolConfigLegacyStorage(
+    val wireguardEnabled: Boolean,
+    val wireguardTcpEnabled: Boolean = true,
+    val wireguardTlsEnabled: Boolean = true,
+)
+
+fun SmartProtocolConfigLegacyStorage.migrate() = SmartProtocolConfig(
+    wireguardEnabled = wireguardEnabled,
+    wireguardTcpEnabled = wireguardTcpEnabled,
+    wireguardTlsEnabled = wireguardTlsEnabled,
+)

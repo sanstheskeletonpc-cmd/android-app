@@ -28,4 +28,32 @@ data class RatingConfig(
     @SerialName(value = "DaysLastReviewPassed") val daysSinceLastRatingCount: Int,
     @SerialName(value = "DaysConnected") val daysConnectedCount: Int,
     @SerialName(value = "DaysFromFirstConnection") val daysFromFirstConnectionCount: Int
+) {
+    companion object {
+        // TODO: or set defaults directly on the fields of the RatingConfig class?
+        val default = RatingConfig(
+            eligiblePlans = listOf("plus"),
+            successfulConnectionCount = 3,
+            daysSinceLastRatingCount = 3,
+            daysConnectedCount = 3,
+            daysFromFirstConnectionCount = 3
+        )
+    }
+}
+
+@Serializable
+data class RatingConfigLegacyStorage(
+    val eligiblePlans: List<String>,
+    val successfulConnectionCount: Int,
+    val daysSinceLastRatingCount: Int,
+    val daysConnectedCount: Int,
+    val daysFromFirstConnectionCount: Int
+)
+
+fun RatingConfigLegacyStorage.migrate() = RatingConfig(
+    eligiblePlans = eligiblePlans,
+    successfulConnectionCount = successfulConnectionCount,
+    daysSinceLastRatingCount = daysSinceLastRatingCount,
+    daysConnectedCount = daysConnectedCount,
+    daysFromFirstConnectionCount = daysFromFirstConnectionCount,
 )

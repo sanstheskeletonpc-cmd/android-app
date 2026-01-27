@@ -37,20 +37,35 @@ data class AppConfigResponse(
     @SerialName(value = "ServerRefreshInterval")
     val underMaintenanceDetectionDelay: Long = Constants.DEFAULT_MAINTENANCE_CHECK_MINUTES,
     @SerialName(value = "LogicalsRefreshIntervalForegroundMinutes")
-    val logicalsRefreshForegroundDelayMinutesInternal: Long? = DEFAULT_SERVER_LIST_REFRESH_FOREGROUND_MINUTES,
+    val logicalsRefreshForegroundDelayMinutes: Long = DEFAULT_SERVER_LIST_REFRESH_FOREGROUND_MINUTES,
     @SerialName(value = "LogicalsRefreshIntervalBackgroundMinutes")
-    val logicalsRefreshBackgroundDelayMinutesInternal: Long? = DEFAULT_SERVER_LIST_REFRESH_BACKGROUND_MINUTES,
+    val logicalsRefreshBackgroundDelayMinutes: Long = DEFAULT_SERVER_LIST_REFRESH_BACKGROUND_MINUTES,
     @SerialName(value = "ChangeServerAttemptLimit")
-    val changeServerAttemptLimitInternal: Int? = 4,
+    val changeServerAttemptLimit: Int = DEFAULT_ATTEMPT_COUNT,
     @SerialName(value = "ChangeServerShortDelayInSeconds")
-    val changeServerShortDelayInSecondsInternal: Int? = 90,
+    val changeServerShortDelayInSeconds: Int = DEFAULT_CHANGE_SHORT_DELAY_SECONDS,
     @SerialName(value = "ChangeServerLongDelayInSeconds")
-    val changeServerLongDelayInSecondsInternal: Int? = 1200,
-    @SerialName(value = "DefaultPorts") val defaultPortsConfig: DefaultPortsConfig?,
-    @SerialName(value = "FeatureFlags") val featureFlags: FeatureFlags,
-    @SerialName(value = "SmartProtocol") val smartProtocolConfig: SmartProtocolConfig?,
-    @SerialName(value = "RatingSettings") val ratingConfig: RatingConfig?,
+    val changeServerLongDelayInSeconds: Int = DEFAULT_CHANGE_LONG_DELAY_SECONDS,
+    @SerialName(value = "DefaultPorts") val defaultPortsConfig: DefaultPortsConfig = DefaultPortsConfig.defaultConfig,
+    @SerialName(value = "FeatureFlags") val featureFlags: FeatureFlags = FeatureFlags(),
+    @SerialName(value = "SmartProtocol") val smartProtocolConfig: SmartProtocolConfig = SmartProtocolConfig.default,
+    @SerialName(value = "RatingSettings") val ratingConfig: RatingConfig = RatingConfig.default,
     @SerialName(value = "LargeMetricsSamplingMultiplier")
+    val largeMetricsSamplingMultiplier: Int = DEFAULT_LARGE_METRICS_SAMPLING_MULTIPLIER,
+)
+
+@Serializable
+data class AppConfigResponseLegacyStorage(
+    val underMaintenanceDetectionDelay: Long = Constants.DEFAULT_MAINTENANCE_CHECK_MINUTES,
+    val logicalsRefreshForegroundDelayMinutesInternal: Long? = DEFAULT_SERVER_LIST_REFRESH_FOREGROUND_MINUTES,
+    val logicalsRefreshBackgroundDelayMinutesInternal: Long? = DEFAULT_SERVER_LIST_REFRESH_BACKGROUND_MINUTES,
+    val changeServerAttemptLimitInternal: Int? = DEFAULT_ATTEMPT_COUNT,
+    val changeServerShortDelayInSecondsInternal: Int? = DEFAULT_CHANGE_SHORT_DELAY_SECONDS,
+    val changeServerLongDelayInSecondsInternal: Int? = DEFAULT_CHANGE_LONG_DELAY_SECONDS,
+    val defaultPortsConfig: DefaultPortsConfigLegacyStorage?,
+    val featureFlags: FeatureFlagsLegacyStorage,
+    val smartProtocolConfig: SmartProtocolConfigLegacyStorage?,
+    val ratingConfig: RatingConfigLegacyStorage?,
     private val largeMetricsSamplingMultiplierInternal: Int? = DEFAULT_LARGE_METRICS_SAMPLING_MULTIPLIER,
 ) {
     // Workaround for GSON problem with deserializing fields with default values
@@ -67,3 +82,17 @@ data class AppConfigResponse(
     val largeMetricsSamplingMultiplier get() =
         largeMetricsSamplingMultiplierInternal ?: DEFAULT_LARGE_METRICS_SAMPLING_MULTIPLIER
 }
+
+fun AppConfigResponseLegacyStorage.migrate() = AppConfigResponse(
+    underMaintenanceDetectionDelay = underMaintenanceDetectionDelay,
+    logicalsRefreshBackgroundDelayMinutes = logicalsRefreshBackgroundDelayMinutes,
+    logicalsRefreshForegroundDelayMinutes = logicalsRefreshForegroundDelayMinutes,
+    changeServerAttemptLimit = changeServerAttemptLimit,
+    changeServerShortDelayInSeconds = changeServerShortDelayInSeconds,
+    changeServerLongDelayInSeconds = changeServerLongDelayInSeconds,
+    defaultPortsConfig = defaultPortsConfig?.migrate() ?: DefaultPortsConfig.defaultConfig,
+    featureFlags = featureFlags.migrate(),
+    smartProtocolConfig = smartProtocolConfig?.migrate() ?: SmartProtocolConfig.default,
+    ratingConfig = ratingConfig?.migrate() ?: RatingConfig.default,
+    largeMetricsSamplingMultiplier = largeMetricsSamplingMultiplier
+)

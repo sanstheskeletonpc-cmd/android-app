@@ -35,9 +35,9 @@ class GetSmartProtocols @Inject constructor(
     val appConfig: AppConfig
 ) {
     suspend operator fun invoke(): List<ProtocolSelection> = appConfig.getSmartProtocols()
-    fun observe(): Flow<List<ProtocolSelection>> = appConfig.appConfigFlow.map {
-        (it.smartProtocolConfig ?: AppConfig.getDefaultSmartProtocolConfig()).getSmartProtocols()
-    }.distinctUntilChanged()
+    fun observe(): Flow<List<ProtocolSelection>> = appConfig.appConfigFlow
+        .map { it.smartProtocolConfig.getSmartProtocols() }
+        .distinctUntilChanged()
 }
 
 typealias SmartProtocols = List<ProtocolSelection>

@@ -19,10 +19,10 @@
 package com.protonvpn.android.models.login
 
 import com.protonvpn.android.auth.data.VpnUser
+import com.protonvpn.android.utils.VpnIntToBoolSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import me.proton.core.domain.entity.UserId
-import me.proton.core.network.data.protonApi.IntToBoolSerializer
 import me.proton.core.network.domain.session.SessionId
 
 @Serializable
@@ -33,7 +33,7 @@ data class VpnInfoResponse(
     @SerialName(value = "Services") val services: Int,
     @SerialName(value = "Delinquent") val delinquent: Int,
     @SerialName(value = "Credit") val credit: Int?,
-    @Serializable(with = IntToBoolSerializer::class)
+    @Serializable(with = VpnIntToBoolSerializer::class)
     @SerialName(value = "HasPaymentMethod") val hasPaymentMethod: Boolean?
 ) : java.io.Serializable
 

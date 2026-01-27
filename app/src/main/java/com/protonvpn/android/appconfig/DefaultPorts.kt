@@ -25,7 +25,18 @@ import kotlinx.serialization.Serializable
 data class DefaultPorts(
     @SerialName(value = "UDP") val udpPorts: List<Int>,
     @SerialName(value = "TCP") val tcpPorts: List<Int> = emptyList(),
-    @SerialName(value = "TLS") private val tlsPortsInternal: List<Int>? = null
-) {
-    val tlsPorts: List<Int> get() = tlsPortsInternal ?: tcpPorts
-}
+    @SerialName(value = "TLS") val tlsPorts: List<Int> = tcpPorts
+)
+
+@Serializable
+data class DefaultPortsLegacyStorage(
+    val udpPorts: List<Int>,
+    val tcpPorts: List<Int> = emptyList(),
+    val tlsPortsInternal: List<Int>? = null
+)
+
+fun DefaultPortsLegacyStorage.migrate() = DefaultPorts(
+    udpPorts = udpPorts,
+    tcpPorts = tcpPorts,
+    tlsPorts = tlsPortsInternal ?: tcpPorts,
+)

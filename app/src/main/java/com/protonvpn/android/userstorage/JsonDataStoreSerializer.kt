@@ -40,7 +40,7 @@ class JsonDataStoreSerializer<T>(
         try {
             json.decodeFromString(serializer, input.readBytes().decodeToString())
         } catch (serialization: SerializationException) {
-            throw CorruptionException("Unable to read LocalUserSettings", serialization)
+            throw CorruptionException("Unable to read local data store $serializer", serialization)
         }
 
     @Suppress("BlockingMethodInNonBlockingContext")

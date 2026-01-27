@@ -37,3 +37,12 @@ class DefaultPortsConfig(
         val defaultConfig = DefaultPortsConfig(wireguardDefaults)
     }
 }
+
+@Serializable
+class DefaultPortsConfigLegacyStorage(
+    val wireguardPorts: DefaultPortsLegacyStorage
+)
+
+fun DefaultPortsConfigLegacyStorage.migrate() = DefaultPortsConfig(
+    wireguardPorts = wireguardPorts.migrate()
+)
