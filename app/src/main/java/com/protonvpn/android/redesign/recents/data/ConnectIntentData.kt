@@ -29,6 +29,7 @@ import com.protonvpn.android.redesign.vpn.ConnectIntent
 import com.protonvpn.android.redesign.vpn.ServerFeature
 import com.protonvpn.android.settings.data.CustomDnsSettings
 import com.protonvpn.android.vpn.ProtocolSelection
+import kotlinx.serialization.Serializable
 import me.proton.core.util.kotlin.takeIfNotBlank
 
 enum class ConnectIntentType {
@@ -42,6 +43,7 @@ enum class ConnectIntentType {
 }
 
 // Note: when adding new fields add them to RecentDao.updateConnectionTimestamp.
+@Serializable
 data class ConnectIntentData(
     val connectIntentType: ConnectIntentType,
     val exitCountry: String?,
@@ -55,6 +57,7 @@ data class ConnectIntentData(
     @Embedded val settingsOverrides: SettingsOverrides?
 ) : java.io.Serializable
 
+@Serializable
 data class SettingsOverrides(
     @Embedded val protocolData: ProtocolSelectionData?,
     val netShield: NetShieldProtocol?,
@@ -66,6 +69,7 @@ data class SettingsOverrides(
     val protocol get() = protocolData?.toProtocolSelection()
 }
 
+@Serializable
 data class ProtocolSelectionData(
     val vpn: VpnProtocol,
     val transmission: TransmissionProtocol?

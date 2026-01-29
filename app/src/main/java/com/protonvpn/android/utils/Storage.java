@@ -84,7 +84,7 @@ public final class Storage {
         return preferences.getString(key, defValue);
     }
 
-    public static <T> void save(@Nullable T data, Class<T> as) {
+    public static <T, Key> void save(@Nullable T data, Class<Key> as) {
         if (data != null) {
             preferences.edit().putString(as.getName(), GSON.toJson(data)).apply();
         } else {

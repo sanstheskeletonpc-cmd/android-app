@@ -29,9 +29,19 @@ import com.protonvpn.android.redesign.recents.data.toData
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.api.ConnectingDomain
+import com.protonvpn.android.userstorage.UUIDSerializer
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.vpn.ProtocolSelection
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.Serializer
 import java.util.UUID
+
+@Serializable
+data class ConnectionParamsLegacyStorage(
+    val connectIntentData: ConnectIntentData,
+    @Serializable(with = UUIDSerializer::class)
+    val uuid: UUID,
+)
 
 open class ConnectionParams(
     val connectIntentData: ConnectIntentData,
@@ -44,8 +54,6 @@ open class ConnectionParams(
     val uuid: UUID = UUID.randomUUID(),
     val enableIPv6: Boolean = false
 ) : java.io.Serializable {
-
-    private val profile: Profile? = null // Used for handling old serialized objects.
 
     open val info get() = "IP: ${connectingDomain?.entryDomain}/$entryIp Protocol: $protocol Server: ${server.serverName}"
 
@@ -88,7 +96,12 @@ open class ConnectionParams(
 
         fun store(params: ConnectionParams?) {
             ProtonLogger.logCustom(LogCategory.CONN, "storing connection params (${params?.connectingDomain?.entryDomain})")
-            Storage.save(params, ConnectionParams::class.java)
+            if (params != null) {
+                val data = ConnectionParamsLegacyStorage(params.connectIntentData, params.uuid)
+                Storage.save(data, ConnectionParams::class.java)
+            } else {
+                Storage.delete(ConnectionParams::class.java)
+            }
         }
 
         fun deleteFromStore(msg: String) {
@@ -97,15 +110,9 @@ open class ConnectionParams(
         }
 
         fun readIntentFromStore(expectedUuid: UUID? = null): AnyConnectIntent? {
-            val value = Storage.load(ConnectionParams::class.java)
+            val value = Storage.load(ConnectionParams::class.java, ConnectionParamsLegacyStorage::class.java)
                 ?.takeIf { expectedUuid == null || it.uuid == expectedUuid }
-                ?: return null
-            if (value.profile != null) {
-                // TODO: try to implement profile.toConnectIntent(). The problem is it needs ServerManager and UserData
-                //  but maybe the conversion can be simplified?
-                return null
-            }
-            return value.connectIntent
+            return value?.connectIntentData?.toAnyConnectIntent()
         }
     }
 }
