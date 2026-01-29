@@ -19,7 +19,7 @@
 
 package com.protonvpn.mocks
 
-import com.protonvpn.android.appconfig.ApiNotificationsResponse
+import com.protonvpn.android.promooffers.data.ApiNotificationsResponse
 import com.protonvpn.android.models.config.bugreport.DynamicReportModel
 import com.protonvpn.android.models.vpn.CertificateResponse
 import com.protonvpn.android.servers.api.ServerListV1

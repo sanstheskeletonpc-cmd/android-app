@@ -20,17 +20,17 @@
 package com.protonvpn.app.ui.promooffer
 
 import android.app.Activity
-import com.protonvpn.android.appconfig.ApiNotification
-import com.protonvpn.android.appconfig.ApiNotificationManager
-import com.protonvpn.android.appconfig.ApiNotificationTypes
+import com.protonvpn.android.promooffers.data.ApiNotification
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationTypes
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.ui.ForegroundActivityTracker
-import com.protonvpn.android.ui.promooffers.NpsActivityOpener
-import com.protonvpn.android.ui.promooffers.OneTimePopupNotificationTrigger
-import com.protonvpn.android.ui.promooffers.PromoActivityOpener
-import com.protonvpn.android.ui.promooffers.PromoIapActivityOpener
-import com.protonvpn.android.ui.promooffers.PromoOffersPrefs
-import com.protonvpn.android.ui.promooffers.usecase.EnsureIapOfferStillValid
+import com.protonvpn.android.promooffers.usecase.NpsActivityOpener
+import com.protonvpn.android.promooffers.usecase.OneTimePopupNotificationTrigger
+import com.protonvpn.android.promooffers.usecase.PromoActivityOpener
+import com.protonvpn.android.promooffers.usecase.PromoIapActivityOpener
+import com.protonvpn.android.promooffers.data.PromoOffersPrefs
+import com.protonvpn.android.promooffers.usecase.EnsureIapOfferStillValid
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockFullScreenImagePanel
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockOffer

@@ -22,7 +22,7 @@ package com.protonvpn.android.redesign.settings.ui
 import androidx.lifecycle.ViewModel
 import com.protonvpn.android.api.GuestHole
 import com.protonvpn.android.api.data.DebugApiPrefs
-import com.protonvpn.android.appconfig.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
 import com.protonvpn.android.appconfig.AppConfig
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.ui.home.ServerListUpdater

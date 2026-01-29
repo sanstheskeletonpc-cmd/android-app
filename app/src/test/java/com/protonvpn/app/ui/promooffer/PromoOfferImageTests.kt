@@ -19,9 +19,8 @@
 
 package com.protonvpn.app.ui.promooffer
 
-import com.protonvpn.android.appconfig.ApiNotificationOfferFullScreenImage
-import com.protonvpn.android.ui.promooffers.PromoOfferImage
-import kotlinx.serialization.decodeFromString
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferFullScreenImage
+import com.protonvpn.android.promooffers.ui.PromoOfferImage
 import kotlinx.serialization.json.Json
 import org.junit.Assert.assertEquals
 import org.junit.Test

@@ -38,8 +38,8 @@ import com.protonvpn.android.appconfig.AppConfig
 import com.protonvpn.android.appconfig.ChangeServerConfigFlow
 import com.protonvpn.android.appconfig.DefaultChangeServerConfigFlow
 import com.protonvpn.android.appconfig.DefaultUserCountryTelephonyBased
-import com.protonvpn.android.appconfig.GlideImagePrefetcher
-import com.protonvpn.android.appconfig.ImagePrefetcher
+import com.protonvpn.android.promooffers.data.GlideImagePrefetcher
+import com.protonvpn.android.promooffers.data.ImagePrefetcher
 import com.protonvpn.android.appconfig.UserCountryTelephonyBased
 import com.protonvpn.android.appconfig.VpnFeatureFlagContextProvider
 import com.protonvpn.android.appconfig.globalsettings.GlobalSettingUpdateScheduler
@@ -58,7 +58,6 @@ import com.protonvpn.android.concurrency.DefaultDispatcherProvider
 import com.protonvpn.android.concurrency.VpnDispatcherProvider
 import com.protonvpn.android.managed.usecase.AutoLogin
 import com.protonvpn.android.managed.usecase.AutoLoginImpl
-import com.protonvpn.android.models.vpn.usecase.GetSmartProtocols
 import com.protonvpn.android.models.vpn.usecase.ProvideLocalNetworks
 import com.protonvpn.android.models.vpn.usecase.ProvideLocalNetworksImpl
 import com.protonvpn.android.profiles.usecases.GetPrivateBrowsingAvailability
@@ -69,7 +68,6 @@ import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingF
 import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingFeatureFlagEnabledImpl
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapter
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapterLegacy
-import com.protonvpn.android.redesign.reports.BugReportConfigStore
 import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabledImpl
 import com.protonvpn.android.redesign.search.ui.SearchViewModelDataAdapter
@@ -97,8 +95,8 @@ import com.protonvpn.android.tv.settings.IsTvCustomDnsSettingFeatureFlagEnabled
 import com.protonvpn.android.tv.settings.IsTvCustomDnsSettingFeatureFlagEnabledImpl
 import com.protonvpn.android.tv.settings.IsTvNetShieldSettingFeatureFlagEnabled
 import com.protonvpn.android.tv.settings.IsTvNetShieldSettingFeatureFlagEnabledImpl
-import com.protonvpn.android.ui.promooffers.usecase.IsIapClientSidePromoFeatureFlagEnabled
-import com.protonvpn.android.ui.promooffers.usecase.IsIapClientSidePromoFeatureFlagEnabledImpl
+import com.protonvpn.android.promooffers.usecase.IsIapClientSidePromoFeatureFlagEnabled
+import com.protonvpn.android.promooffers.usecase.IsIapClientSidePromoFeatureFlagEnabledImpl
 import com.protonvpn.android.ui.settings.AppIconManager
 import com.protonvpn.android.ui.settings.AppIconManagerImpl
 import com.protonvpn.android.ui.snackbar.DelegatedSnackManager

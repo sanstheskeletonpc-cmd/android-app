@@ -21,23 +21,24 @@ package com.protonvpn.app
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.protonvpn.android.api.ProtonApiRetroFit
-import com.protonvpn.android.appconfig.ApiNotification
-import com.protonvpn.android.appconfig.ApiNotificationManager
-import com.protonvpn.android.appconfig.ApiNotificationsResponse
 import com.protonvpn.android.appconfig.AppConfig
 import com.protonvpn.android.appconfig.AppConfigResponse
 import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.appconfig.FeatureFlags
-import com.protonvpn.android.appconfig.ImagePrefetcher
 import com.protonvpn.android.appconfig.periodicupdates.PeriodicUpdateManager
 import com.protonvpn.android.auth.usecase.CurrentUser
-import com.protonvpn.android.ui.promooffers.PromoOfferImage
-import com.protonvpn.android.ui.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
-import com.protonvpn.android.utils.Storage
+import com.protonvpn.android.promooffers.data.ApiNotification
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationsResponse
+import com.protonvpn.android.promooffers.data.ApiNotificationsStore
+import com.protonvpn.android.promooffers.data.ApiNotificationsStoreProvider
+import com.protonvpn.android.promooffers.data.ImagePrefetcher
+import com.protonvpn.android.promooffers.ui.PromoOfferImage
+import com.protonvpn.android.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
 import com.protonvpn.android.utils.UserPlanManager
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockFullScreenImagePanel
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockOffer
-import com.protonvpn.test.shared.MockSharedPreference
+import com.protonvpn.test.shared.InMemoryDataStoreFactory
 import com.protonvpn.test.shared.MockSharedPreferencesProvider
 import com.protonvpn.test.shared.TestCurrentUserProvider
 import com.protonvpn.test.shared.TestDispatcherProvider
@@ -115,7 +116,6 @@ class ApiNotificationManagerTests {
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        Storage.setPreferences(MockSharedPreference())
         appFeaturesPrefs = AppFeaturesPrefs(MockSharedPreferencesProvider())
         testDispatcher = UnconfinedTestDispatcher()
         testScope = TestScope(testDispatcher)
@@ -260,6 +260,8 @@ class ApiNotificationManagerTests {
 
     @Test
     fun `notifications fetched from API are restored on restart`() = testScope.runTest {
+        val store = createApiNotificationsStore()
+        notificationManager = createNotificationsManager(store)
         mockResponse(
             mockOffer("offer 1", 0, 10),
             mockOffer("offer 2", 0, 20),
@@ -268,13 +270,15 @@ class ApiNotificationManagerTests {
         notificationManager.updateNotifications()
         assertEquals(expectedNotificationIds, notificationManager.activeListFlow.first().map { it.id })
 
-        val newNotificationManager = createNotificationsManager()
+        val newNotificationManager = createNotificationsManager(store)
         val notificationIds = newNotificationManager.activeListFlow.first().map { it.id }
         assertEquals(expectedNotificationIds, notificationIds)
     }
 
     @Test
     fun `notifications for intro offers are restored on restart`() = testScope.runTest {
+        val store = createApiNotificationsStore()
+        notificationManager = createNotificationsManager(store)
         mockResponse()
         val introOffers = listOf(mockOffer("internal_intro_price_1"))
         coEvery { mockGenerateNotificationsForIntroductoryOffers.invoke() } returns introOffers
@@ -284,7 +288,7 @@ class ApiNotificationManagerTests {
         advanceTimeBy(10_001)
         assertEquals(expectedNotificationIds, notificationManager.activeListFlow.first().map { it.id })
 
-        val newNotificationManager = createNotificationsManager()
+        val newNotificationManager = createNotificationsManager(store)
         val notificationIds = newNotificationManager.activeListFlow.first().map { it.id }
         assertEquals(expectedNotificationIds, notificationIds)
     }
@@ -306,12 +310,15 @@ class ApiNotificationManagerTests {
         }
     }
 
-    private fun createNotificationsManager() = ApiNotificationManager(
+    private fun createNotificationsManager(
+        apiNotificationsStore: ApiNotificationsStore = createApiNotificationsStore()
+    ) = ApiNotificationManager(
         appContext = mockContext,
         mainScope = testScope.backgroundScope,
         dispatcherProvider = TestDispatcherProvider(testDispatcher),
         wallClockMs = { testScope.currentTime },
         appConfig = mockAppConfig,
+        apiNotificationsStore = apiNotificationsStore,
         api = mockApi,
         currentUser = currentUser,
         userPlanManager = mockUserPlanManager,
@@ -321,4 +328,7 @@ class ApiNotificationManagerTests {
         inForeground = flowOf(true),
         isLoggedIn = flowOf(true),
     )
+
+    private fun createApiNotificationsStore() =
+        ApiNotificationsStore(ApiNotificationsStoreProvider( InMemoryDataStoreFactory()))
 }

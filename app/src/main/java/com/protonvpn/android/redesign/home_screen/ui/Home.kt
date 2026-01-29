@@ -105,10 +105,10 @@ import com.protonvpn.android.ui.home.vpn.ChangeServerButton
 import com.protonvpn.android.ui.planupgrade.CarouselUpgradeDialogActivity
 import com.protonvpn.android.ui.planupgrade.UpgradeNetShieldHighlightsFragment
 import com.protonvpn.android.ui.planupgrade.UpgradePlusCountriesHighlightsFragment
-import com.protonvpn.android.ui.promooffers.ProminentBannerState
-import com.protonvpn.android.ui.promooffers.PromoOfferBanner
-import com.protonvpn.android.ui.promooffers.PromoOfferBannerState
-import com.protonvpn.android.ui.promooffers.PromoOfferProminentBanner
+import com.protonvpn.android.promooffers.ui.ProminentBannerState
+import com.protonvpn.android.promooffers.ui.PromoOfferBanner
+import com.protonvpn.android.promooffers.ui.PromoOfferBannerState
+import com.protonvpn.android.promooffers.ui.PromoOfferProminentBanner
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.isNightMode
 import com.protonvpn.android.utils.openUrl

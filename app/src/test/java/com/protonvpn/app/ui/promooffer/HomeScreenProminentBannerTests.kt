@@ -19,16 +19,16 @@
 
 package com.protonvpn.app.ui.promooffer
 
-import com.protonvpn.android.appconfig.ApiNotification
-import com.protonvpn.android.appconfig.ApiNotificationManager
-import com.protonvpn.android.appconfig.ApiNotificationOffer
-import com.protonvpn.android.appconfig.ApiNotificationOfferButton
-import com.protonvpn.android.appconfig.ApiNotificationProminentBanner
-import com.protonvpn.android.appconfig.ApiNotificationProminentBannerStyle
-import com.protonvpn.android.appconfig.ApiNotificationTypes
-import com.protonvpn.android.ui.promooffers.HomeScreenProminentBannerFlow
-import com.protonvpn.android.ui.promooffers.ProminentBannerState
-import com.protonvpn.android.ui.promooffers.PromoOffersPrefs
+import com.protonvpn.android.promooffers.data.ApiNotification
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationOffer
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferButton
+import com.protonvpn.android.promooffers.data.ApiNotificationProminentBanner
+import com.protonvpn.android.promooffers.data.ApiNotificationProminentBannerStyle
+import com.protonvpn.android.promooffers.data.ApiNotificationTypes
+import com.protonvpn.android.promooffers.ui.HomeScreenProminentBannerFlow
+import com.protonvpn.android.promooffers.ui.ProminentBannerState
+import com.protonvpn.android.promooffers.data.PromoOffersPrefs
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockOffer
 import com.protonvpn.test.shared.MockSharedPreferencesProvider
 import io.mockk.MockKAnnotations

@@ -19,16 +19,16 @@
 
 package com.protonvpn.test.shared
 
-import com.protonvpn.android.appconfig.ApiNotification
-import com.protonvpn.android.appconfig.ApiNotificationOffer
-import com.protonvpn.android.appconfig.ApiNotificationOfferButton
-import com.protonvpn.android.appconfig.ApiNotificationOfferFullScreenImage
-import com.protonvpn.android.appconfig.ApiNotificationOfferImageSource
-import com.protonvpn.android.appconfig.ApiNotificationOfferPanel
-import com.protonvpn.android.appconfig.ApiNotificationProductDetails
-import com.protonvpn.android.appconfig.ApiNotificationProminentBanner
-import com.protonvpn.android.appconfig.ApiNotificationTypes
-import com.protonvpn.android.appconfig.ApiNotificationsResponse
+import com.protonvpn.android.promooffers.data.ApiNotification
+import com.protonvpn.android.promooffers.data.ApiNotificationOffer
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferButton
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferFullScreenImage
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferImageSource
+import com.protonvpn.android.promooffers.data.ApiNotificationOfferPanel
+import com.protonvpn.android.promooffers.data.ApiNotificationProductDetails
+import com.protonvpn.android.promooffers.data.ApiNotificationProminentBanner
+import com.protonvpn.android.promooffers.data.ApiNotificationTypes
+import com.protonvpn.android.promooffers.data.ApiNotificationsResponse
 
 object ApiNotificationTestHelper {
 

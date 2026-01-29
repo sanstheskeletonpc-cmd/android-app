@@ -19,15 +19,15 @@
 
 package com.protonvpn.app.promooffers.usecase
 
-import com.protonvpn.android.appconfig.ApiNotification
-import com.protonvpn.android.appconfig.ApiNotificationTypes
+import com.protonvpn.android.promooffers.data.ApiNotification
+import com.protonvpn.android.promooffers.data.ApiNotificationTypes
 import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.ui.planupgrade.IsInAppUpgradeAllowedUseCase
 import com.protonvpn.android.ui.planupgrade.usecase.LoadGoogleSubscriptionPlans
-import com.protonvpn.android.ui.promooffers.usecase.FakeIsIapClientSidePromoFeatureFlagEnabled
-import com.protonvpn.android.ui.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
-import com.protonvpn.android.ui.promooffers.usecase.GetEligibleIntroductoryOffers
+import com.protonvpn.android.promooffers.usecase.FakeIsIapClientSidePromoFeatureFlagEnabled
+import com.protonvpn.android.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
+import com.protonvpn.android.promooffers.usecase.GetEligibleIntroductoryOffers
 import com.protonvpn.mocks.TestDefaultLocaleProvider
 import com.protonvpn.test.shared.MockSharedPreferencesProvider
 import com.protonvpn.test.shared.TestCurrentUserProvider

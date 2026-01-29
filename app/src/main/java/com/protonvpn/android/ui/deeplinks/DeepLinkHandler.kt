@@ -20,7 +20,7 @@
 package com.protonvpn.android.ui.deeplinks
 
 import android.net.Uri
-import com.protonvpn.android.appconfig.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
 import com.protonvpn.android.utils.UserPlanManager
 import dagger.Reusable
 import kotlinx.coroutines.CoroutineScope

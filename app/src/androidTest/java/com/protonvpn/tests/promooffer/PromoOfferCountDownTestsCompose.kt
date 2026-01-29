@@ -21,7 +21,7 @@
 
 package com.protonvpn.tests.promooffer
 
-import com.protonvpn.android.ui.promooffers.CountDownState
+import com.protonvpn.android.promooffers.ui.CountDownState
 import com.protonvpn.testRules.setVpnContent
 import me.proton.test.fusion.ui.compose.FusionComposeTest
 import org.junit.Assert.assertEquals

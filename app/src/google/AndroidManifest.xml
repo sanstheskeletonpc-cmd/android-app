@@ -22,6 +22,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingLeanbackLauncher,MissingLeanbackSupport,ImpliedTouchscreenHardware">
     <application>
-        <activity android:name=".ui.promooffers.PromoOfferIapActivity" />
+        <activity android:name=".promooffers.ui.PromoOfferIapActivity" />
     </application>
 </manifest>

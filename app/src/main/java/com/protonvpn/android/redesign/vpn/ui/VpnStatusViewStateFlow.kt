@@ -25,7 +25,7 @@ import com.protonvpn.android.netshield.NetShieldViewState
 import com.protonvpn.android.netshield.getNetShieldAvailability
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
 import com.protonvpn.android.ui.home.ServerListUpdaterPrefs
-import com.protonvpn.android.ui.promooffers.HomeScreenPromoBannerFlow
+import com.protonvpn.android.promooffers.ui.HomeScreenPromoBannerFlow
 import com.protonvpn.android.utils.CountryTools
 import com.protonvpn.android.vpn.DnsOverride
 import com.protonvpn.android.vpn.DnsOverrideFlow

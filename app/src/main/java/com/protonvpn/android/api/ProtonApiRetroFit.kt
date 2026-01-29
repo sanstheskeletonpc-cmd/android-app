@@ -35,7 +35,7 @@ import com.protonvpn.android.models.vpn.CertificateResponse
 import com.protonvpn.android.models.vpn.PromoCodesBody
 import com.protonvpn.android.telemetry.StatsBody
 import com.protonvpn.android.telemetry.StatsEvent
-import com.protonvpn.android.ui.promooffers.usecase.PostNps
+import com.protonvpn.android.promooffers.usecase.PostNps
 import me.proton.core.network.domain.ApiResult
 import me.proton.core.network.domain.TimeoutOverride
 import me.proton.core.network.domain.session.SessionId

@@ -55,7 +55,7 @@ import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.ui.home.ServerListUpdater
 import com.protonvpn.android.ui.onboarding.ReviewTracker
 import com.protonvpn.android.ui.planupgrade.ShowUpgradeSuccess
-import com.protonvpn.android.ui.promooffers.OneTimePopupNotificationTrigger
+import com.protonvpn.android.promooffers.usecase.OneTimePopupNotificationTrigger
 import com.protonvpn.android.utils.SentryIntegration.initSentry
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.VpnCoreLogger

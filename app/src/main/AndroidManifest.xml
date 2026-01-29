@@ -141,9 +141,9 @@
             android:name=".ui.drawer.LogActivity"
             android:label="@string/log_title" />
         <activity
-            android:name=".ui.promooffers.PromoOfferActivity" />
+            android:name=".promooffers.ui.PromoOfferActivity" />
         <activity
-            android:name=".ui.promooffers.NpsActivity"
+            android:name=".promooffers.ui.NpsActivity"
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.onboarding.OnboardingActivity"

@@ -63,7 +63,7 @@ private fun migrateData(src: ProtonPreferences, dst: SharedPreferences) {
             "LAST_USER",
             "VpnStateMonitor.VPN_STATE_NAME",
             "sentry_installation_id",
-            "com.protonvpn.android.appconfig.ApiNotificationsResponse",
+            "com.protonvpn.android.promooffers.data.ApiNotificationsResponse",
             "com.protonvpn.android.appconfig.AppConfigResponse",
             "com.protonvpn.android.models.config.bugreport.DynamicReportModel",
             "com.protonvpn.android.models.config.UserData",

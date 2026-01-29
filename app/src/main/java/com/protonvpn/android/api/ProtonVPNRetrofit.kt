@@ -18,7 +18,7 @@
  */
 package com.protonvpn.android.api
 
-import com.protonvpn.android.appconfig.ApiNotificationsResponse
+import com.protonvpn.android.promooffers.data.ApiNotificationsResponse
 import com.protonvpn.android.appconfig.AppConfigResponse
 import com.protonvpn.android.appconfig.ForkedSessionResponse
 import com.protonvpn.android.appconfig.SessionForkSelectorResponse
@@ -44,7 +44,7 @@ import com.protonvpn.android.models.vpn.UserLocation
 import com.protonvpn.android.servers.api.CityTranslationsResponse
 import com.protonvpn.android.servers.api.LogicalsResponse
 import com.protonvpn.android.telemetry.StatsBody
-import com.protonvpn.android.ui.promooffers.usecase.PostNps
+import com.protonvpn.android.promooffers.usecase.PostNps
 import me.proton.core.network.data.protonApi.BaseRetrofitApi
 import me.proton.core.network.domain.TimeoutOverride
 import okhttp3.RequestBody
