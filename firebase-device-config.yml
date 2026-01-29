@@ -1,3 +1,5 @@
+# If this file is removed default config from firebase component will be used
+# Due to API 36 mocked api tests failing, leaving client specific config as is.
 mobileTest:
   timeout: 30m
   device:
