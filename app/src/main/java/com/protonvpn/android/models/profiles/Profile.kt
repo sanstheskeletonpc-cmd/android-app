@@ -18,42 +18,18 @@
  */
 package com.protonvpn.android.models.profiles
 
-import com.protonvpn.android.models.config.TransmissionProtocol
-import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.servers.Server
-import com.protonvpn.android.settings.data.LocalUserSettings
-import com.protonvpn.android.vpn.ProtocolSelection
 import java.io.Serializable
 import java.util.UUID
 
 data class Profile @JvmOverloads constructor(
-    val name: String,
-    private val color: String?,
     val wrapper: ServerWrapper,
-    private val colorId: Int?,
-    val isSecureCore: Boolean?,
-    private var protocol: String? = null,
-    private var transmissionProtocol: String? = null,
     val id: UUID? = UUID.randomUUID(),
-    var isGuestHoleProfile: Boolean = false
 ) : Serializable {
 
     val isPreBakedProfile: Boolean
         get() = wrapper.isPreBakedProfile
-    val isPreBakedFastest: Boolean
-        get() = wrapper.isPreBakedFastest
 
     val country: String get() = wrapper.country
-
-    fun getProtocol(settings: LocalUserSettings) = protocol?.let { protocol ->
-        val vpnProtocol = VpnProtocol.entries.firstOrNull { it.name == protocol } ?: VpnProtocol.Smart
-        ProtocolSelection(vpnProtocol, transmissionProtocol?.let(TransmissionProtocol::valueOf))
-    } ?: settings.protocol
-
-    fun setProtocol(protocol: ProtocolSelection) {
-        this.protocol = protocol.vpn.toString()
-        this.transmissionProtocol = protocol.transmission?.toString()
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -65,13 +41,4 @@ data class Profile @JvmOverloads constructor(
     }
 
     override fun hashCode(): Int = id.hashCode()
-
-    companion object {
-        @JvmStatic
-        fun getTempProfile(server: Server) = getTempProfile(server, null)
-        fun getTempProfile(server: Server, isSecureCore: Boolean?) =
-            getTempProfile(ServerWrapper.makeWithServer(server), isSecureCore)
-        fun getTempProfile(serverWrapper: ServerWrapper, isSecureCore: Boolean? = null) =
-            Profile("", null, serverWrapper, null, isSecureCore)
-    }
 }

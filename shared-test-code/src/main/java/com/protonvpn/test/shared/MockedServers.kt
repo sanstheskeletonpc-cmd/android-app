@@ -44,13 +44,6 @@ object MockedServers {
 
     val server by lazy { serverList.first() }
 
-    fun getProfile(server: Server, protocol: VpnProtocol, name: String = protocol.name, transmissionProtocol: TransmissionProtocol? = null) =
-        Profile(name, null, ServerWrapper.makeWithServer(server), ProfileColor.CARROT.id, null).apply {
-            setProtocol(ProtocolSelection(protocol, transmissionProtocol))
-        }
-
-    fun getCountryCount() = serverList.map { it.exitCountry }.toSet().size
-
     @Suppress("ClassOrdering")
     val serverListJson = """
 [

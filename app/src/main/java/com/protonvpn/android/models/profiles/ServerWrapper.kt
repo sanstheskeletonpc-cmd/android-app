@@ -22,7 +22,6 @@ import com.google.gson.annotations.SerializedName
 import com.protonvpn.android.servers.Server
 import java.io.Serializable
 
-@SuppressWarnings("DataClassShouldBeImmutable")
 data class ServerWrapper(
     val type: ProfileType,
     val country: String,
@@ -38,10 +37,6 @@ data class ServerWrapper(
     override fun toString() =
         "type: $type country: $country serverId: $serverId"
 
-    val isPreBakedFastest get() = type == ProfileType.FASTEST
-    val isPreBakedRandom get() = type == ProfileType.RANDOM
-    val isFastestInCountry get() = type == ProfileType.FASTEST_IN_COUNTRY
-    val isRandomInCountry get() = type == ProfileType.RANDOM_IN_COUNTRY
     val isPreBakedProfile get() = type == ProfileType.FASTEST || type == ProfileType.RANDOM
 
     companion object {

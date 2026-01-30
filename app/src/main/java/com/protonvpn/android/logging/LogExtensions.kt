@@ -47,20 +47,6 @@ enum class Setting(val logName: String) {
     TELEMETRY("Telemetry")
 }
 
-fun Profile.toLog(settings: LocalUserSettings): String {
-    val type = when {
-        isPreBakedFastest -> "Fastest"
-        isPreBakedProfile -> "Random"
-        name.isNotBlank() -> "Custom" // Logs are sent to Sentry, let's not send profile names.
-        else -> "None"
-    }
-    val protocol = getProtocol(settings)
-    val serverInfo = arrayOf(wrapper.type.toString(), wrapper.country, wrapper.serverId)
-        .filterNot { it.isNullOrBlank() }
-        .joinToString(" ")
-    return "Profile: $type, protocol: $protocol, server: $serverInfo"
-}
-
 fun AnyConnectIntent.toLog(): String {
     val description = when (this) {
         is ConnectIntent.FastestInCountry -> "Fastest in country: ${country.toLog()}"

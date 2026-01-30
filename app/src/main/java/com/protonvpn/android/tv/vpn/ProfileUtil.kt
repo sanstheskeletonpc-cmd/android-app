@@ -34,11 +34,8 @@ import me.proton.core.util.kotlin.takeIfNotBlank
 // Note: we should move away from using Profiles for TV recents.
 fun createProfileForCountry(countryCode: String): Profile =
     Profile(
-        CountryTools.getFullName(countryCode),
-        null,
         ServerWrapper.makeFastestForCountry(countryCode),
         null,
-        null
     )
 
 fun getConnectCountry(

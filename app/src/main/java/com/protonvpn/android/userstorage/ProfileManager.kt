@@ -46,6 +46,7 @@ class ProfileManager @VisibleForTesting constructor(
         userSettingsManager: CurrentUserLocalSettingsManager,
     ) : this(loadProfiles(), mainScope, effectiveUserSettings, userSettingsManager)
 
+    @VisibleForTesting
     fun getSavedProfiles(): List<Profile> = savedProfiles.profileList
 
     fun findDefaultProfile(): Profile? =
@@ -71,16 +72,9 @@ class ProfileManager @VisibleForTesting constructor(
         }
     }
 
-    fun deleteSavedProfiles() {
-        for (profile in getSavedProfiles().toList()) {
-            if (!profile.isPreBakedProfile) {
-                deleteProfile(profile)
-            }
-        }
-    }
-
     companion object {
-        private fun loadProfiles(): SavedProfilesV3 =
+        @VisibleForTesting
+        fun loadProfiles(): SavedProfilesV3 =
             Storage.load(SavedProfilesV3::class.java, SavedProfilesV3.defaultProfiles())
     }
 }

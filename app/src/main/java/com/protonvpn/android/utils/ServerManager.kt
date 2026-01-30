@@ -332,7 +332,6 @@ class ServerManager @Inject constructor(
         smartProtocols: SmartProtocols
     ): Server? {
         val wrapper = profile.wrapper
-        val needsSecureCore = profile.isSecureCore ?: false
         return when (wrapper.type) {
             ProfileType.FASTEST -> {
                 val tvServers = allServersByScore.filter { it.online && !it.isGatewayServer }
@@ -343,12 +342,12 @@ class ServerManager @Inject constructor(
                 getRandomServer(vpnUser, protocol, smartProtocols)
 
             ProfileType.RANDOM_IN_COUNTRY ->
-                getVpnExitCountry(wrapper.country, needsSecureCore)?.let {
+                getVpnExitCountry(wrapper.country, false)?.let {
                     getRandomServer(it, vpnUser, protocol, smartProtocols)
                 }
 
             ProfileType.FASTEST_IN_COUNTRY ->
-                getVpnExitCountry(wrapper.country, needsSecureCore)?.let {
+                getVpnExitCountry(wrapper.country, false)?.let {
                     getBestScoreServer(it.serverList, vpnUser, protocol, smartProtocols)
                 }
 
