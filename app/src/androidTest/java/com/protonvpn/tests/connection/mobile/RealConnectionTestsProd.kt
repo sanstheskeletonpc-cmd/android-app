@@ -34,6 +34,7 @@ import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.utils.openVpnSettings
 import com.protonvpn.android.vpn.ProtocolSelection
 import com.protonvpn.android.vpn.VpnStateMonitor
+import com.protonvpn.android.vpn.usecases.IsProTunV1FeatureFlagEnabled
 import com.protonvpn.robots.mobile.LoginRobotVpn
 import com.protonvpn.test.shared.TestUserEndToEnd
 import com.protonvpn.testRules.CommonRuleChains.realBackendComposeRule
@@ -56,6 +57,8 @@ class RealConnectionTestsProd {
     lateinit var vpnStateMonitor: VpnStateMonitor
     @Inject
     lateinit var testUserEndToEnd: TestUserEndToEnd
+    @Inject
+    lateinit var proTunV1FeatureFlagEnabled: IsProTunV1FeatureFlagEnabled
 
     private val addAccountRobot = AddAccountRobot()
     private lateinit var userDataHelper: UserDataHelper
@@ -98,7 +101,7 @@ class RealConnectionTestsProd {
     fun realConnectionProTunSmart() {
         realConnection(
             ProtocolSelection(VpnProtocol.ProTun),
-            R.string.settingsProtocolNameWireguard
+            R.string.settingsProtocolNameProtonSmart
         )
     }
 
@@ -106,7 +109,7 @@ class RealConnectionTestsProd {
     fun realConnectionProTunUDP() {
         realConnection(
             ProtocolSelection(VpnProtocol.ProTun, TransmissionProtocol.UDP),
-            R.string.settingsProtocolNameWireguard
+            R.string.settingsProtocolNameProtonWireguard
         )
     }
 
@@ -114,7 +117,7 @@ class RealConnectionTestsProd {
     fun realConnectionProTunTCP() {
         realConnection(
             ProtocolSelection(VpnProtocol.ProTun, TransmissionProtocol.TCP),
-            R.string.settingsProtocolNameWireguardTCP
+            R.string.settingsProtocolNameProtonWireguardTCP
 
         )
     }
@@ -123,7 +126,7 @@ class RealConnectionTestsProd {
     fun realConnectionProTunTLS() {
         realConnection(
             ProtocolSelection(VpnProtocol.ProTun, TransmissionProtocol.TLS),
-            R.string.settingsProtocolNameWireguardTLS
+            R.string.settingsProtocolNameProtonStealth
         )
     }
 
@@ -148,6 +151,10 @@ class RealConnectionTestsProd {
         userDataHelper.setProtocol(protocol.vpn, protocol.transmission)
         addAccountRobot.signIn()
         LoginRobotVpn.signIn(testUserEndToEnd.anyPaidUserProd)
+
+        val shouldRun = protocol.vpn != VpnProtocol.ProTun || runBlocking { proTunV1FeatureFlagEnabled() }
+        if (!shouldRun) return
+
         HomeRobot.verify { isLoggedIn() }
         ConnectionRobot.quickConnect()
             .allowVpnPermission()
