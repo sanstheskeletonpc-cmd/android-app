@@ -24,6 +24,7 @@ import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.logging.AppUpdateUpdated
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.models.vpn.CertificateData
+import com.protonvpn.android.servers.StreamingServicesUpdater
 import com.protonvpn.android.settings.usecases.EnableTvLanSettingOnMigration
 import com.protonvpn.android.ui.storage.UiStateStorage
 import com.protonvpn.android.utils.Storage
@@ -31,6 +32,7 @@ import com.protonvpn.android.vpn.usecases.UpdateCertForCurrentUser
 import dagger.Reusable
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -42,6 +44,7 @@ class UpdateMigration @Inject constructor(
     private val uiStateStorage: dagger.Lazy<UiStateStorage>,
     private val updateCertForCurrentUser: dagger.Lazy<UpdateCertForCurrentUser>,
     private val enableTvLanSettingOnMigration: dagger.Lazy<EnableTvLanSettingOnMigration>,
+    private val streamingServicesUpdater: dagger.Lazy<StreamingServicesUpdater>,
 ) {
     private val oldVersionCode = Storage.getInt("VERSION_CODE")
     private val newVersionCode = BuildConfig.VERSION_CODE
@@ -58,6 +61,7 @@ class UpdateMigration @Inject constructor(
             remove_cert_storage_v1(strippedOldVersionCode)
             migrateTvLanSetting(strippedOldVersionCode)
             adoptExcludedLocations(strippedOldVersionCode)
+            updateStreamingServices(oldVersionCode)
         }
         if (oldVersionCode == 0 || isUpdatedVersion) {
             Storage.saveInt("VERSION_CODE", newVersionCode)
@@ -116,6 +120,16 @@ class UpdateMigration @Inject constructor(
         if (oldVersionCode <= 5_15_51_00) {
             mainScope.launch {
                 uiStateStorage.get().update { it.copy(shouldShowExcludedLocationsAdoption = true) }
+            }
+        }
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private fun updateStreamingServices(oldVersionCode: Int) {
+        if (oldVersionCode <= 5_15_70_0) {
+            mainScope.launch {
+                delay(10_000)
+                streamingServicesUpdater.get().forceUpdate()
             }
         }
     }

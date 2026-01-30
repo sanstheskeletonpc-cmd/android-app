@@ -19,40 +19,76 @@
 
 package com.protonvpn.android.servers
 
+import android.content.Context
 import android.net.Uri
 import com.protonvpn.android.appconfig.GetFeatureFlags
+import com.protonvpn.android.concurrency.VpnDispatcherProvider
+import com.protonvpn.android.servers.api.StreamingServicesResponse
 import com.protonvpn.android.tv.IsTvCheck
+import com.protonvpn.android.utils.BytesFileWriter
+import com.protonvpn.android.utils.FileObjectStore
+import com.protonvpn.android.utils.KotlinCborObjectSerializer
+import com.protonvpn.android.utils.ObjectStore
 import com.protonvpn.android.utils.ServerManager
+import com.protonvpn.android.utils.StreamingServicesModel
 import dagger.Reusable
+import dagger.hilt.android.qualifiers.ApplicationContext
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.first
+import java.io.File
 import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class StreamingServicesObjectStore(
+    private val store: ObjectStore<StreamingServicesResponse>,
+) : ObjectStore<StreamingServicesResponse> by store {
+
+    @Inject
+    constructor(
+        mainScope: CoroutineScope,
+        @ApplicationContext context: Context,
+        dispatcherProvider: VpnDispatcherProvider
+    ) : this(
+        FileObjectStore(
+            File(context.filesDir, "streaming_services_data"),
+            mainScope,
+            dispatcherProvider,
+            KotlinCborObjectSerializer(StreamingServicesResponse.serializer()),
+            BytesFileWriter(),
+        )
+    )
+}
 
 data class StreamingService(val name: String, val iconUrl: String?)
 
 @Reusable
 class GetStreamingServices @Inject constructor(
-    private val serverManager: ServerManager,
+    private val store: StreamingServicesObjectStore,
     private val featureFlags: GetFeatureFlags,
     isTvCheck: IsTvCheck
 ) {
     private val isTV = isTvCheck.invoke()
-    suspend operator fun invoke(countryCode: String): List<StreamingService> =
-        serverManager.streamingServicesModel?.let { streamingServices ->
-            val displayStreamingIcons = featureFlags.first().streamingServicesLogos
-            streamingServices.getForAllTiers(countryCode).map { streamingService ->
-                val iconName = if (isTV) streamingService.iconName else streamingService.coloredIconName
-                StreamingService(
-                    streamingService.name,
-                    if (displayStreamingIcons) {
-                        Uri.parse(streamingServices.resourceBaseURL)
-                            .buildUpon()
-                            .appendEncodedPath(iconName)
-                            .toString()
+    suspend operator fun invoke(countryCode: String): List<StreamingService> {
+        val data = store.read() ?: return emptyList()
 
-                    } else {
-                        null
-                    }
-                )
-            }
-        } ?: emptyList()
+        val streamingServices = StreamingServicesModel(data)
+        val displayStreamingIcons = featureFlags.first().streamingServicesLogos
+        return streamingServices.getForAllTiers(countryCode).map { streamingService ->
+            val iconName =
+                if (isTV) streamingService.iconName else streamingService.coloredIconName
+            StreamingService(
+                streamingService.name,
+                if (displayStreamingIcons) {
+                    Uri.parse(streamingServices.resourceBaseURL)
+                        .buildUpon()
+                        .appendEncodedPath(iconName)
+                        .toString()
+
+                } else {
+                    null
+                }
+            )
+        }
+    }
 }

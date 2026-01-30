@@ -42,7 +42,6 @@ import com.protonvpn.android.servers.IsBinaryServerStatusEnabled
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.servers.UpdateServerListFromApi
 import com.protonvpn.android.servers.api.ServersCountResponse
-import com.protonvpn.android.servers.api.StreamingServicesResponse
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.UserPlanManager
@@ -119,11 +118,6 @@ class ServerListUpdater @Inject constructor(
         ::updateLocationIfVpnOff,
         PeriodicUpdateSpec(LOCATION_CALL_DELAY, setOf(inForeground, isDisconnected))
     )
-    private val streamingServicesUpdate = periodicUpdateManager.registerApiCall(
-        "streaming_services",
-        ::updateStreamingServices,
-        PeriodicUpdateSpec(STREAMING_CALL_DELAY, setOf(inForeground))
-    )
 
     @VisibleForTesting
     suspend fun freeOnlyUpdateNeeded() =
@@ -168,12 +162,6 @@ class ServerListUpdater @Inject constructor(
             .launchIn(scope)
         currentUser.eventVpnLogin
             .onEach {
-                if (serverManager.streamingServicesModel == null) {
-                    coroutineScope {
-                        launch { periodicUpdateManager.executeNow(streamingServicesUpdate) }
-                    }
-                }
-
                 updateServerList(forceFreshUpdate = true)
             }
             .launchIn(scope)
@@ -265,11 +253,6 @@ class ServerListUpdater @Inject constructor(
         return periodicUpdateManager.executeNow(serverListUpdate)
     }
 
-    private suspend fun updateStreamingServices(): ApiResult<StreamingServicesResponse> =
-        api.getStreamingServices().apply {
-            valueOrNull?.let { serverManager.setStreamingServices(it) }
-        }
-
     private suspend fun updateServerCountryCount(): ApiResult<ServersCountResponse> =
         api.getServerCountryCount().also { response ->
             response.valueOrNull?.let {
@@ -308,7 +291,6 @@ class ServerListUpdater @Inject constructor(
         private val LOCATION_CALL_DELAY = TimeUnit.MINUTES.toMillis(10)
         private val LOADS_CALL_DELAY = TimeUnit.MINUTES.toMillis(15)
         val FULL_SERVER_LIST_CALL_DELAY = TimeUnit.DAYS.toMillis(2)
-        private val STREAMING_CALL_DELAY = TimeUnit.DAYS.toMillis(2)
         private val SERVER_COUNT_CALL_DELAY = TimeUnit.DAYS.toMillis(7)
         private val SERVER_COUNT_ERROR_DELAY = TimeUnit.DAYS.toMillis(1)
     }

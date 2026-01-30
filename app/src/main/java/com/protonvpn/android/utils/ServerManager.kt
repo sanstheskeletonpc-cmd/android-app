@@ -72,10 +72,6 @@ class ServerManager @Inject constructor(
     @Transient private var guestHoleServers: List<Server>? = null
     @Transient private val isLoaded = MutableStateFlow(false)
 
-    private var streamingServices: StreamingServicesResponse? = null
-    val streamingServicesModel: StreamingServicesModel?
-        get() = streamingServices?.let { StreamingServicesModel(it) }
-
     var lastUpdateTimestamp: Long = 0L
         private set
 
@@ -121,7 +117,6 @@ class ServerManager @Inject constructor(
         val oldManager =
             Storage.load(ServerManager::class.java)
         if (oldManager != null) {
-            streamingServices = oldManager.streamingServices
             lastUpdateTimestamp = oldManager.lastUpdateTimestamp
             serverListAppVersionCode = oldManager.serverListAppVersionCode
             hasDownloadedServers = oldManager.hasDownloadedServers
@@ -505,13 +500,6 @@ class ServerManager @Inject constructor(
             is AnyConnectIntent.GuestHole -> {
                 getServerById(connectIntent.serverId).handleServersResult(onServersResult, fallbackResult)
             }
-        }
-    }
-
-    fun setStreamingServices(value: StreamingServicesResponse) {
-        if (streamingServices != value) {
-            streamingServices = value
-            Storage.save(this, ServerManager::class.java)
         }
     }
 
