@@ -120,6 +120,7 @@ class TvMainViewModel @Inject constructor(
         }
         VpnViewState(vpnStatus, ipToDisplay)
     }
+
     val vpnStatus = vpnStatusProviderUI.status
     val showVersion = MutableStateFlow(false)
 

@@ -24,67 +24,64 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
 import com.google.gson.annotations.JsonAdapter
-import com.google.gson.annotations.SerializedName
-import com.protonvpn.android.models.profiles.Profile
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
+import com.protonvpn.android.vpn.RecentsManager.RecentServersJsonAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import me.proton.core.util.kotlin.removeFirst
 import java.lang.reflect.Type
-import java.util.LinkedList
 import javax.inject.Inject
 import javax.inject.Singleton
 
-@Singleton
-class RecentsManager @Inject constructor(
-    @Transient private val mainScope: CoroutineScope,
-    @Transient private val vpnStatusProviderUI: VpnStatusProviderUI,
-    serverManager: ServerManager,
-) : java.io.Serializable {
+@Serializable
+data class RecentsManagerServerLegacyStorage(
+    val serverId: String,
+)
 
-    @SerializedName("recentConnections")
-    private val migrateRecentConnections = LinkedList<Profile>()
-    private val recentCountries = ArrayList<String>()
+@Serializable
+private data class RecentsManagerLegacyStorage(
+    val recentCountries: List<String> = emptyList(),
 
     // Workaround for R8:
     // with R8 there is not enough info to deserialize the ArrayDeque items as Server objects and I can't figure out
     // rules to make it work.
     // As a workaround use an explicit deserializer. In the longer term we should move to storing recents in a DB.
     @JsonAdapter(RecentServersJsonAdapter::class)
+    val recentServers: LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>> = LinkedHashMap(),
+)
+
+@Singleton
+class RecentsManager @Inject constructor(
+    mainScope: CoroutineScope,
+    private val vpnStatusProviderUI: VpnStatusProviderUI,
+    serverManager: ServerManager,
+) {
+    private val recentCountries = ArrayList<String>()
+
     // Country code -> Servers
     private val recentServers = LinkedHashMap<String, ArrayDeque<Server>>()
 
-    @Transient val version = MutableStateFlow<Int>(0)
+    val version = MutableStateFlow<Int>(0)
 
     init {
         mainScope.launch {
             serverManager.ensureLoaded()
-            Storage.load(RecentsManager::class.java)?.let { loadedRecents ->
-                // Remove migration in some time.
-                if (loadedRecents.migrateRecentConnections.isNotEmpty()) {
-                    recentCountries.addAll(
-                        loadedRecents.migrateRecentConnections.filter { it.country.isNotBlank() }
-                            .map { it.country }
-                    )
-                    // This migration will be saved when the recents are updated. Let's not do this here, while still
-                    // executing the constructor.
-                }
-                // Older version might have these fields missing.
-                if (loadedRecents.recentCountries != null)
-                    recentCountries.addAll(loadedRecents.recentCountries)
-                if (loadedRecents.recentServers != null) {
-                    recentServers.putAll(
-                        loadedRecents.recentServers
-                            .mapValues { (_, servers) ->
-                                servers.mapNotNullTo(ArrayDeque()) { serverManager.getServerById(it.serverId) }
-                            }
-                            .filter { (_, servers) -> servers.isNotEmpty() }
-                    )
-                }
+            val loadedRecents =
+                Storage.load(RecentsManager::class.java, RecentsManagerLegacyStorage::class.java)
+            if (loadedRecents != null) {
+                recentCountries.addAll(loadedRecents.recentCountries)
+                recentServers.putAll(
+                    loadedRecents.recentServers
+                        .mapValues { (_, servers) ->
+                            servers.mapNotNullTo(ArrayDeque()) { serverManager.getServerById(it.serverId) }
+                        }
+                        .filter { (_, servers) -> servers.isNotEmpty() }
+                )
                 version.update { it + 1 }
             }
         }
@@ -95,7 +92,17 @@ class RecentsManager @Inject constructor(
                     status.connectionParams?.let { params ->
                         addToRecentServers(params.server)
                         addToRecentCountries(params.server)
-                        Storage.save(this@RecentsManager, RecentsManager::class.java)
+                        val persistedRecentServers = recentServers.mapValuesTo(LinkedHashMap()) { (_, servers) ->
+                            servers.map { server ->
+                                RecentsManagerServerLegacyStorage(serverId = server.serverId)
+                            }
+                        }
+                        Storage.save(
+                            RecentsManagerLegacyStorage(
+                                recentCountries, persistedRecentServers
+                            ),
+                            RecentsManager::class.java
+                        )
                         version.update { it + 1 }
                     }
                 }
@@ -136,20 +143,20 @@ class RecentsManager @Inject constructor(
 
     fun getAllRecentServers(): List<Server> = recentServers.flatMap { (_, servers) -> servers }
 
-    class RecentServersJsonAdapter : JsonDeserializer<LinkedHashMap<String, ArrayDeque<Server>>>,
-                                     JsonSerializer<LinkedHashMap<String, ArrayDeque<Server>>>
+    class RecentServersJsonAdapter : JsonDeserializer<LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>>,
+                                     JsonSerializer<LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>>
     {
         override fun deserialize(
             json: JsonElement,
             typeOfT: Type,
             context: JsonDeserializationContext
-        ): LinkedHashMap<String, ArrayDeque<Server>> {
+        ): LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>> {
             if (json.isJsonObject) {
-                val result = LinkedHashMap<String, ArrayDeque<Server>>()
+                val result = LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>()
                 val jsonMap = json.asJsonObject
                 jsonMap.keySet().associateWithTo(result) { country ->
-                    jsonMap.get(country).asJsonArray.asList().mapTo(ArrayDeque()) { jsonServer ->
-                        context.deserialize(jsonServer, Server::class.java)
+                    jsonMap.get(country).asJsonArray.asList().mapTo(ArrayList()) { jsonServer ->
+                        context.deserialize(jsonServer, RecentsManagerServerLegacyStorage::class.java)
                     }
                 }
                 return result
@@ -158,7 +165,7 @@ class RecentsManager @Inject constructor(
         }
 
         override fun serialize(
-            src: LinkedHashMap<String, ArrayDeque<Server>>,
+            src: LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>,
             typeOfSrc: Type,
             context: JsonSerializationContext
         ): JsonElement = context.serialize(src)
