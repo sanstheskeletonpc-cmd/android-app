@@ -81,14 +81,11 @@ class ServerManager @Inject constructor(
     val serverListVersion = MutableStateFlow(0)
 
     /** Can be checked even before servers are loaded from storage */
-    private var hasDownloadedServers: Boolean = false
-
-    /** Can be checked even before servers are loaded from storage */
     private var hasGateways: Boolean = false
     private var hasCountries: Boolean = false
 
     /** Can be checked even before servers are loaded from storage */
-    val isDownloadedAtLeastOnce get() = lastUpdateTimestamp > 0 && hasDownloadedServers
+    val isDownloadedAtLeastOnce get() = lastUpdateTimestamp > 0
 
     @Transient
     val isDownloadedAtLeastOnceFlow = serverListVersion.map { isDownloadedAtLeastOnce }.distinctUntilChanged()
@@ -119,7 +116,6 @@ class ServerManager @Inject constructor(
         if (oldManager != null) {
             lastUpdateTimestamp = oldManager.lastUpdateTimestamp
             serverListAppVersionCode = oldManager.serverListAppVersionCode
-            hasDownloadedServers = oldManager.hasDownloadedServers
             hasCountries = oldManager.hasCountries
             hasGateways = oldManager.hasGateways
 
@@ -128,11 +124,11 @@ class ServerManager @Inject constructor(
 
         mainScope.launch {
             val loaded = serversData.load()
-            updateInternal()
-            if (hasDownloadedServers && !loaded) {
+            if (!loaded) {
                 // We had servers saved but failed to load them, reset state.
                 lastUpdateTimestamp = 0L
-                hasDownloadedServers = false
+                hasGateways = false
+                hasCountries = false
                 Storage.save(this@ServerManager, ServerManager::class.java)
             }
 
@@ -149,12 +145,6 @@ class ServerManager @Inject constructor(
     fun getExitCountries(secureCore: Boolean) = if (secureCore)
         serversData.secureCoreExitCountries else serversData.vpnCountries
 
-    private fun updateInternal() {
-        hasGateways = serversData.gateways.isNotEmpty()
-        hasCountries = serversData.vpnCountries.isNotEmpty()
-        hasDownloadedServers = true
-    }
-
     private fun onServersUpdate() {
         ++serverListVersion.value
     }
@@ -169,7 +159,6 @@ class ServerManager @Inject constructor(
     fun clearCache() {
         lastUpdateTimestamp = 0L
         Storage.delete(ServerManager::class.java)
-        updateInternal()
         // The server list itself is not deleted.
     }
 
@@ -215,9 +204,9 @@ class ServerManager @Inject constructor(
 
         lastUpdateTimestamp = wallClock()
         serverListAppVersionCode = BuildConfig.VERSION_CODE
+        hasGateways = serversData.gateways.isNotEmpty()
+        hasCountries = serversData.vpnCountries.isNotEmpty()
         Storage.save(this, ServerManager::class.java)
-
-        updateInternal()
         onServersUpdate()
     }
 
@@ -229,32 +218,24 @@ class ServerManager @Inject constructor(
     suspend fun updateServerDomainStatus(connectingDomain: ConnectingDomain) {
         ensureLoaded()
         serversData.updateServerDomainStatus(connectingDomain)
-
-        Storage.save(this, ServerManager::class.java)
         onServersUpdate()
     }
 
     suspend fun updateLoads(loadsList: List<LoadUpdate>) {
         ensureLoaded()
         serversData.updateLoads(loadsList)
-
-        Storage.save(this, ServerManager::class.java)
         onServersUpdate()
     }
 
     suspend fun updateBinaryLoads(statusId: LogicalsStatusId, loads: ByteArray) {
         ensureLoaded()
         serversData.updateBinaryLoads(statusId, loads)
-
-        Storage.save(this, ServerManager::class.java)
         onServersUpdate()
     }
 
     suspend fun updateOrAddServer(server: Server) {
         ensureLoaded()
         serversData.updateOrAddServer(server)
-
-        Storage.save(this, ServerManager::class.java)
         onServersUpdate()
     }
 
