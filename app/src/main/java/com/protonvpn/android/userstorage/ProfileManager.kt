@@ -75,6 +75,6 @@ class ProfileManager @VisibleForTesting constructor(
     companion object {
         @VisibleForTesting
         fun loadProfiles(): SavedProfilesV3 =
-            Storage.load(SavedProfilesV3::class.java, SavedProfilesV3.defaultProfiles())
+            Storage.load(SavedProfilesV3::class.java) { SavedProfilesV3.defaultProfiles() }
     }
 }

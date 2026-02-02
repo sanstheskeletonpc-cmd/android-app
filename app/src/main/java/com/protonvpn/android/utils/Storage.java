@@ -129,21 +129,6 @@ public final class Storage {
         delete(objClass.getName());
     }
 
-    @Deprecated // use load() with lambda defaultValue
-    public static <T> T load(Class<T> objClass, T defaultValue) {
-        String key = objClass.getName();
-        // nosemgrep: gitlab.find_sec_bugs.HARD_CODE_KEY-4
-        if (key.equals("com.protonvpn.android.models.config.UserData") && !preferences.contains(key)) {
-            key = "com.protonvpn.android.models.config.UserPreferences";
-        }
-        String json = preferences.getString(key, null);
-        if (!preferences.contains(key) || json == null) {
-            return defaultValue;
-        }
-
-        return GSON.fromJson(json, objClass);
-    }
-
     public static <T> T load(Class<T> objClass, Function0<T> defaultValue) {
         T value = load(objClass);
         if (value == null) {

@@ -67,7 +67,7 @@ fun createInMemoryServerManager(
     return serverManager
 }
 
-private fun createNoopUserCountry() =
+fun createNoopUserCountry() =
     UserCountryPhysical(
         TestUserCountryTelephonyBased(),
         UserCountryIpBased(ServerListUpdaterPrefs(MockSharedPreferencesProvider()), null),
