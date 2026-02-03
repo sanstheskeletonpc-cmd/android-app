@@ -570,7 +570,14 @@
     <string name="upsell_card_tor_title">TOR skrze VPN</string>
     <string name="upsell_card_tor_description">Zvyšte svoje soukromí přistupováním k Toru přes VPN</string>
     <string name="upsell_tv_all_countries_title">Přístup do všech zemí s Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Odemkněte %1$s zabezpečených serverů v %2$s zemích. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Odemkněte %1$s v(e) %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Prohlížení bez reklam s Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Blokujte reklamy, sledovací prvky a malware pomocí <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Získejte to nejlepší z obou světů s Plus</string>
@@ -1677,7 +1684,7 @@
     <string name="settings_protocol_proton_protocols">Protokoly Proton</string>
     <string name="settings_protocol_proton_protocols_description">Použijte vlastní implementaci VPN protokolu WireGuard od Proton. Jedná se o experimentální funkci, takže můžete zaznamenat určitou nestabilitu.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Chtěli jste jinou zemi?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Pokud se k některému umístění nikdy nechcete připojit, můžete je vyloučit z možností automatického připojení.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Pokud existují umístění, ke kterým se nechcete automaticky připojovat, můžete je ze sekce Nejrychlejší země vyloučit.</string>
     <string name="excluded_locations_adoption_title">Vyhnout se nechtěným umístěním</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Nyní můžete vyloučit země a města z <b>Nejrychlejších</b> připojení.]]></string>
 </resources>

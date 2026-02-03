@@ -570,7 +570,14 @@
     <string name="upsell_card_tor_title">Tor через VPN</string>
     <string name="upsell_card_tor_description">Користуйтеся мережею Tor через VPN-з\'єднання для додаткової приватності</string>
     <string name="upsell_tv_all_countries_title">Отримайте доступ до всіх країн з передплатою Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Розблокуйте %1$s безпечних серверів у %2$s країнах. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Насолоджуйтесь інтернетом без реклами з передплатою Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Блокуйте рекламу, стеження і зловмисні програми з <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Отримайте найкращі можливості з передплатою Plus</string>
@@ -1677,7 +1684,7 @@
     <string name="settings_protocol_proton_protocols">Proton protocols</string>
     <string name="settings_protocol_proton_protocols_description">Use Proton VPN’s own implementation of WireGuard. This is an experimental feature, so you may experience some instability.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Не та країна, яку ви хотіли?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Якщо є розташування, до якого ви ніколи не хочете підключатися, ви можете вимкнути його з автоматичних підключень.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
     <string name="excluded_locations_adoption_title">Уникайте небажаних розташувань</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Тепер ви можете виключати країни та міста зі списку <b>Найшвидші</b> зʼєднань.]]></string>
 </resources>

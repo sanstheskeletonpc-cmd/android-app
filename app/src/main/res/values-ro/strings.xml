@@ -554,7 +554,14 @@
     <string name="upsell_card_tor_title">Tor prin VPN</string>
     <string name="upsell_card_tor_description">Utilizați rețeaua Tor prin conexiunea VPN pentru intimitate suplimentară</string>
     <string name="upsell_tv_all_countries_title">Accesați toate țările cu Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Deblocați %1$s servere sigure în %2$s țări. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Deblocați %1$s din %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Bucurați-vă de navigarea fără reclame cu Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Blocați reclamele, uneltele de urmărire și programele malițioase cu <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Obțineți maxim din ambele lumi cu Plus</string>
@@ -1641,7 +1648,7 @@
     <string name="settings_protocol_proton_protocols">Protocoale Proton</string>
     <string name="settings_protocol_proton_protocols_description">Utilizați propria implementare WireGuard de la Proton VPN. Aceasta este o funcționalitate experimentală, deci este posibil să întâmpinați unele instabilități.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Nu este țara pe care o doriți?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Dacă există un loc la care nu doriți să vă conectați niciodată, îl puteți exclude din conexiunile automate.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Dacă există locuri la care nu doriți să vă conectați automat, le puteți exclude din „Țara cea mai rapidă”.</string>
     <string name="excluded_locations_adoption_title">Evitare locuri nedorite</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Acum puteți exclude țări și orașe de la conexiunile <b>cele mai rapide</b>.]]></string>
 </resources>

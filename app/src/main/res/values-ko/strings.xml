@@ -97,8 +97,8 @@
     <string name="got_it">알겠습니다</string>
     <string name="exclude_locations">Exclude locations</string>
     <string name="excluded_locations">Excluded locations</string>
-    <string name="cannot_connect">Cannot connect</string>
-    <string name="skip">Skip</string>
+    <string name="cannot_connect">연결할 수 없음</string>
+    <string name="skip">건너뛰기</string>
     <string name="something_went_wrong">문제가 발생했습니다</string>
     <string name="try_again">다시 시도</string>
     <string name="delete">삭제</string>
@@ -523,7 +523,14 @@
     <string name="upsell_card_tor_title">Tor over VPN</string>
     <string name="upsell_card_tor_description">추가적인 개인 정보 보호를 위해 VPN 연결을 통해 Tor 네트워크를 사용하세요</string>
     <string name="upsell_tv_all_countries_title">Plus로 모든 국가에 접근하세요</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">%1$s개의 보안 서버를 %2$s개의 국가에서 이용해보세요. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Plus로 광고 없는 인터넷 서핑을 즐기실 수 있습니다</string>
     <string name="upsell_tv_netshield_description"><![CDATA[<b>NetShield</b>로 광고와 트래커, 멀웨어를 차단하세요. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Plus와 함께 두 가지 혜택을 누리세요</string>
@@ -1571,7 +1578,7 @@ Stealth는 Proton VPN만의 기능입니다.</string>
     <string name="settings_protocol_proton_protocols">Proton 프로토콜</string>
     <string name="settings_protocol_proton_protocols_description">Proton VPN가 자체적으로 구현한 WireGuard를 사용합니다. 실험적인 기능으로, 일부 불안정성을 경험할 수 있습니다.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Not the country you wanted?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there’s a location you never want to be connected to, you can exclude it from automatic connections.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
     <string name="excluded_locations_adoption_title">Avoid unwanted locations</string>
     <string name="excluded_locations_adoption_description"><![CDATA[You can now exclude countries and cities from <b>Fastest</b> connections.]]></string>
 </resources>

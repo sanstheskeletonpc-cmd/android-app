@@ -522,7 +522,14 @@
     <string name="upsell_card_tor_title">VPN経由Tor</string>
     <string name="upsell_card_tor_description">VPN接続にTorネットワークを使用することで、プライバシーをさらに守ることができます</string>
     <string name="upsell_tv_all_countries_title">Plusですべての国にアクセス</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">%2$sか国にある%1$s台の安全なサーバーをご利用いただけます。%3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Plus で広告なしのブラウジングを体験</string>
     <string name="upsell_tv_netshield_description"><![CDATA[<b>NetShield</b> で、広告、トラッカー、ウイルスなどをブロックしましょう。%1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Plusで両方の利点を最大限に活用</string>
@@ -1569,7 +1576,7 @@
     <string name="settings_protocol_proton_protocols">Protonプロトコル</string>
     <string name="settings_protocol_proton_protocols_description">Proton VPNに実装されたWireGuardを使用します。試験的な機能のため、不安定になる可能性があります。</string>
     <string name="connection_preferences_smart_discovery_dialog_title">ご希望の国ではありませんか？</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">接続したくない場所がある場合、自動接続から除外できます。</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
     <string name="excluded_locations_adoption_title">不要な場所を回避</string>
     <string name="excluded_locations_adoption_description"><![CDATA[<b>最速</b>接続から国や都市を除外できるようになりました。]]></string>
 </resources>

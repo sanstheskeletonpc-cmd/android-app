@@ -570,7 +570,14 @@
     <string name="upsell_card_tor_title">Tor cez VPN</string>
     <string name="upsell_card_tor_description">Použite sieť Tor nad vaším VPN pripojením pre väčšie súkromie</string>
     <string name="upsell_tv_all_countries_title">Prístup ku všetkým krajinám s Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Odomknite %1$s bezpečných serverov v %2$s krajinách. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Odomknite %1$s v %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Vychutnajte si prehliadanie bez reklám s Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Blokujte reklamy, sledovače a malvér pomocou nástroja <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Získajte to najlepšie z oboch svetov s Plus</string>
@@ -1677,7 +1684,7 @@
     <string name="settings_protocol_proton_protocols">Proton protokoly</string>
     <string name="settings_protocol_proton_protocols_description">Použite vlastnú implementáciu WireGuard od Proton VPN. Ide o experimentálnu funkciu, takže sa môže vyskytnúť určitá nestabilita.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Nie je to krajina, ktorú ste chceli?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Ak existuje lokalita, ku ktorej sa nikdy nechcete pripájať, môžete ju vylúčiť z automatických pripojení.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Ak existujú lokality, ku ktorým sa nechcete automaticky pripájať, môžete ich vylúčiť z funkcie Najrýchlejší v krajine.</string>
     <string name="excluded_locations_adoption_title">Vyhnite sa nežiaducim lokalitám</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Teraz môžete vylúčiť krajiny a mestá z <b>najrýchlejších</b> pripojení.]]></string>
 </resources>

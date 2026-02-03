@@ -538,7 +538,14 @@
     <string name="upsell_card_tor_title">Tor via VPN</string>
     <string name="upsell_card_tor_description">Gebruik het Tor netwerk via uw VPN verbinding voor extra privacy</string>
     <string name="upsell_tv_all_countries_title">Verkrijg toegang tot alle landen met Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Ontgrendel %1$s beveiligde servers in %2$s landen. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Ontgrendel %1$s in %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Geniet van advertentie-vrij browsen met Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Blokkeer advertenties, trackers en malware met <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Krijg het beste van beide werelden met Plus</string>
@@ -1605,7 +1612,7 @@
     <string name="settings_protocol_proton_protocols">Proton protocollen</string>
     <string name="settings_protocol_proton_protocols_description">Gebruik Proton VPN\'s eigen implementatie van WireGuard. Dit is een experimentele functie, dus u kunt enige instabiliteit ervaren.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Niet het land dat u wenste?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Als er een locatie is waarmee u nooit verbonden wilt worden, kunt u deze uitsluiten van automatische verbindingen.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Als er locaties zijn waarmee u niet automatisch verbonden wilt worden, kunt u deze uitsluiten van Snelste land.</string>
     <string name="excluded_locations_adoption_title">Ongewenste locaties vermijden</string>
     <string name="excluded_locations_adoption_description"><![CDATA[U kunt nu landen en steden uitsluiten van de <b>Snelste</b> verbindingen.]]></string>
 </resources>

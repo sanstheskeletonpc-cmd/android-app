@@ -538,7 +538,14 @@
     <string name="upsell_card_tor_title">Tor over VPN</string>
     <string name="upsell_card_tor_description">Brug Tor-netværket via din VPN-forbindelse for at få ekstra anonymitet</string>
     <string name="upsell_tv_all_countries_title">Tilgå alle lande med Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Lås op for %1$s sikre servere i %2$s lande. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Lås op for %1$s i %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Nyd reklamefri browsing med Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Bloker annoncer, trackere og malware med <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Få det bedste fra begge verdener med Plus</string>
@@ -1605,7 +1612,7 @@
     <string name="settings_protocol_proton_protocols">Proton-protokoller</string>
     <string name="settings_protocol_proton_protocols_description">Brug Protons egen implementering af WireGuard. Dette er en eksperimentel funktion, så du kan opleve en vis ustabilitet.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Ikke det land, du ønskede?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Hvis der er en placering, du aldrig vil være forbundet til, kan du udelukke den fra automatiske forbindelser.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Hvis der er lokationer, du ikke ønsker at blive automatisk forbundet til, kan du udelukke dem fra Hurtigste land.</string>
     <string name="excluded_locations_adoption_title">Undgå uønskede lokationer</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Du kan nu udelukke lande og byer fra <b>Hurtigste</b> forbindelser.]]></string>
 </resources>

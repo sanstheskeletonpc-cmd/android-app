@@ -538,7 +538,14 @@
     <string name="upsell_card_tor_title">VPN üzerinden Tor</string>
     <string name="upsell_card_tor_description">Ek gizlilik sağlamak için VPN bağlantınızı Tor ağından geçirin</string>
     <string name="upsell_tv_all_countries_title">Plus tarifesiyle tüm ülkelere erişin</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">%2$s ülkedeki %1$s güvenli sunucuya erişin. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">%2$s ülkede %1$s erişimi edinin. %3$s</string>
     <string name="upsell_tv_netshield_title">NetShield ile reklamsız gezinmenin tadını çıkarın</string>
     <string name="upsell_tv_netshield_description"><![CDATA[<b>NetShield</b> ile reklamları, izleyicileri ve kötü amaçlı yazılımları engelleyin. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Plus tarifesi ile iki dünyanın da en iyisini elde edin</string>
@@ -1605,7 +1612,7 @@
     <string name="settings_protocol_proton_protocols">Proton iletişim kuralları</string>
     <string name="settings_protocol_proton_protocols_description">Proton VPN uygulamasının kendi WireGuard uyarlamasını kullanın. Bu özellik henüz deneyseldir ve bazı kararsızlıklar yaşayabilirsiniz.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">İstediğiniz ülke değil mi?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Asla bağlanmak istemediğiniz bir konum varsa otomatik bağlantılara katılmayacak olarak ayarlayabilirsiniz.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Otomatik olarak bağlanmak istemediğiniz konumlar varsa, bunların En hızlı ülke seçeneğine katılmamasını sağlayabilirsiniz.</string>
     <string name="excluded_locations_adoption_title">İstemediğiniz konumlara bağlanmayın</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Artık <b>En hızlı</b> bağlantı seçeneğine ülkelerin ve illerin katılmamasını sağlayabilirsiniz.]]></string>
 </resources>

@@ -604,7 +604,14 @@
     <string name="upsell_card_tor_title">Tor عبر VPN</string>
     <string name="upsell_card_tor_description">استخدم شبكة Tor عبر اتصال VPN الخاص بك لمزيد من الخصوصية</string>
     <string name="upsell_tv_all_countries_title">الوصول إلى جميع البلدان باستخدام Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">افتح %1$s خوادم آمنة في %2$s دولة. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">استمتع بتصفح خالٍ من الإعلانات مع Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[احظر الإعلانات والمتتبعات والبرامج الضارة باستخدام <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">احصل على أفضل ما في العالمين مع Plus</string>
@@ -1752,7 +1759,7 @@
     <string name="settings_protocol_proton_protocols">بروتوكولات Proton</string>
     <string name="settings_protocol_proton_protocols_description">استخدم تطبيق WireGuard الخاص بـ Proton VPN. هذه ميزة تجريبية، لذا قد تواجه بعض عدم الاستقرار.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Not the country you wanted?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there’s a location you never want to be connected to, you can exclude it from automatic connections.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
     <string name="excluded_locations_adoption_title">Avoid unwanted locations</string>
     <string name="excluded_locations_adoption_description"><![CDATA[You can now exclude countries and cities from <b>Fastest</b> connections.]]></string>
 </resources>

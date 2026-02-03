@@ -83,7 +83,7 @@
     <string name="retry">Паўтарыць</string>
     <string name="report_message">Паведамленне справаздачы</string>
     <string name="report_bug_email_label">Ваша электронная пошта</string>
-    <string name="report_bug_email_hint">Увядзіце адрас вашай электроннай пошты</string>
+    <string name="report_bug_email_hint">Увядзіце адрас сваёй электроннай пошты</string>
     <string name="report_bug_message_label">Паведамленне</string>
     <string name="report_bug_message_hint">Апішыце праблему і раскажыце нам, як вы знайшлі яе</string>
     <string name="send_report">Адправіць справаздачу</string>
@@ -295,7 +295,7 @@
     <string name="tv_card_split_tunneling_label">Split Tunneling</string>
     <string name="tv_card_protocol_label">Пратакол</string>
     <string name="tv_dialog_delete_server_title">Выдаліць сервер %1$s?</string>
-    <string name="tv_detail_default_connection_checkbox_short">Абраная</string>
+    <string name="tv_detail_default_connection_checkbox_short">Абранае</string>
     <string name="tv_detail_connect_streaming">Трансляцыя з Plus</string>
     <string name="tv_detail_connect">Падключыцца</string>
     <string name="tv_detail_description_streaming_country">Глядзіце сваё абранае змесціва. Атрымайце доступ да большай колькасці праграм на тарыфным плане Proton VPN Plus.</string>
@@ -395,7 +395,7 @@
     <string name="upgrade_devices_text">Proton VPN даступны на 8 розных платформах.</string>
     <string name="upgrade_plus_title">Палепшыце сваю прыватнасць</string>
     <string name="upgrade_plus_message">Атрымайце дадатковыя функцыі прыватнасці і найвышэйшую хуткасць з VPN Plus.</string>
-    <string name="upgrade_netshield_title">Атрымайце асалоду ад прагляду старонак у інтэрнэце без рэкламы</string>
+    <string name="upgrade_netshield_title">Атрымлівайце асалоду ад прагляду старонак у інтэрнэце без рэкламы</string>
     <string name="upgrade_netshield_message"><![CDATA[Блакіруйце рэкламу, праграмы сачэння і шкодныя праграмы з дапамогай <b>NetShield</b>.]]></string>
     <string name="upgrade_secure_core_title">Двайное шыфраванне</string>
     <string name="upgrade_secure_core_message"><![CDATA[Дадайце яшчэ адзін слой шыфравання ў сваё падключэнне па VPN з дапамогай <b>Secure Core</b>.]]></string>
@@ -570,8 +570,15 @@
     <string name="upsell_card_tor_title">Tor праз VPN</string>
     <string name="upsell_card_tor_description">Выкарыстоўвайце сетку Tor праз ваша падключэнне да VPN для дадатковай прыватнасці</string>
     <string name="upsell_tv_all_countries_title">Доступ да ўсіх краін з Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Разблакіруйце %1$s бяспечныя серверы ў %2$s краінах. %3$s</string>
-    <string name="upsell_tv_netshield_title">Праглядайце старонкі без рэкламы з дапамогай Plus</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Разблакіруйце %1$s у %2$s. %3$s</string>
+    <string name="upsell_tv_netshield_title">Атрымлівайце асалоду ад прагляду старонак у інтэрнэце без рэкламы з дапамогай Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Блакіруйце рэкламу, праграмы сачэння і шкодныя праграмы з дапамогай <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Атрымлівайце лепшае абодвух светаў з Plus</string>
     <string name="upsell_tv_split_tunneling_description"><![CDATA[З функцыяй <b>Split Tunneling</b> вы зможаце дзяліць свой трафік на той, які будзе праходзіць праз тунэлі VPN і на той, які будзе абыходзіцца без іх. %1$s]]></string>
@@ -656,7 +663,7 @@
     <string name="upgrade_country_title">Хочаце падключыцца да пэўнай краіны?</string>
     <string name="upgrade_country_message"><![CDATA[Атрымайце доступ <b>да выбару краін</b> з VPN Plus.]]></string>
     <string name="free_connections_info_message">Proton Free аўтаматычна падключае вас да самага хуткага з даступных сервераў. Звычайна гэта самы блізкі сервер адносна вашага месцазнаходжання.</string>
-    <string name="free_connections_info_server_locations">Размяшчэнні сервераў Free (%1$d)</string>
+    <string name="free_connections_info_server_locations">Размяшчэнні бясплатных сервераў (%1$d)</string>
     <string name="free_connections_info_banner_text">Тарыфны план VPN Plus забяспечвае пакрыццё ўсяго свету</string>
     <string name="free_connection_info_title">Бясплатныя падключэнні</string>
     <string name="search_upsell_banner_title">Прагляд трансляцый з любой краіны ў свеце.</string>
@@ -761,7 +768,7 @@
     <string name="not_wanted_country_description">Палепшыць свой тарыфны план, каб выбіраць любы сервер</string>
     <string name="whats_new_title">Што новага</string>
     <string name="whats_new_profiles_title">Профілі вярнуліся</string>
-    <string name="whats_new_profiles_description">Стварайце і захоўвайце карыстальніцкія падключэнні з вабраным месцазнаходжаннем, серверам і пратаколам.</string>
+    <string name="whats_new_profiles_description">Стварайце і захоўвайце карыстальніцкія падключэнні з выбраным месцазнаходжаннем, серверам і пратаколам.</string>
     <string name="whats_new_widget_title">Уводзіны ў віджэты</string>
     <string name="whats_new_widget_description">Цяпер вы можаце праглядаць і кіраваць сваім VPN не пакідаючы галоўны экран.</string>
     <string name="whats_new_add_widget_button">Дадаць віджэт</string>
@@ -906,7 +913,7 @@
     <string name="fastest_country">Найхутчэйшыя краіны</string>
     <string name="fastest_country_excluding_my_country">Найхутчэйшыя краіны (за выключэннем маёй краіны)</string>
     <!-- tag(Redesign_2023): label used in place of country when the fastest free server is connected to. -->
-    <string name="fastest_free_server">Найхутчэйшыя бясплатныя серверы</string>
+    <string name="fastest_free_server">Найхутчэйшы бясплатны сервер</string>
     <!-- tag(Redesign_2023)
          Label describing a Secure Core connection via Iceland.
          Translate entry country name in correct declension, including the preposition and article, if needed.
@@ -1281,7 +1288,7 @@
     <!-- item 2 in the numbered list -->
     <string name="info_dialog_how_to_stream_step_2">Перазапусціце сэрвіс трансляцыі</string>
     <!-- item 3 in the numbered list (last item) -->
-    <string name="info_dialog_how_to_stream_step_3">Падключыцеся да любога сервера Plus і пачніце трансляцыю</string>
+    <string name="info_dialog_how_to_stream_step_3">Падключайцеся да любога сервера Plus і пачніце трансляцыю</string>
     <string name="info_dialog_profiles_title">Профілі</string>
     <string name="info_dialog_ipaddress_title">IP-адрас</string>
     <string name="info_dialog_ipv6_traffic_title">Трафік IPv6</string>
@@ -1622,7 +1629,7 @@
     <string name="create_profile_auto_open_url_private_mode_label">Выкарыстоўваць рэжым прыватнага прагляду</string>
     <!-- Label for disabled "Auto-launch website" setting in profile creation -->
     <string name="profile_auto_open_off">Выключана</string>
-    <string name="profile_auto_open_app_failed_to_launch">Падключыць і перайсці: праграма не знойдзена</string>
+    <string name="profile_auto_open_app_failed_to_launch">Падключыць і адкрыць: праграма не знойдзена</string>
     <!-- Label for enabled "Auto-launch website" setting in profile creation -->
     <string name="profile_auto_open_website">Адкрыць вэб-сайт</string>
     <string name="profile_auto_open_app">Адкрыць праграму</string>
@@ -1661,7 +1668,7 @@
     <string name="info_dialog_ipv6_traffic_drawbacks_title">Недахопы</string>
     <string name="info_dialog_ipv6_traffic_benefits_title">Перавагі</string>
     <string name="settings_lan_allow_direct_connection_title">Дазволіць прамыя падключэнні прылад</string>
-    <string name="settings_lan_allow_direct_connection_description">Падключыць да Smart TV, Android Auto і іншых прылад, якія ствараюць сваю ўласную сетку. Для максімальнай бяспекі ўключайце толькі пры падключэнні да гэтых прылад.</string>
+    <string name="settings_lan_allow_direct_connection_description">Падключайцеся да Smart TV, Android Auto і іншых прылад, якія ствараюць сваю ўласную сетку. Для максімальнай бяспекі ўключайце гэту функцыю толькі пры падключэнні да гэтых прылад.</string>
     <string name="no_connections_title">Няма даступных падключэнняў па VPN</string>
     <string name="no_connections_description_loading_error">Немагчыма загрузіць спіс сервераў.</string>
     <string name="no_connections_description_no_servers">Папрасіце свайго адміністратара ўключыць доступ да VPN для вашага ўліковага запісу.</string>
@@ -1677,7 +1684,7 @@
     <string name="settings_protocol_proton_protocols">Пратаколы Proton</string>
     <string name="settings_protocol_proton_protocols_description">Выкарыстоўвайце ўласную рэалізацыю WireGuard ад Proton VPN. Гэта эксперыментальная функцыя, таму вы можаце сутыкнуцца з некаторай нестабільнасцю.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Не тая краіна, якую хацелі?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Калі ёсць месцазнаходжанне, да якога вы ніколі не хочаце падключацца, вы можаце выключыць яго з аўтаматычных падключэнняў.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Вы можаце выключыць іх з найхутчэйшых краін, калі ёсць месцазнаходжанні, да якіх вы не хочаце аўтаматычна падключацца.</string>
     <string name="excluded_locations_adoption_title">Пазбягайце непажаданых месцазнаходжанняў</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Цяпер вы можаце выключыць краіны і гарады з <b>Найхутчэйшых</b> падключэнняў.]]></string>
 </resources>

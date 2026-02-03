@@ -57,8 +57,8 @@
     <string name="accountFree">Proton Free</string>
     <string name="restrictedMaintenanceTitle">Under vedlikehold</string>
     <string name="restrictedMaintenanceDescription">Tjeneren du prøver å koble til, er under vedlikehold. Prøv en annen tjener.</string>
-    <string name="restricted_location_excluded_dialog_title">Connection failed</string>
-    <string name="restricted_location_excluded_dialog_description">No servers available. Choose a location manually or edit your excluded locations.</string>
+    <string name="restricted_location_excluded_dialog_title">Tilkobling mislyktes</string>
+    <string name="restricted_location_excluded_dialog_description">Ingen tjenere tilgjengelig. Velg en plassering manuelt eller rediger dine ekskluderte plasseringer.</string>
     <string name="errorUserDelinquent"><![CDATA[Kontoen din har for øyeblikket en forfalt faktura. Betal alle ubetalte fakturaer på &#160;<a href="https://account.protonvpn.com">account.protonvpn.com</a>]]></string>
     <string name="errorMaxSessions">Du har truffet maksimalt antall samtidige tilkoblinger som er tillatt for kontoen din. Oppgrader Proton VPN-planen din for å få flere tilkoblinger.</string>
     <string name="listItemMaintenance">Under vedlikehold</string>
@@ -95,10 +95,10 @@
     <string name="copy_to_clipboard">Kopier</string>
     <string name="copied_to_clipboard">Kopiert til utklippstavlen</string>
     <string name="got_it">Skjønner</string>
-    <string name="exclude_locations">Exclude locations</string>
-    <string name="excluded_locations">Excluded locations</string>
-    <string name="cannot_connect">Cannot connect</string>
-    <string name="skip">Skip</string>
+    <string name="exclude_locations">Ekskluder plasseringer</string>
+    <string name="excluded_locations">Ekskluderte plasseringer</string>
+    <string name="cannot_connect">Kan ikke koble til</string>
+    <string name="skip">Hopp over</string>
     <string name="something_went_wrong">Noe gikk galt</string>
     <string name="try_again">Prøv igjen</string>
     <string name="delete">Slett</string>
@@ -538,7 +538,14 @@
     <string name="upsell_card_tor_title">TOR over VPN</string>
     <string name="upsell_card_tor_description">Bruk Tor-nettverket over VPN-tilkoblingen for ekstra personvern</string>
     <string name="upsell_tv_all_countries_title">Få tilgang til alle land med Plus</string>
-    <string name="upsell_tv_all_countries_description" comment="the first 2 placeholders will be replaced by the amount of servers and countries">Lås opp %1$s sikre tjenere i %2$s land. %3$s</string>
+    <!-- Format for upselling countries on TV".
+        %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
+        %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
+        %3$s - replaced with upsell_tv_description_placeholder
+
+        Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
+    -->
+    <string name="upsell_tv_all_countries_description">Lås opp %1$s i %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">Kos deg med reklamefri surfing med Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[Blokkér annonser, sporere og skadelig programvare med <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">Få det beste fra begge verdener med Plus</string>
@@ -1036,7 +1043,7 @@
     <string name="message_server_in_maintenance">Tjeneren blir vedlikeholdt</string>
     <!-- tag(Redesign_2023): Displayed in a dialog -->
     <string name="message_server_not_available">Tjener ikke tilgjengelig</string>
-    <string name="message_server_location_excluded">Server location excluded</string>
+    <string name="message_server_location_excluded">Tjenerplassering ekskludert</string>
     <!-- tag(Redesign_2023): Displayed in a dialog when all servers of a gateway are in maintenance -->
     <string name="message_gateway_in_maintenance">Porttjener blir vedlikeholdt</string>
     <!-- tag(Redesign_2023) -->
@@ -1533,7 +1540,7 @@
     <!-- %1$s - profile name
          Example: Your server selection for MyProfile is unavailable. Select a different server or try again later -->
     <string name="profile_unavailable_dialog_message">Tjenervalget ditt for %1$s er ikke tilgjengelig. Velg en annen tjener eller prøv igjen senere.</string>
-    <string name="profile_location_excluded_dialog_message"><![CDATA[Your server selection for <b>%1$s</b> is unavailable. Select a different server, check your excluded locations or try again later.]]></string>
+    <string name="profile_location_excluded_dialog_message"><![CDATA[Valget ditt av tjener for <b>%1$s</b> er utilgjengelig. Velg en annen tjener, sjekk dine ekskluderte plasseringer eller prøv igjen senere.]]></string>
     <!-- %1$d - profile icon number
          Example: Icon 1, Icon 2, ... -->
     <string name="profile_icon_accessibility">Ikon %1$d</string>
@@ -1604,8 +1611,8 @@
     <string name="settings_protocol_openvpn_change_dialog_enable_smart">Aktiver Smart Protocol</string>
     <string name="settings_protocol_proton_protocols">Proton-protokoller</string>
     <string name="settings_protocol_proton_protocols_description">Bruk Protons egen implementering av WireGuard. Dette er en eksperimentell funksjon, så du kan oppleve en viss ustabilitet.</string>
-    <string name="connection_preferences_smart_discovery_dialog_title">Not the country you wanted?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there’s a location you never want to be connected to, you can exclude it from automatic connections.</string>
-    <string name="excluded_locations_adoption_title">Avoid unwanted locations</string>
-    <string name="excluded_locations_adoption_description"><![CDATA[You can now exclude countries and cities from <b>Fastest</b> connections.]]></string>
+    <string name="connection_preferences_smart_discovery_dialog_title">Ikke landet du ønsket?</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Hvis det er steder du ikke vil bli automatisk koblet til, kan du ekskludere dem fra raskeste land.</string>
+    <string name="excluded_locations_adoption_title">Unngå uønskede steder</string>
+    <string name="excluded_locations_adoption_description"><![CDATA[Du kan nå ekskludere land og byer fra <b>raskeste</b> tilkoblinger.]]></string>
 </resources>
