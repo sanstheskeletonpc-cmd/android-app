@@ -40,7 +40,7 @@ class AppExitObservability @Inject constructor(
     private val mainScope: CoroutineScope,
     @ApplicationContext private val appContext: Context,
     private val observabilityManager: dagger.Lazy<ObservabilityManager>,
-    private val largeMetricsSampler: LargeMetricsSampler,
+    private val largeMetricsSampler: dagger.Lazy<LargeMetricsSampler>,
 ) {
 
     fun start() {
@@ -50,7 +50,8 @@ class AppExitObservability @Inject constructor(
                 delay(5.seconds)
                 val exitInfo = appContext.getAppMainProcessExitReason()
                 if (exitInfo != null) {
-                    largeMetricsSampler { multiplier ->
+                    val sampler = largeMetricsSampler.get()
+                    sampler { multiplier ->
                         val exitReason = reasonToObservability(exitInfo.reason, exitInfo.status)
                         val importance = importanceToObservability(exitInfo.importance)
                         observabilityManager.get()

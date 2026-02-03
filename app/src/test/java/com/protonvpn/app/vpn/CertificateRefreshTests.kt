@@ -181,7 +181,7 @@ class CertificateRefreshTests {
             { mockStorage },
             mockKeyProvider,
             mockApi,
-            mockServerClock,
+            dagger.Lazy { mockServerClock },
             mockPlanManager,
             mockCurrentUser,
             mockPeriodicUpdateManager,

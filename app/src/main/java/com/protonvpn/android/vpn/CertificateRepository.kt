@@ -88,7 +88,7 @@ class CertificateRepository @Inject constructor(
     lazyCertificateStorage: dagger.Lazy<CertificateStorage>,
     private val keyProvider: CertificateKeyProvider,
     private val api: ProtonApiRetroFit,
-    private val serverClock: ServerClock,
+    private val serverClock: dagger.Lazy<ServerClock>,
     userPlanManager: UserPlanManager,
     private val currentUser: CurrentUser,
     private val periodicUpdateManager: PeriodicUpdateManager,
@@ -220,7 +220,7 @@ class CertificateRepository @Inject constructor(
     }
 
     private fun nextRefreshDelay(apiResult: ApiResult<CertificateResponse>, certInfo: CertInfo): Long? {
-        val now = serverClock.getCurrentTime().toEpochMilli()
+        val now = serverTime().toEpochMilli()
         val timestampMs = when (apiResult) {
             is ApiResult.Success -> certInfo.refreshAt
             is ApiResult.Error -> {
@@ -250,7 +250,7 @@ class CertificateRepository @Inject constructor(
     suspend fun getCertificate(sessionId: SessionId, cancelOngoing: Boolean = false): CertificateResult =
         withContext(mainScope.coroutineContext) {
             val certInfo = getCertInfo(sessionId)
-            if (certInfo?.certificatePem != null && certInfo.expiresAt > serverClock.getCurrentTime().toEpochMilli())
+            if (certInfo?.certificatePem != null && certInfo.expiresAt > serverTime().toEpochMilli())
                 CertificateResult.Success(certInfo.certificatePem, certInfo.privateKeyPem)
             else
                 updateCertificate(sessionId, cancelOngoing = cancelOngoing)
@@ -300,4 +300,6 @@ class CertificateRepository @Inject constructor(
             ProtonLogger.log(UserCertCurrentState, "Current cert: $certString")
         }
     }
+
+    private fun serverTime() = serverClock.get().getCurrentTime()
 }
