@@ -22,7 +22,6 @@ import com.protonvpn.android.logging.LogCategory
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
-import com.protonvpn.android.models.profiles.Profile
 import com.protonvpn.android.redesign.recents.data.ConnectIntentData
 import com.protonvpn.android.redesign.recents.data.toAnyConnectIntent
 import com.protonvpn.android.redesign.recents.data.toData
@@ -33,7 +32,6 @@ import com.protonvpn.android.userstorage.UUIDSerializer
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.vpn.ProtocolSelection
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 import java.util.UUID
 
 @Serializable
@@ -98,7 +96,7 @@ open class ConnectionParams(
             ProtonLogger.logCustom(LogCategory.CONN, "storing connection params (${params?.connectingDomain?.entryDomain})")
             if (params != null) {
                 val data = ConnectionParamsLegacyStorage(params.connectIntentData, params.uuid)
-                Storage.save(data, ConnectionParams::class.java)
+                Storage.save(data, ConnectionParams::class.java, ConnectionParamsLegacyStorage.serializer())
             } else {
                 Storage.delete(ConnectionParams::class.java)
             }
@@ -110,7 +108,7 @@ open class ConnectionParams(
         }
 
         fun readIntentFromStore(expectedUuid: UUID? = null): AnyConnectIntent? {
-            val value = Storage.load(ConnectionParams::class.java, ConnectionParamsLegacyStorage::class.java)
+            val value = Storage.load(ConnectionParams::class.java, ConnectionParamsLegacyStorage.serializer())
                 ?.takeIf { expectedUuid == null || it.uuid == expectedUuid }
             return value?.connectIntentData?.toAnyConnectIntent()
         }

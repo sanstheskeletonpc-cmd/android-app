@@ -52,10 +52,12 @@ import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.builtins.ListSerializer
 import javax.inject.Inject
 import javax.inject.Singleton
 
+@Serializable
 data class ServerManagerState(
     val serverListAppVersionCode: Int = 0,
     val lastUpdateTimestamp: Long = 0L,
@@ -105,7 +107,7 @@ class ServerManager @Inject constructor(
             .filter { country -> country.serverList.any { server -> server.isFreeServer } }
 
     init {
-        val loadedState = Storage.load(ServerManager::class.java, ServerManagerState::class.java)
+        val loadedState = Storage.load(ServerManager::class.java, ServerManagerState.serializer())
         if (loadedState != null) {
             savedState = loadedState
             serverListVersion.value = 1
@@ -485,7 +487,7 @@ class ServerManager @Inject constructor(
 
     private fun updateAndSave(newState: ServerManagerState) {
         savedState = newState
-        Storage.save(savedState, ServerManager::class.java)
+        Storage.save(savedState, ServerManager::class.java, ServerManagerState.serializer())
     }
 
     private fun haveWireGuardSupport() =

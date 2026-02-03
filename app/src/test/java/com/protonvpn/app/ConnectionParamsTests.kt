@@ -42,6 +42,7 @@ import com.protonvpn.android.utils.AndroidUtils
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.Storage
 import com.protonvpn.test.shared.MockSharedPreference
+import com.protonvpn.test.shared.dummyConnectingDomain
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -66,7 +67,7 @@ class ConnectionParamsTests {
 
     @MockK lateinit var context: Context
     @MockK lateinit var server: Server
-    @MockK lateinit var connectingDomain: ConnectingDomain
+    lateinit var connectingDomain: ConnectingDomain
 
     private val connectIntent: ConnectIntent = ConnectIntent.FastestInCountry(CountryId.fastest, emptySet())
 
@@ -82,19 +83,19 @@ class ConnectionParamsTests {
         Storage.setPreferences(MockSharedPreference())
 
         mockkObject(Constants)
-        every { connectingDomain.label } returns "label"
-
+        connectingDomain = dummyConnectingDomain
         params = ConnectionParams(connectIntent, server, connectingDomain, VpnProtocol.Smart)
     }
 
     @After
     fun tearDown() {
         unmockkObject(Constants)
+        unmockkObject(AndroidUtils)
     }
 
     @Test
     fun `uuid is restored when loaded from storage`() {
-        Storage.save(params, ConnectionParams::class.java)
+        ConnectionParams.store(params)
         val restoredIntent = ConnectionParams.readIntentFromStore(params.uuid)
         assertNotNull(restoredIntent)
 

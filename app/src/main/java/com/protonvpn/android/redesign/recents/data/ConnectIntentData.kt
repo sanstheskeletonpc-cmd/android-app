@@ -46,15 +46,15 @@ enum class ConnectIntentType {
 @Serializable
 data class ConnectIntentData(
     val connectIntentType: ConnectIntentType,
-    val exitCountry: String?,
-    val entryCountry: String?,
-    val city: String?,
-    val region: String?,
-    val gatewayName: String?,
-    val serverId: String?,
-    val features: Set<ServerFeature>,
-    val profileId: Long?,
-    @Embedded val settingsOverrides: SettingsOverrides?
+    val exitCountry: String? = null,
+    val entryCountry: String? = null,
+    val city: String? = null,
+    val region: String? = null,
+    val gatewayName: String? = null,
+    val serverId: String? = null,
+    val features: Set<ServerFeature> = emptySet(),
+    val profileId: Long? = null,
+    @Embedded val settingsOverrides: SettingsOverrides? = null,
 ) : java.io.Serializable
 
 @Serializable

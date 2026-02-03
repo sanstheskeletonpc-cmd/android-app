@@ -154,7 +154,7 @@ class AppConfigResponseTests {
         }
         Storage.setPreferences(prefs)
         val configLegacy =
-            Storage.load(AppConfigResponse::class.java, AppConfigResponseLegacyStorage::class.java)
+            Storage.load(AppConfigResponse::class.java, AppConfigResponseLegacyStorage.serializer())
         val config = configLegacy?.migrate()
         assertNotNull(config)
         assertEquals(4, config.changeServerAttemptLimit)

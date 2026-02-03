@@ -40,15 +40,14 @@ import com.protonvpn.android.logging.UserCertRevoked
 import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.servers.Server
 import com.protonvpn.android.netshield.NetShieldStats
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.settings.data.LocalUserSettings
 import com.protonvpn.android.ui.ForegroundActivityTracker
 import com.protonvpn.android.ui.home.GetNetZone
 import com.protonvpn.android.utils.Constants
-import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.SyncStateFlow
 import com.protonvpn.android.utils.suspendForCallbackWithTimeout
 import io.sentry.Sentry
@@ -302,7 +301,7 @@ abstract class VpnBackend(
             yield()
             // Re-save last connection params, as they may be wiped on disconnect in
             // onDestroyService case
-            Storage.save(lastConnectionParams, ConnectionParams::class.java)
+            ConnectionParams.store(lastConnectionParams)
             connect(params)
         }
     }

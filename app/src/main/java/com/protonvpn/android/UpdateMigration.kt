@@ -71,7 +71,7 @@ class UpdateMigration @Inject constructor(
     @SuppressWarnings("MagicNumber")
     private fun clearCertificateData(oldVersionCode: Int) {
         if (oldVersionCode <= 5_03_50_00) {
-            Storage.save(null, CertificateData::class.java)
+            Storage.delete(CertificateData::class.java)
         }
     }
 

@@ -24,24 +24,26 @@ import android.content.SharedPreferences;
 import androidx.annotation.Nullable;
 import androidx.annotation.VisibleForTesting;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.protonvpn.android.models.config.VpnProtocol;
-import com.protonvpn.android.models.config.VpnProtocolGsonSerializer;
-
 import java.util.Objects;
 
+import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
-import me.proton.core.network.domain.client.ClientId;
+import kotlinx.serialization.DeserializationStrategy;
+import kotlinx.serialization.KSerializer;
+import kotlinx.serialization.SerializationException;
+import kotlinx.serialization.SerializationStrategy;
+import kotlinx.serialization.json.Json;
+import kotlinx.serialization.json.JsonKt;
 
 public final class Storage {
 
-    private final static Gson GSON =
-        new GsonBuilder()
-            .enableComplexMapKeySerialization()
-            .registerTypeAdapter(ClientId.class, new ClientIdGsonSerializer())
-            .registerTypeAdapter(VpnProtocol.class, new VpnProtocolGsonSerializer())
-            .create();
+    private final static Json JSON = JsonKt.Json(
+            Json.Default,
+            jsonBuilder -> {
+                jsonBuilder.setIgnoreUnknownKeys(true);
+                return Unit.INSTANCE;
+            }
+    );
 
     private static SharedPreferences preferences;
 
@@ -84,21 +86,16 @@ public final class Storage {
         return preferences.getString(key, defValue);
     }
 
-    public static <T, Key> void save(@Nullable T data, Class<Key> as) {
+    public static <T, Key> void save(@Nullable T data, Class<Key> key, SerializationStrategy<T> serializer) {
         if (data != null) {
-            preferences.edit().putString(as.getName(), GSON.toJson(data)).apply();
+            preferences.edit().putString(key.getName(), JSON.encodeToString(serializer, data)).apply();
         } else {
-            preferences.edit().remove(as.getName()).apply();
+            preferences.edit().remove(key.getName()).apply();
         }
     }
 
     @Nullable
-    public static <T> T load(Class<T> objClass) {
-        return load(objClass, objClass);
-    }
-
-    @Nullable
-    public static <K, V> V load(Class<K> keyClass, Class<V> objClass) {
+    public static <K, V> V load(Class<K> keyClass, DeserializationStrategy<V> deserializer) {
         String key = keyClass.getName();
         if (!preferences.contains(key)) {
             return null;
@@ -107,10 +104,10 @@ public final class Storage {
         V fromJson;
         try {
             String json = preferences.getString(key, null);
-            fromJson = GSON.fromJson(json, objClass);
+            fromJson = json != null ? JSON.decodeFromString(deserializer, json) : null;
         }
-        catch (Exception | NoClassDefFoundError e) {
-            DebugUtils.INSTANCE.fail("GSON load exception: " + e.getMessage());
+        catch (IllegalArgumentException e) {
+            DebugUtils.INSTANCE.fail("Json load exception: " + e.getMessage());
             return null;
         }
         return fromJson;
@@ -129,11 +126,11 @@ public final class Storage {
         delete(objClass.getName());
     }
 
-    public static <T> T load(Class<T> objClass, Function0<T> defaultValue) {
-        T value = load(objClass);
+    public static <Key, T> T load(Class<Key> keyClass, KSerializer<T> serializer, Function0<T> defaultValue) {
+        T value = load(keyClass, serializer);
         if (value == null) {
             value = defaultValue.invoke();
-            save(value, objClass);
+            save(value, keyClass, serializer);
         }
         return value;
     }

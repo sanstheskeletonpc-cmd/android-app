@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2020 Proton AG
+ * Copyright (c) 2017 Proton AG
  *
  * This file is part of ProtonVPN.
  *
@@ -18,30 +18,21 @@
  */
 package com.protonvpn.android.models.profiles
 
-import com.protonvpn.android.userstorage.UUIDSerializer
+import com.protonvpn.android.models.profiles.ServerWrapper.Companion.makePreBakedFastest
 import kotlinx.serialization.Serializable
 import java.util.UUID
 
 @Serializable
-data class Profile(
-    val wrapper: ServerWrapper,
-    @Serializable(with = UUIDSerializer::class)
-    val id: UUID? = UUID.randomUUID(),
-) {
+class SavedProfilesV3(val profileList: MutableList<Profile>) {
+    companion object {
+        // Use hardcoded IDs for prebaked profiles.
+        // It's not strictly necessary but should make things a bit more robust.
+        private val FASTEST_PROFILE_ID: UUID? =
+            UUID.fromString("82c935d8-2968-4cc5-8ea7-8d73270efe57")
 
-    val isPreBakedProfile: Boolean
-        get() = wrapper.isPreBakedProfile
-
-    val country: String get() = wrapper.country
-
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
-
-        other as Profile
-
-        return id == other.id
+        fun defaultProfiles(): SavedProfilesV3 {
+            val fastest = Profile(makePreBakedFastest(), FASTEST_PROFILE_ID)
+            return SavedProfilesV3(mutableListOf(fastest))
+        }
     }
-
-    override fun hashCode(): Int = id.hashCode()
 }

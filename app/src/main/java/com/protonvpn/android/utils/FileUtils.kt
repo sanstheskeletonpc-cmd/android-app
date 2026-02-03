@@ -18,8 +18,6 @@
  */
 package com.protonvpn.android.utils
 
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import kotlinx.serialization.DeserializationStrategy
 import me.proton.core.util.kotlin.deserialize
 import java.io.FileNotFoundException
@@ -27,12 +25,6 @@ import java.io.IOException
 import java.io.InputStream
 
 object FileUtils {
-
-    inline fun <reified T> getObjectFromAssetsWithGson(jsonAssetPath: String): T =
-        getObjectFromAssets(jsonAssetPath) { json ->
-            val listType = object : TypeToken<T>() {}.type
-            GsonBuilder().create().fromJson(json, listType)
-        }
 
     inline fun <reified T : Any> getObjectFromAssets(serializer: DeserializationStrategy<T>, jsonAssetPath: String): T =
         getObjectFromAssets(jsonAssetPath) { json ->
@@ -50,16 +42,6 @@ object FileUtils {
         } catch (e: FileNotFoundException) {
             e.printStackTrace()
             throw e
-        }
-    }
-
-    fun inputStreamToString(inputStream: InputStream): String? {
-        return try {
-            val bytes = ByteArray(inputStream.available())
-            inputStream.read(bytes, 0, bytes.size)
-            String(bytes)
-        } catch (e: IOException) {
-            null
         }
     }
 }

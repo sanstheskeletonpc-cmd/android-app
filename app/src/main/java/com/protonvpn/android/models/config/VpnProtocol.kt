@@ -18,12 +18,6 @@
  */
 package com.protonvpn.android.models.config
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonPrimitive
-import com.google.gson.JsonSerializationContext
-import com.google.gson.JsonSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -58,17 +52,6 @@ object VpnProtocolSerializer : KSerializer<VpnProtocol> {
 
     override fun deserialize(decoder: Decoder): VpnProtocol {
         val name = decoder.decodeString()
-        return VpnProtocol.entries.find { it.name == name } ?: VpnProtocol.Smart
-    }
-}
-
-class VpnProtocolGsonSerializer : JsonSerializer<VpnProtocol>, JsonDeserializer<VpnProtocol> {
-    override fun serialize(src: VpnProtocol, typeOfSrc: Type, context: JsonSerializationContext): JsonElement {
-        return JsonPrimitive(src.name)
-    }
-
-    override fun deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): VpnProtocol {
-        val name = json.asString
         return VpnProtocol.entries.find { it.name == name } ?: VpnProtocol.Smart
     }
 }

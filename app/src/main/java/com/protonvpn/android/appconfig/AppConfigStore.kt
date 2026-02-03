@@ -34,7 +34,7 @@ private class AppConfigStorageMigration : DataMigration<AppConfigResponse> {
 
     override suspend fun migrate(currentData: AppConfigResponse): AppConfigResponse {
         val legacy =
-            Storage.load(AppConfigResponse::class.java, AppConfigResponseLegacyStorage::class.java)
+            Storage.load(AppConfigResponse::class.java, AppConfigResponseLegacyStorage.serializer())
         // The value should be present, otherwise shouldMigrate returns false.
         return legacy?.migrate() ?: AppConfigResponse()
     }

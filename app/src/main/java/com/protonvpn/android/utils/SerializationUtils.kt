@@ -19,43 +19,13 @@
 
 package com.protonvpn.android.utils
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonObject
-import com.google.gson.JsonSerializationContext
-import com.google.gson.JsonSerializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.descriptors.PrimitiveKind
 import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import me.proton.core.network.data.protonApi.IntToBoolSerializer
-import me.proton.core.network.domain.client.ClientId
-import me.proton.core.network.domain.client.ClientIdType
-import me.proton.core.network.domain.client.CookieSessionId
-import me.proton.core.network.domain.client.getType
-import me.proton.core.network.domain.session.SessionId
 import me.proton.core.util.kotlin.toBoolean
-import java.lang.reflect.Type
-
-// GSON have a problem with deserializing ClientId class (exception on private constructor)
-class ClientIdGsonSerializer : JsonSerializer<ClientId>, JsonDeserializer<ClientId> {
-    override fun serialize(src: ClientId, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement =
-        JsonObject().apply {
-            addProperty("type", src.getType().value)
-            addProperty("id", src.id)
-        }
-
-    override fun deserialize(json: JsonElement, typeOfT: Type?, context: JsonDeserializationContext?): ClientId {
-        val type = ClientIdType.getByValue(json.asJsonObject.get("type").asString)
-        val id = json.asJsonObject.get("id").asString
-        return when (type) {
-            ClientIdType.SESSION -> ClientId.AccountSession(SessionId(id))
-            ClientIdType.COOKIE -> ClientId.CookieSession(CookieSessionId(id))
-        }
-    }
-}
 
 object VpnIntToBoolSerializer : KSerializer<Boolean> {
 

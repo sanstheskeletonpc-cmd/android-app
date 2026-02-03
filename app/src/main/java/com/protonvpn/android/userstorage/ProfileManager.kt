@@ -54,16 +54,16 @@ class ProfileManager @VisibleForTesting constructor(
 
     fun getDefaultOrFastest() = findDefaultProfile() ?: fastestProfile
 
-    fun addToProfileList(profileToSave: Profile?) {
+    fun addToProfileList(profileToSave: Profile) {
         if (!savedProfiles.profileList.contains(profileToSave)) {
             savedProfiles.profileList.add(profileToSave)
-            Storage.save(savedProfiles, SavedProfilesV3::class.java)
+            Storage.save(savedProfiles, SavedProfilesV3::class.java, SavedProfilesV3.serializer())
         }
     }
 
     fun deleteProfile(profileToSave: Profile?) {
         savedProfiles.profileList.remove(profileToSave)
-        Storage.save(savedProfiles, SavedProfilesV3::class.java)
+        Storage.save(savedProfiles, SavedProfilesV3::class.java, SavedProfilesV3.serializer())
         mainScope.launch {
             userSettingsManager.update { settings ->
                 if (settings.defaultProfileId == profileToSave?.id) settings.copy(defaultProfileId = null)
@@ -75,6 +75,9 @@ class ProfileManager @VisibleForTesting constructor(
     companion object {
         @VisibleForTesting
         fun loadProfiles(): SavedProfilesV3 =
-            Storage.load(SavedProfilesV3::class.java) { SavedProfilesV3.defaultProfiles() }
+            Storage.load(
+                SavedProfilesV3::class.java,
+                SavedProfilesV3.serializer(),
+            ) { SavedProfilesV3.defaultProfiles() }
     }
 }

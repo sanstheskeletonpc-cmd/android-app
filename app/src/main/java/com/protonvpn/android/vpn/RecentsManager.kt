@@ -18,23 +18,15 @@
  */
 package com.protonvpn.android.vpn
 
-import com.google.gson.JsonDeserializationContext
-import com.google.gson.JsonDeserializer
-import com.google.gson.JsonElement
-import com.google.gson.JsonSerializationContext
-import com.google.gson.JsonSerializer
-import com.google.gson.annotations.JsonAdapter
 import com.protonvpn.android.servers.Server
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.utils.Storage
-import com.protonvpn.android.vpn.RecentsManager.RecentServersJsonAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import me.proton.core.util.kotlin.removeFirst
-import java.lang.reflect.Type
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -46,12 +38,6 @@ data class RecentsManagerServerLegacyStorage(
 @Serializable
 private data class RecentsManagerLegacyStorage(
     val recentCountries: List<String> = emptyList(),
-
-    // Workaround for R8:
-    // with R8 there is not enough info to deserialize the ArrayDeque items as Server objects and I can't figure out
-    // rules to make it work.
-    // As a workaround use an explicit deserializer. In the longer term we should move to storing recents in a DB.
-    @JsonAdapter(RecentServersJsonAdapter::class)
     val recentServers: LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>> = LinkedHashMap(),
 )
 
@@ -72,7 +58,7 @@ class RecentsManager @Inject constructor(
         mainScope.launch {
             serverManager.ensureLoaded()
             val loadedRecents =
-                Storage.load(RecentsManager::class.java, RecentsManagerLegacyStorage::class.java)
+                Storage.load(RecentsManager::class.java, RecentsManagerLegacyStorage.serializer())
             if (loadedRecents != null) {
                 recentCountries.addAll(loadedRecents.recentCountries)
                 recentServers.putAll(
@@ -101,7 +87,8 @@ class RecentsManager @Inject constructor(
                             RecentsManagerLegacyStorage(
                                 recentCountries, persistedRecentServers
                             ),
-                            RecentsManager::class.java
+                            RecentsManager::class.java,
+                            RecentsManagerLegacyStorage.serializer()
                         )
                         version.update { it + 1 }
                     }
@@ -142,34 +129,6 @@ class RecentsManager @Inject constructor(
     fun getRecentServers(country: String): List<Server>? = recentServers[country]
 
     fun getAllRecentServers(): List<Server> = recentServers.flatMap { (_, servers) -> servers }
-
-    class RecentServersJsonAdapter : JsonDeserializer<LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>>,
-                                     JsonSerializer<LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>>
-    {
-        override fun deserialize(
-            json: JsonElement,
-            typeOfT: Type,
-            context: JsonDeserializationContext
-        ): LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>> {
-            if (json.isJsonObject) {
-                val result = LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>()
-                val jsonMap = json.asJsonObject
-                jsonMap.keySet().associateWithTo(result) { country ->
-                    jsonMap.get(country).asJsonArray.asList().mapTo(ArrayList()) { jsonServer ->
-                        context.deserialize(jsonServer, RecentsManagerServerLegacyStorage::class.java)
-                    }
-                }
-                return result
-            }
-            return LinkedHashMap()
-        }
-
-        override fun serialize(
-            src: LinkedHashMap<String, List<RecentsManagerServerLegacyStorage>>,
-            typeOfSrc: Type,
-            context: JsonSerializationContext
-        ): JsonElement = context.serialize(src)
-    }
 
     companion object {
         const val RECENT_MAX_SIZE = 3

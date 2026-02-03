@@ -18,21 +18,19 @@
  */
 package com.protonvpn.android.models.profiles
 
-import com.google.gson.annotations.SerializedName
 import com.protonvpn.android.servers.Server
-import java.io.Serializable
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class ServerWrapper(
     val type: ProfileType,
     val country: String,
     val serverId: String?
-) : Serializable {
+) {
 
     enum class ProfileType {
         FASTEST, RANDOM, RANDOM_IN_COUNTRY, FASTEST_IN_COUNTRY, DIRECT
     }
-
-    @SerializedName("secureCoreCountry") val migrateSecureCoreCountry = false
 
     override fun toString() =
         "type: $type country: $country serverId: $serverId"
@@ -46,19 +44,11 @@ data class ServerWrapper(
             ServerWrapper(ProfileType.FASTEST, "", "")
 
         @JvmStatic
-        fun makePreBakedRandom() =
-            ServerWrapper(ProfileType.RANDOM, "", "")
-
-        @JvmStatic
         fun makeWithServer(server: Server) =
             ServerWrapper(ProfileType.DIRECT, server.exitCountry, server.serverId)
 
         @JvmStatic
         fun makeFastestForCountry(country: String) =
             ServerWrapper(ProfileType.FASTEST_IN_COUNTRY, country, "")
-
-        @JvmStatic
-        fun makeRandomForCountry(country: String) =
-            ServerWrapper(ProfileType.RANDOM_IN_COUNTRY, country, "")
     }
 }
