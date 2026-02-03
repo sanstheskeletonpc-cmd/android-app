@@ -97,11 +97,12 @@ class FileLogWriter(
 
         private val fileName = "Data.log"
         private val fileName2 = "Data1.log"
-        private val logger =
-            LoggerFactory.getLogger(uniqueLoggerName) as ch.qos.logback.classic.Logger
+        private lateinit var logger: ch.qos.logback.classic.Logger
+
 
         init {
             mainScope.launch(loggerDispatcher) {
+                logger = LoggerFactory.getLogger(uniqueLoggerName) as ch.qos.logback.classic.Logger
                 initialize()
                 clearUploadTempFiles()
                 processLogs()
