@@ -24,6 +24,7 @@ import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.logging.AppUpdateUpdated
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.models.vpn.CertificateData
+import com.protonvpn.android.promooffers.data.ApiNotificationManager
 import com.protonvpn.android.servers.StreamingServicesUpdater
 import com.protonvpn.android.settings.usecases.EnableTvLanSettingOnMigration
 import com.protonvpn.android.ui.storage.UiStateStorage
@@ -45,6 +46,7 @@ class UpdateMigration @Inject constructor(
     private val updateCertForCurrentUser: dagger.Lazy<UpdateCertForCurrentUser>,
     private val enableTvLanSettingOnMigration: dagger.Lazy<EnableTvLanSettingOnMigration>,
     private val streamingServicesUpdater: dagger.Lazy<StreamingServicesUpdater>,
+    private val apiNotificationManager: dagger.Lazy<ApiNotificationManager>,
 ) {
     private val oldVersionCode = Storage.getInt("VERSION_CODE")
     private val newVersionCode = BuildConfig.VERSION_CODE
@@ -61,7 +63,8 @@ class UpdateMigration @Inject constructor(
             remove_cert_storage_v1(strippedOldVersionCode)
             migrateTvLanSetting(strippedOldVersionCode)
             adoptExcludedLocations(strippedOldVersionCode)
-            updateStreamingServices(oldVersionCode)
+            updateStreamingServices(strippedOldVersionCode)
+            removeLegacyStorage(strippedOldVersionCode)
         }
         if (oldVersionCode == 0 || isUpdatedVersion) {
             Storage.saveInt("VERSION_CODE", newVersionCode)
@@ -126,10 +129,22 @@ class UpdateMigration @Inject constructor(
 
     @SuppressWarnings("MagicNumber")
     private fun updateStreamingServices(oldVersionCode: Int) {
-        if (oldVersionCode <= 5_15_70_0) {
+        if (oldVersionCode <= 5_15_70_00) {
             mainScope.launch {
                 delay(10_000)
                 streamingServicesUpdater.get().forceUpdate()
+            }
+        }
+    }
+
+    @SuppressWarnings("MagicNumber")
+    private fun removeLegacyStorage(oldVersionCode: Int) {
+        if (oldVersionCode <= 5_15_70_00) {
+            mainScope.launch {
+                delay(5_000)
+                Storage.delete("com.protonvpn.android.models.config.bugreport.DynamicReportModel")
+                Storage.delete("com.protonvpn.android.promooffers.data.ApiNotificationsResponse")
+                apiNotificationManager.get().forceUpdate()
             }
         }
     }
