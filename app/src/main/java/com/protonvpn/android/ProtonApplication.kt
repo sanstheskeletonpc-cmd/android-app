@@ -49,10 +49,10 @@ import com.protonvpn.android.redesign.recents.usecases.ConnectingUpdatesRecents
 import com.protonvpn.android.redesign.recents.usecases.RecentsListValidator
 import com.protonvpn.android.redesign.upgrade.usecase.PurchasesEnabledUpdater
 import com.protonvpn.android.servers.UpdateServerTranslations
-import com.protonvpn.android.servers.UpdateServersOnStartAndLocaleChange
 import com.protonvpn.android.telemetry.VpnConnectionTelemetry
 import com.protonvpn.android.theme.UpdateAndroidAppTheme
 import com.protonvpn.android.tv.IsTvCheck
+import com.protonvpn.android.ui.home.ServerListUpdater
 import com.protonvpn.android.ui.onboarding.ReviewTracker
 import com.protonvpn.android.ui.planupgrade.ShowUpgradeSuccess
 import com.protonvpn.android.ui.promooffers.OneTimePopupNotificationTrigger
@@ -128,10 +128,10 @@ open class ProtonApplication : Application() {
         val reviewTracker: ReviewTracker?
         val settingChangesLogger: SettingChangesLogger?
         val notificationPermissionManager: NotificationPermissionManager?
+        val serverListUpdater: ServerListUpdater
         val showUpgradeSuccess: ShowUpgradeSuccess?
         val updateAndroidAppTheme: UpdateAndroidAppTheme
         val updateProfileLastConnected: UpdateProfileLastConnected
-        val updateServersOnLocaleChange: UpdateServersOnStartAndLocaleChange?
         val updateSettingsOnVpnUserChange: UpdateSettingsOnVpnUserChange?
         val updateSettingsOnFeatureFlagChange: UpdateSettingsOnFeatureFlagChange?
         val updateServerTranslations: UpdateServerTranslations
@@ -205,8 +205,8 @@ open class ProtonApplication : Application() {
         dependencies.purchaseStateHandler.start()
         dependencies.recentsValidator
         dependencies.reviewTracker
+        dependencies.serverListUpdater
         dependencies.updateProfileLastConnected.start()
-        dependencies.updateServersOnLocaleChange
         dependencies.updateSettingsOnVpnUserChange
         dependencies.updateSettingsOnFeatureFlagChange
         dependencies.updateServerTranslations

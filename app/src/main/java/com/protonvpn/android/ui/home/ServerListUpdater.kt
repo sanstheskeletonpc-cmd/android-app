@@ -192,13 +192,6 @@ class ServerListUpdater @Inject constructor(
             add(PeriodicUpdateSpec(backgroundDelayMs, setOf(loggedIn)))
     }.toTypedArray().takeIf { it.isNotEmpty() }
 
-    fun onAppStart() {
-        scope.launch {
-            if (needsUpdate() && currentUser.isLoggedIn())
-                updateServerList(forceFreshUpdate = !serverManager.isDownloadedAtLeastOnce)
-        }
-    }
-
     private suspend fun updateLoads(): PeriodicActionResult<out Any> {
         serverManager.ensureLoaded()
         if (!serverManager.isDownloadedAtLeastOnce) {
