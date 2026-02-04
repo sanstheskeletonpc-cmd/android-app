@@ -33,6 +33,7 @@ import com.protonvpn.android.vpn.ConnectTrigger
 import com.protonvpn.android.vpn.VpnConnectionManager
 import com.protonvpn.android.vpn.VpnUiDelegate
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -40,11 +41,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.flow.emitAll
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.shareIn
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.time.Duration.Companion.seconds
 
 @HiltViewModel
 class MainActivityViewModel @Inject constructor(
@@ -79,7 +83,11 @@ class MainActivityViewModel @Inject constructor(
 
     val autoShowInfoSheet = uiStateFlow.map { it.shouldPromoteProfiles }.distinctUntilChanged()
 
-    val showAppUpdateDot = shouldShowAppUpdateDotFlow
+    val showAppUpdateDot = flow {
+        // Checking for update may be a bit expensive, esp on application start. Delay it a bit.
+        delay(AppUpdateCheckDelay)
+        emitAll(shouldShowAppUpdateDotFlow)
+    }
 
     // Must be fast, it's used in SplashScreen.setKeepOnScreenCondition
     val isMinimalStateReady: Boolean get() = isMinimalStateReadyFlow.value
@@ -102,4 +110,7 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
+    companion object {
+        val AppUpdateCheckDelay = 1.seconds
+    }
 }

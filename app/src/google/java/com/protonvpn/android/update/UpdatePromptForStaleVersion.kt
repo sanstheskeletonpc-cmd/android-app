@@ -57,13 +57,13 @@ class UpdatePromptForStaleVersion @Inject constructor(
 
     suspend fun getUpdatePrompt(): AppUpdateInfo? {
         if (!isFeatureEnabled()) return null
+        if (!isNextPromptDue()) return null // Check this first, checking for update is expensive.
 
         val updateInfo = appUpdateManager.checkForUpdate()
         resetPromptStateIfNeeded(updateInfo)
 
         return updateInfo.takeIf {
-            updateInfo != null &&
-                    updateInfo.stalenessDays >= UPDATE_PROMPT_STALENESS_DAYS && isNextPromptDue()
+            updateInfo != null && updateInfo.stalenessDays >= UPDATE_PROMPT_STALENESS_DAYS
         }
     }
 

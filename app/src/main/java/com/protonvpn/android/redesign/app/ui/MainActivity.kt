@@ -54,6 +54,7 @@ import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.logging.UiConnect
 import com.protonvpn.android.managed.ui.AutoLoginErrorView
 import com.protonvpn.android.managed.ui.AutoLoginView
+import com.protonvpn.android.redesign.app.ui.MainActivityViewModel.Companion.AppUpdateCheckDelay
 import com.protonvpn.android.redesign.app.ui.nav.MainNavEvent
 import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
 import com.protonvpn.android.redesign.base.ui.ProtonAlert
@@ -77,6 +78,7 @@ import com.protonvpn.android.update.UpdatePromptForStaleVersion
 import com.protonvpn.android.vpn.ConnectTrigger
 import com.protonvpn.android.widget.WidgetActionHandler
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -275,6 +277,9 @@ class MainActivity : VpnUiDelegateProvider, AppCompatActivity() {
             .launchIn(lifecycleScope)
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                // Checking for updates adds IPC and thus is expensive on start.
+                // Delay it a little bit.
+                delay(AppUpdateCheckDelay)
                 val appUpdate = promptUpdate.getUpdatePrompt()
                 if (appUpdate != null) {
                     promptUpdate.launchUpdateFlow(this@MainActivity, appUpdate)
