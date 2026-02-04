@@ -19,34 +19,16 @@
 
 package com.protonvpn.android.servers
 
-import android.content.Context
-import android.content.Intent
-import android.content.IntentFilter
-import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.ui.home.ServerListUpdater
-import com.protonvpn.android.utils.AndroidUtils.registerBroadcastReceiver
-import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class UpdateServersOnStartAndLocaleChange @Inject constructor(
-    scope: CoroutineScope,
-    @ApplicationContext appContext: Context,
     serverListUpdater: ServerListUpdater,
-    updateTranslations: UpdateServerTranslations,
-    currentUser: CurrentUser
 ) {
 
     init {
         serverListUpdater.onAppStart()
-        appContext.registerBroadcastReceiver(IntentFilter(Intent.ACTION_LOCALE_CHANGED)) {
-            scope.launch {
-                if (currentUser.isLoggedIn())
-                    updateTranslations()
-            }
-        }
     }
 }

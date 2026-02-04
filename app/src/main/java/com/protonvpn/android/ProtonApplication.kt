@@ -48,6 +48,7 @@ import com.protonvpn.android.quicktile.QuickTileDataStoreUpdater
 import com.protonvpn.android.redesign.recents.usecases.ConnectingUpdatesRecents
 import com.protonvpn.android.redesign.recents.usecases.RecentsListValidator
 import com.protonvpn.android.redesign.upgrade.usecase.PurchasesEnabledUpdater
+import com.protonvpn.android.servers.UpdateServerTranslations
 import com.protonvpn.android.servers.UpdateServersOnStartAndLocaleChange
 import com.protonvpn.android.telemetry.VpnConnectionTelemetry
 import com.protonvpn.android.theme.UpdateAndroidAppTheme
@@ -133,6 +134,7 @@ open class ProtonApplication : Application() {
         val updateServersOnLocaleChange: UpdateServersOnStartAndLocaleChange?
         val updateSettingsOnVpnUserChange: UpdateSettingsOnVpnUserChange?
         val updateSettingsOnFeatureFlagChange: UpdateSettingsOnFeatureFlagChange?
+        val updateServerTranslations: UpdateServerTranslations
         val vpnConnectionObservability: VpnConnectionObservability?
         val vpnConnectionTelemetry: VpnConnectionTelemetry
         val widgetStateUpdater: WidgetStateUpdater
@@ -207,6 +209,7 @@ open class ProtonApplication : Application() {
         dependencies.updateServersOnLocaleChange
         dependencies.updateSettingsOnVpnUserChange
         dependencies.updateSettingsOnFeatureFlagChange
+        dependencies.updateServerTranslations
         dependencies.showUpgradeSuccess
         dependencies.vpnConnectionObservability
         dependencies.vpnConnectionTelemetry.start()

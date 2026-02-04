@@ -28,9 +28,9 @@ import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.models.vpn.UserLocation
 import com.protonvpn.android.models.vpn.data.LogicalsMetadata
 import com.protonvpn.android.servers.FakeIsBinaryServerStatusFeatureFlagEnabled
-import com.protonvpn.android.servers.UpdateServerListFromApi
 import com.protonvpn.android.servers.IsBinaryServerStatusEnabled
 import com.protonvpn.android.servers.Server
+import com.protonvpn.android.servers.UpdateServerListFromApi
 import com.protonvpn.android.servers.api.LogicalServer
 import com.protonvpn.android.servers.api.LogicalServerV1
 import com.protonvpn.android.servers.api.LogicalsResponse
@@ -64,7 +64,6 @@ import io.mockk.coVerifyOrder
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -233,7 +232,6 @@ class ServerListUpdaterTests {
             remoteConfig = remoteConfig,
             wallClock = testScope::currentTime,
             updateServerListFromApi = updateServerListFromApi,
-            updateServerTranslations = mockk(relaxed = true),
             binaryServerStatusEnabled = binaryServerStatusEnabled,
         )
     }
