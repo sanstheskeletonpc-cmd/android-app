@@ -221,12 +221,6 @@ class HomeViewModel @Inject constructor(
         @get:StringRes
         open val cancelLabelResId: Int? = null
 
-        open val onCancelClick: (() -> Unit)? = null
-
-        open val onConfirmClick: (() -> Unit)? = null
-
-        open val onDismissed: (() -> Unit)? = null
-
         @Parcelize
         object CountryInMaintenance : DialogState() {
 
@@ -276,9 +270,7 @@ class HomeViewModel @Inject constructor(
         }
 
         @Parcelize
-        data class ServerLocationExcluded(
-            override val onCancelClick: (() -> Unit)?,
-        ) : DialogState() {
+        data object ServerLocationExcluded : DialogState() {
 
             @IgnoredOnParcel
             override val messageResId: Int = R.string.message_server_location_excluded
@@ -300,11 +292,7 @@ class HomeViewModel @Inject constructor(
         }
 
         @Parcelize
-        data class SmartConnectionPreferencesDiscovery(
-            override val onCancelClick: (() -> Unit)?,
-            override val onConfirmClick: (() -> Unit)?,
-            override val onDismissed: (() -> Unit)?,
-        ) : DialogState() {
+        data object SmartConnectionPreferencesDiscovery : DialogState() {
 
             @IgnoredOnParcel
             override val titleResId: Int = R.string.connection_preferences_smart_discovery_dialog_title
@@ -370,9 +358,7 @@ class HomeViewModel @Inject constructor(
                 ConnectIntentAvailability.UNAVAILABLE_PLAN -> _eventFlow.emit(value = Event.OnNavigateToUpgrade)
                 ConnectIntentAvailability.UNAVAILABLE_PROTOCOL -> dialogState = DialogState.ServerNotAvailable
                 ConnectIntentAvailability.NO_SERVERS -> dialogState = DialogState.ServerNotAvailable
-                ConnectIntentAvailability.EXCLUDED -> {
-                    dialogState = DialogState.ServerLocationExcluded(onCancelClick = ::openConnectionPreferences)
-                }
+                ConnectIntentAvailability.EXCLUDED -> dialogState = DialogState.ServerLocationExcluded
                 ConnectIntentAvailability.AVAILABLE_OFFLINE -> dialogState = recent.toMaintenanceDialogType()
                 ConnectIntentAvailability.ONLINE -> {
                     val trigger = if (recent.isPinned) ConnectTrigger.RecentPinned else ConnectTrigger.RecentRegular
@@ -394,19 +380,7 @@ class HomeViewModel @Inject constructor(
                     context = VpnProductPromptTelemetry.PromptContext.ConnectionPreferencesFirstConnection,
                 )
 
-                dialogState = DialogState.SmartConnectionPreferencesDiscovery(
-                    onCancelClick = {
-                        promptTelemetry.trackPromptAction(
-                            type = VpnProductPromptTelemetry.PromptType.FeatureDiscovery,
-                            context = VpnProductPromptTelemetry.PromptContext.ConnectionPreferencesFirstConnection,
-                            action = VpnProductPromptTelemetry.PromptAction.Configure,
-                        )
-
-                        openConnectionPreferences()
-                    },
-                    onConfirmClick = ::dismissSmartConnectionPreferencesDiscoveryDialog,
-                    onDismissed = ::dismissSmartConnectionPreferencesDiscoveryDialog,
-                )
+                dialogState = DialogState.SmartConnectionPreferencesDiscovery
 
                 uiStateStorage.update {
                     it.copy(hasShownConnectionPreferencesSmartDiscovery = true)
@@ -441,7 +415,17 @@ class HomeViewModel @Inject constructor(
         return trafficStatus.sessionTimeSeconds.seconds < 1.minutes
     }
 
-    private fun dismissSmartConnectionPreferencesDiscoveryDialog() {
+    fun openSmartDiscoveryConnectionPreferences() {
+        promptTelemetry.trackPromptAction(
+            type = VpnProductPromptTelemetry.PromptType.FeatureDiscovery,
+            context = VpnProductPromptTelemetry.PromptContext.ConnectionPreferencesFirstConnection,
+            action = VpnProductPromptTelemetry.PromptAction.Configure,
+        )
+
+        openConnectionPreferences()
+    }
+
+    fun dismissSmartDiscoveryConnectionPreferencesDialog() {
         promptTelemetry.trackPromptAction(
             type = VpnProductPromptTelemetry.PromptType.FeatureDiscovery,
             context = VpnProductPromptTelemetry.PromptContext.ConnectionPreferencesFirstConnection,

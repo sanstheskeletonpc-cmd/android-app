@@ -66,6 +66,9 @@ fun FullHomeScreenDisconnected() {
             snackbarHostState = SnackbarHostState(),
             recentsComponent = HomeViewData.recentsComponentDisconnected,
             adoptionComponent = null,
+            onOpenConnectionPreferences = {},
+            onOpenSmartDiscoveryConnectionPreferences = {},
+            onDismissSmartDiscoveryConnectionPreferencesDialog = {},
         )
     }
 }
@@ -93,6 +96,9 @@ fun FullHomeScreenConnected() {
             snackbarHostState = SnackbarHostState(),
             recentsComponent = HomeViewData.recentsComponentConnected,
             adoptionComponent = null,
+            onOpenConnectionPreferences = {},
+            onOpenSmartDiscoveryConnectionPreferences = {},
+            onDismissSmartDiscoveryConnectionPreferencesDialog = {},
         )
     }
 }

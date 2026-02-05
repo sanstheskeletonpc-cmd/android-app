@@ -243,6 +243,9 @@ fun HomeRoute(
         connectionCardComponent = connectionCardComponent,
         recentsComponent = recentsComponent,
         adoptionComponent = adoptionComponent,
+        onOpenConnectionPreferences = homeViewModel::openConnectionPreferences,
+        onOpenSmartDiscoveryConnectionPreferences = homeViewModel::openSmartDiscoveryConnectionPreferences,
+        onDismissSmartDiscoveryConnectionPreferencesDialog = homeViewModel::dismissSmartDiscoveryConnectionPreferencesDialog,
     )
 
     homeViewModel.eventFlow.collectAsEffect { event ->
@@ -301,6 +304,9 @@ fun HomeView(
     snackbarHostState: SnackbarHostState,
     recentsComponent: RecentsComponent,
     adoptionComponent: AdoptionComponent?,
+    onOpenConnectionPreferences: () -> Unit,
+    onOpenSmartDiscoveryConnectionPreferences: () -> Unit,
+    onDismissSmartDiscoveryConnectionPreferencesDialog: () -> Unit,
 ) {
     val context = LocalContext.current
     val coroutineScope = rememberCoroutineScope()
@@ -532,9 +538,45 @@ fun HomeView(
     }
 
     if (dialogState != null) {
+        val (onConfirmClick, onCancelClick, onDismiss) = remember(key1 = dialogState) {
+            when (dialogState) {
+                DialogState.CityInMaintenance,
+                DialogState.CountryInMaintenance,
+                DialogState.GatewayInMaintenance,
+                DialogState.StateInMaintenance,
+                is DialogState.ProfileNotAvailable,
+                DialogState.ServerInMaintenance,
+                DialogState.ServerNotAvailable -> {
+                    Triple(
+                        first = onDismissDialog,
+                        second = null,
+                        third = onDismissDialog,
+                    )
+                }
+
+                DialogState.ServerLocationExcluded -> {
+                    Triple(
+                        first = onDismissDialog,
+                        second = onOpenConnectionPreferences,
+                        third = onDismissDialog,
+                    )
+                }
+
+                DialogState.SmartConnectionPreferencesDiscovery -> {
+                    Triple(
+                        first = onDismissSmartDiscoveryConnectionPreferencesDialog,
+                        second = onOpenSmartDiscoveryConnectionPreferences,
+                        third = onDismissSmartDiscoveryConnectionPreferencesDialog,
+                    )
+                }
+            }
+        }
+
         HomeDialog(
             dialogState = dialogState,
-            onDismiss = onDismissDialog,
+            onConfirmClick = onConfirmClick,
+            onCancelClick = onCancelClick,
+            onDismiss = onDismiss,
         )
     }
 }
@@ -605,16 +647,21 @@ private suspend fun handleSnackbarError(
 }
 
 @Composable
-private fun HomeDialog(dialogState: DialogState, onDismiss: () -> Unit) = with(dialogState) {
+private fun HomeDialog(
+    dialogState: DialogState,
+    onConfirmClick: () -> Unit,
+    onCancelClick: (() -> Unit)?,
+    onDismiss: () -> Unit,
+) = with(dialogState) {
     ProtonAlert(
         title = stringResource(id = titleResId),
         text = stringResource(id = messageResId, formatArgs = messageArgs),
         textColor = ProtonTheme.colors.textWeak,
         confirmLabel = stringResource(id = confirmLabelResId),
-        onConfirm = { onConfirmClick?.invoke() ?: onDismiss() },
+        onConfirm = { onConfirmClick() },
         dismissLabel = cancelLabelResId?.let { stringResource(id = it) },
         onDismissButton = { onCancelClick?.invoke() },
-        onDismissRequest = { onDismissed?.invoke() ?: onDismiss() },
+        onDismissRequest = onDismiss,
     )
 }
 
