@@ -142,7 +142,6 @@ class AppConfigResponseTests {
         val config = JSON.decodeFromString<AppConfigResponse>(fullConfigJson)
         assertEquals(listOf(443), config.defaultPortsConfig.getWireguardPorts().tcpPorts)
         assertTrue(config.smartProtocolConfig.wireguardEnabled)
-        assertTrue(config.featureFlags.guestHoleEnabled)
         assertEquals(4, config.changeServerAttemptLimit)
     }
 
