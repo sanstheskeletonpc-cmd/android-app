@@ -131,7 +131,7 @@ class ApiNotificationManagerTests {
 
         every { mockAppConfig.appConfigUpdateEvent } returns MutableSharedFlow()
         every { mockAppConfig.appConfigFlow } returns appConfigFlow
-        every { mockImagePrefetcher.prefetch(any()) } returns true
+        coEvery { mockImagePrefetcher.prefetch(any()) } returns true
         coEvery { mockGenerateNotificationsForIntroductoryOffers.invoke() } returns emptyList()
 
         infoChangeFlow = MutableSharedFlow()
@@ -206,8 +206,8 @@ class ApiNotificationManagerTests {
             mockOffer("failureLight", -1, 1, iconUrl = "urlSuccess", panel = mockFullScreenImagePanel("urlSuccess", "urlFailure"))
         )
 
-        every { mockImagePrefetcher.prefetch(any()) } returns false
-        every { mockImagePrefetcher.prefetch("urlSuccess") } returns true
+        coEvery { mockImagePrefetcher.prefetch(any()) } returns false
+        coEvery { mockImagePrefetcher.prefetch("urlSuccess") } returns true
 
         notificationManager.updateNotifications()
     }
@@ -231,11 +231,11 @@ class ApiNotificationManagerTests {
             mockOffer("id", -1, 1, iconUrl = "url")
         )
         notificationManager.updateNotifications()
-        verify(exactly = 1) { mockImagePrefetcher.prefetch("url") }
+        coVerify(exactly = 1) { mockImagePrefetcher.prefetch("url") }
         notificationManager.activeListFlow.first()
-        verify(exactly = 2) { mockImagePrefetcher.prefetch("url") }
+        coVerify(exactly = 2) { mockImagePrefetcher.prefetch("url") }
         notificationManager.activeListFlow.first()
-        verify(exactly = 3) { mockImagePrefetcher.prefetch("url") }
+        coVerify(exactly = 3) { mockImagePrefetcher.prefetch("url") }
     }
 
     @Test
@@ -315,7 +315,6 @@ class ApiNotificationManagerTests {
     ) = ApiNotificationManager(
         appContext = mockContext,
         mainScope = testScope.backgroundScope,
-        dispatcherProvider = TestDispatcherProvider(testDispatcher),
         wallClockMs = { testScope.currentTime },
         appConfig = mockAppConfig,
         apiNotificationsStore = apiNotificationsStore,
@@ -323,7 +322,7 @@ class ApiNotificationManagerTests {
         currentUser = currentUser,
         userPlanManager = mockUserPlanManager,
         generateNotificationsForIntroductoryOffers = mockGenerateNotificationsForIntroductoryOffers,
-        imagePrefetcher = mockImagePrefetcher,
+        lazyImagePrefetcher = dagger.Lazy { mockImagePrefetcher },
         periodicUpdateManager = mockPeriodicUpdateManager,
         inForeground = flowOf(true),
         isLoggedIn = flowOf(true),
