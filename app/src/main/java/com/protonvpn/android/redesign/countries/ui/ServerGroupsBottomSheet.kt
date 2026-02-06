@@ -240,7 +240,7 @@ private fun AnimatedBottomSheetHeader(
                 ) {
                     AnimatedVisibility(visible = canNavigateBack) {
                         Icon(
-                            painter = painterResource(id = CoreR.drawable.ic_arrow_left),
+                            painter = painterResource(id = CoreR.drawable.ic_arrow_back),
                             tint = ProtonTheme.colors.iconNorm,
                             contentDescription = stringResource(R.string.accessibility_back),
                             modifier = Modifier
