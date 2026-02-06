@@ -417,7 +417,7 @@
     <string name="upgrade_split_tunneling_title">Атрымлівайце лепшае ад абодвух светаў</string>
     <string name="upgrade_split_tunneling_message"><![CDATA[З функцыяй <b>Split Tunneling</b> вы зможаце дзяліць свой трафік на той, які будзе праходзіць праз тунэлі VPN і на той, які будзе абыходзіцца без іх.]]></string>
     <string name="upgrade_customization_title">Атрымайце доступ да пашыраных наладаў VPN</string>
-    <string name="upgrade_customization_message"><![CDATA[Разблакіруйце <b>падключэнні па LAN</b>, <b>карыстальніцкія DNS</b> і <b>NAT тыпу 2</b> з дапамогай VPN Plus.]]></string>
+    <string name="upgrade_customization_message"><![CDATA[Разблакіруйце <b>падключэнні па LAN</b>, <b>карыстальніцкія DNS</b> і <b>NAT тып 2</b> з дапамогай VPN Plus.]]></string>
     <string name="upgrade_all_countries_title">Доступ да ўсіх краін</string>
     <!-- Number of servers inserted as %1$s in the "upgrade_plus_countries_title_new".
          The number is rounded to the hundreds, e.g. for a value of 1234 the number used in this text is 1200.
@@ -625,7 +625,7 @@
     <string name="onboarding_welcome_title">Вітаем у Proton VPN</string>
     <string name="onboarding_welcome_description">Прыватны прагляд, доступ да заблакіраванага змесціва і задавальненне ад лічбавай свабоды.</string>
     <string name="onboarding_welcome_action">Пачаць</string>
-    <string name="upgrade_success_get_started_button">Пачаць працу</string>
+    <string name="upgrade_success_get_started_button">Пачаць</string>
     <string name="dynamic_report_suggestion_didnt_work">Не працуе?</string>
     <string name="dynamic_report_contact_us">Звязацца з намі</string>
     <string name="dynamic_report_tips_description">Гэтыя парады дапамогуць хутчэй вырашыць вашу праблему.</string>
@@ -744,7 +744,7 @@
         <item quantity="other">%1$d дзён</item>
     </plurals>
     <string name="server_change_max_reached">На цяперашні момант вы дасягнулі максімальнай колькасці змяненняў сервераў з пазнакай Free.</string>
-    <string name="server_change_upsell">Атрымайце неабмежаваную колькасць змяненняў сервера з VPN Plus.</string>
+    <string name="server_change_upsell">Змяняйце серверы без абмежаванняў з VPN Plus</string>
     <string name="server_change_button_title">Змяніць сервер</string>
     <!-- Added to "Change server" button when it displays countdown until the button becomes active.
          Used only for accessibility services.
@@ -769,7 +769,7 @@
     <string name="whats_new_title">Што новага</string>
     <string name="whats_new_profiles_title">Профілі вярнуліся</string>
     <string name="whats_new_profiles_description">Стварайце і захоўвайце карыстальніцкія падключэнні з выбраным месцазнаходжаннем, серверам і пратаколам.</string>
-    <string name="whats_new_widget_title">Уводзіны ў віджэты</string>
+    <string name="whats_new_widget_title">Уводзіны ў раздзел \"Віджэты\"</string>
     <string name="whats_new_widget_description">Цяпер вы можаце праглядаць і кіраваць сваім VPN не пакідаючы галоўны экран.</string>
     <string name="whats_new_add_widget_button">Дадаць віджэт</string>
     <string name="welcome_plus_title">Вітаем у VPN Plus</string>
@@ -1138,7 +1138,7 @@
     <!-- tag(Redesign_2023) -->
     <string name="settings_category_improve_proton">Удасканаліць Proton</string>
     <!-- tag(Redesign_2023) -->
-    <string name="settings_fight_censorship_title">Дапамагаць нам змагацца з цэнзурай</string>
+    <string name="settings_fight_censorship_title">Дапамажыце нам змагацца з цэнзурай</string>
     <!-- tag(Redesign_2023) -->
     <string name="settings_rate_us_title">Ацаніць Proton VPN</string>
     <!-- tag(Redesign_2023) -->
@@ -1472,8 +1472,8 @@
     <string name="settings_custom_dns_netshield_conflict_dialog_message">NetShield не зможа адфільтраваць рэкламу, праграмы сачэння і шкодныя праграмы, калі выкарыстоўваецца карыстальніцкі DNS. Даведацца больш</string>
     <string name="settings_custom_dns_netshield_conflict_dialog_message_tv">NetShield не зможа адфільтраваць рэкламу, праграмы сачэння і шкодныя праграмы, калі выкарыстоўваецца карыстальніцкі DNS.</string>
     <string name="settings_advanced_alternative_routing_title">Альтэрнатыўная маршрутызацыя</string>
-    <string name="settings_advanced_alternative_routing_description">Калі сэрвісы Proton заблакіраваны па прычыне абмежаванняў сеткі, мы паспрабуем скарыстацца альтэрнатыўным сеткавым маршрутам для падключэння да нашых сайтаў.</string>
-    <string name="settings_advanced_allow_lan_title">Падключэнні па лакальнай сетцы</string>
+    <string name="settings_advanced_alternative_routing_description">Будзе зроблена спроба скарыстацца альтэрнатыўным сеткавым маршрутам для падключэння да нашых сайтаў, калі сэрвісы Proton заблакіраваны з прычыны абмежавання сеткі.</string>
+    <string name="settings_advanced_allow_lan_title">Падключэнні па LAN</string>
     <string name="settings_advanced_allow_lan_description">Дазваляе вам падключацца да прынтараў, дынамікаў і іншых прылад, якія знаходзяцца ў вашай лакальнай сетцы.</string>
     <string name="settings_advanced_allow_lan_description_tv">Падключайцеся да дынамікаў, камп\'ютараў і іншых прылад у вашай лакальнай сетцы</string>
     <string name="settings_advanced_allow_lan_title_tv">Дазволіць падключэнні па лакальнай сетцы</string>
@@ -1545,7 +1545,7 @@
     <string name="info_p2p_why_title">Навошта выкарыстоўваць сервер P2P падчас працы з торэнтамі?</string>
     <string name="info_p2p_why_description_speed">Павялічаныя хуткасці запампоўвання і спампоўвання</string>
     <string name="info_p2p_why_description_logs">Адсутнасць журналаў актыўнасці</string>
-    <string name="info_p2p_why_description_hide">Хаванне вашага IP-адраса ад вашага пастаўшчыка паслуг інтэрнэту і аднарангавых вузлоў</string>
+    <string name="info_p2p_why_description_hide">Хавайце свой IP-адрас ад вашага пастаўшчыка паслуг інтэрнэту і аднарангавых вузлоў</string>
     <string name="info_dialog_smart_routing_description">Smart Routing выкарыстоўвае віртуальныя серверы, каб забяспечваць пакрыццё VPN у цяжкадаступных краінах.\n\nКалі вы падключаецеся да сервера Smart Routing, то ўсё будзе выглядаць так, быццам вы ажыццяўляеце прагляд з краіны прызначэння, хоць фізічна сервер размяшчаецца ў іншым месцы.\n\nSmart Routing звычайна выкарыстоўваюць для абыходу законаў, якія парушаюць прыватнасць і канфідэнцыяльнасць, а таксама іншых форм цэнзуры.</string>
     <string name="countries_upsell_banner_description">Тарыфны план VPN Plus забяспечвае пакрыццё ўсяго свету</string>
     <string name="secure_core_upsell_banner_description">Дадайце яшчэ адзін слой шыфравання ў сваё падключэнне па VPN</string>
@@ -1606,7 +1606,7 @@
     <string name="profiles_button_create_profile">Стварыць профіль</string>
     <string name="profile_deleted_snackbar_message">Профіль выдалены</string>
     <string name="profile_connected_edit_setting">Гэтая налада падключана да вашага актыўнага профілю.\n\nАдрэдагуйце свой профіль, каб унесці змены. Вы таксама можаце адключыцца, каб адрэдагаваць вашы агульныя налады VPN.</string>
-    <string name="profile_connected_dialog_title">Кіраванне %1$s у профілях.</string>
+    <string name="profile_connected_dialog_title">Кіраванне %1$s у профілях</string>
     <string name="undo">Адрабіць</string>
     <string name="profile_unavailable_dialog_title">Профіль недаступны</string>
     <!-- %1$s - profile name
@@ -1684,7 +1684,7 @@
     <string name="settings_protocol_proton_protocols">Пратаколы Proton</string>
     <string name="settings_protocol_proton_protocols_description">Выкарыстоўвайце ўласную рэалізацыю WireGuard ад Proton VPN. Гэта эксперыментальная функцыя, таму вы можаце сутыкнуцца з некаторай нестабільнасцю.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Не тая краіна, якую хацелі?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">Вы можаце выключыць іх з найхутчэйшых краін, калі ёсць месцазнаходжанні, да якіх вы не хочаце аўтаматычна падключацца.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Вы можаце выключыць месцазнаходжанні з найхутчэйшых краін, калі ёсць такія, да якіх вы не хочаце аўтаматычна падключацца.</string>
     <string name="excluded_locations_adoption_title">Пазбягайце непажаданых месцазнаходжанняў</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Цяпер вы можаце выключыць краіны і гарады з <b>Найхутчэйшых</b> падключэнняў.]]></string>
 </resources>
