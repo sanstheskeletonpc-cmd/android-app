@@ -39,11 +39,9 @@ private val STREAMING_SERVICES_CALL_DELAY = TimeUnit.DAYS.toMillis(2)
 
 @Reusable
 class StreamingServicesUpdater @Inject constructor(
-    mainScope: CoroutineScope,
     private val api: dagger.Lazy<ProtonApiRetroFit>,
     private val streamingServicesStore: dagger.Lazy<StreamingServicesObjectStore>,
     private val periodicUpdateManager: PeriodicUpdateManager,
-    currentUser: CurrentUser,
     @IsInForeground private val inForeground: Flow<Boolean>,
 ) {
     private val streamingServicesUpdate = periodicUpdateManager.registerApiCall(
@@ -51,16 +49,6 @@ class StreamingServicesUpdater @Inject constructor(
         ::update,
         PeriodicUpdateSpec(STREAMING_SERVICES_CALL_DELAY, setOf(inForeground))
     )
-
-    init {
-        currentUser.eventVpnLogin
-            .onEach {
-                if (streamingServicesStore.get().read() == null) {
-                    periodicUpdateManager.executeNow(streamingServicesUpdate)
-                }
-            }
-            .launchIn(mainScope)
-    }
 
     suspend fun forceUpdate() {
         periodicUpdateManager.executeNow(streamingServicesUpdate)
