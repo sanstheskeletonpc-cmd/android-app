@@ -27,6 +27,7 @@ import com.protonvpn.android.settings.data.ApplyEffectiveUserSettings
 import com.protonvpn.android.settings.data.CurrentUserLocalSettingsManager
 import com.protonvpn.android.settings.data.LocalUserSettingsStoreProvider
 import com.protonvpn.android.settings.data.SettingsFeatureFlagsFlow
+import com.protonvpn.android.tv.IsAmazonFireTV
 import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.tv.settings.FakeIsTvAutoConnectFeatureFlagEnabled
 import com.protonvpn.android.tv.settings.FakeIsTvCustomDnsSettingFeatureFlagEnabled
@@ -122,6 +123,7 @@ class TvSettingsAddCustomDnsViewModelTests {
             mainScope = testScope,
             settingsForConnection = settingsForConnection,
             userSettingsManager = userSettingsManager,
+            isAmazonFireTV = IsAmazonFireTV { false },
         )
     }
 
@@ -132,7 +134,7 @@ class TvSettingsAddCustomDnsViewModelTests {
 
     @Test
     fun `WHEN observing view state THEN initial view state is emitted`() = testScope.runTest {
-        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = null)
+        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = null, isAmazonFireTV = false)
 
         viewModel.viewStateFlow.test {
             val viewState = awaitItem()
@@ -144,7 +146,7 @@ class TvSettingsAddCustomDnsViewModelTests {
     @Test
     fun `GIVEN empty custom DNS WHEN observing view state THEN view state error is EmptyInput`() = testScope.runTest {
         val customDns = ""
-        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.EmptyInput)
+        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.EmptyInput, isAmazonFireTV = false)
 
         viewModel.onAddCustomDns(newCustomDns = customDns)
 
@@ -158,7 +160,7 @@ class TvSettingsAddCustomDnsViewModelTests {
     @Test
     fun `GIVEN invalid custom DNS WHEN observing view state THEN view state error is InvalidInput`() = testScope.runTest {
         val customDns = "invalid DNS"
-        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.InvalidInput)
+        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.InvalidInput, isAmazonFireTV = false)
 
         viewModel.onAddCustomDns(newCustomDns = customDns)
 
@@ -172,7 +174,7 @@ class TvSettingsAddCustomDnsViewModelTests {
     @Test
     fun `GIVEN custom DNS already exists WHEN observing view state THEN view state error is DuplicateInput`() = testScope.runTest {
         val customDns = "1.1.1.1"
-        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.DuplicateInput)
+        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = AddDnsError.DuplicateInput, isAmazonFireTV = false)
         userSettingsManager.updateCustomDnsList(newDnsList = listOf(customDns))
 
         viewModel.onAddCustomDns(newCustomDns = customDns)
@@ -187,7 +189,7 @@ class TvSettingsAddCustomDnsViewModelTests {
     @Test
     fun `GIVEN custom DNS changes WHEN observing view state THEN view state error is reset`() = testScope.runTest {
         val customDns = ""
-        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = null)
+        val expectedViewState = TvSettingsAddCustomDnsViewModel.ViewState(error = null, isAmazonFireTV = false)
         viewModel.onAddCustomDns(newCustomDns = customDns)
 
         viewModel.onCustomDnsChanged()

@@ -22,27 +22,24 @@ package com.protonvpn.android.vpn.autoconnect
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import androidx.work.WorkManager
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class AutoConnectBootReceiver : BroadcastReceiver() {
 
-    @Inject lateinit var mainScope: CoroutineScope
-    @Inject lateinit var autoConnectVpn: dagger.Lazy<AutoConnectVpn>
+    @Inject lateinit var workManager: dagger.Lazy<WorkManager>
 
     override fun onReceive(context: Context, intent: Intent) {
         if (intent.action != Intent.ACTION_BOOT_COMPLETED) return
 
-        val pendingResult = goAsync()
-        mainScope.launch {
-            try {
-                autoConnectVpn.get().invoke()
-            } finally {
-                pendingResult.finish()
-            }
-        }
+        // Firestick and some other TV devices put aggressive time constraints on this broadcast
+        // receiver so we're making it as lightweight as possible:
+        // - running in dedicated, light process
+        // - not doing any actual work but delegating it (with delay) to work manager.
+        // NOTE: on firestick HD it still can take 30s for the broadcast receiver to even start so
+        // connection will be established with a significant delay.
+        AutoConnectOnBootWorker.enqueue(workManager.get())
     }
 }

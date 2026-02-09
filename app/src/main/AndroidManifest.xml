@@ -333,6 +333,7 @@
         </receiver>
         <receiver
             android:name=".vpn.autoconnect.AutoConnectBootReceiver"
+            android:process=":auto_connect_boot_receiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
