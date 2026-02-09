@@ -25,6 +25,7 @@ import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.redesign.settings.ui.customdns.AddDnsError
 import com.protonvpn.android.redesign.vpn.usecases.SettingsForConnection
 import com.protonvpn.android.settings.data.CurrentUserLocalSettingsManager
+import com.protonvpn.android.tv.IsAmazonFireTV
 import com.protonvpn.android.utils.isValidIp
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
@@ -45,6 +46,7 @@ class TvSettingsAddCustomDnsViewModel @Inject constructor(
     private val mainScope: CoroutineScope,
     private val settingsForConnection: SettingsForConnection,
     private val userSettingsManager: CurrentUserLocalSettingsManager,
+    private val isAmazonFireTV: IsAmazonFireTV,
 ) : ViewModel() {
 
     sealed interface Event {
@@ -55,7 +57,7 @@ class TvSettingsAddCustomDnsViewModel @Inject constructor(
 
     }
 
-    data class ViewState(val error: AddDnsError?)
+    data class ViewState(val error: AddDnsError?, val isAmazonFireTV: Boolean)
 
     private val eventChannel = Channel<Event>(
         capacity = 1,
@@ -67,7 +69,12 @@ class TvSettingsAddCustomDnsViewModel @Inject constructor(
     val eventChannelReceiver: ReceiveChannel<Event> = eventChannel
 
     val viewStateFlow: StateFlow<ViewState?> = customDnsErrorFlow
-        .map(::ViewState)
+        .map { error ->
+            ViewState(
+                error = error,
+                isAmazonFireTV = isAmazonFireTV(),
+            )
+        }
         .stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5_000),

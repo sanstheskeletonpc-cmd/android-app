@@ -79,6 +79,7 @@ class TvSettingsAddCustomDnsActivity : BaseTvActivity() {
                         state = state,
                         onCustomDnsChanged = viewModel::onCustomDnsChanged,
                         onSubmitCustomDns = viewModel::onAddCustomDns,
+                        close = ::finish,
                     )
                 }
 
@@ -106,6 +107,7 @@ private fun TvSettingsAddCustomDns(
     state: TvSettingsAddCustomDnsViewModel.ViewState,
     onCustomDnsChanged: () -> Unit,
     onSubmitCustomDns: (String) -> Unit,
+    close: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     var customDnsValue by rememberSaveable(stateSaver = TextFieldValue.Saver) {
@@ -132,6 +134,12 @@ private fun TvSettingsAddCustomDns(
             keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
             keyboardActions = KeyboardActions(
                 onDone = { onSubmitCustomDns(customDnsValue.text.trim()) },
+
+                // On Amazon's Firestick back doesn't automatically close the keyboard, but instead triggers
+                // the previous focusable item. As there's no other focusable item on the screen,
+                // it doesn't do anything. To work around this, we trigger the close action when the user
+                // navigates back.
+                onPrevious = if (state.isAmazonFireTV) { { close() } } else null,
             ),
             singleLine = true,
             maxLines = 1,
