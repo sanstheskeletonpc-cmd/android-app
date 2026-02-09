@@ -266,7 +266,7 @@ private fun VpnConnectedViewTop(
         Icon(
             painter = painterResource(
                 id = when {
-                    isSecureCoreServer -> CoreR.drawable.ic_proton_locks_filled
+                    isSecureCoreServer -> R.drawable.ic_locks_filled
                     else -> CoreR.drawable.ic_proton_lock_filled
                 }
             ),

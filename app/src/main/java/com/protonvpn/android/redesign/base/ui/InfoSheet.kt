@@ -528,7 +528,7 @@ private fun SubDetailsComposableSecureCore(modifier: Modifier) {
             R.string.info_secure_core_secure_header,
             R.drawable.info_secure_core_connection,
             listOf(
-                CoreR.drawable.ic_proton_locks_filled to R.string.info_secure_core_advanced_privacy,
+                R.drawable.ic_locks_filled to R.string.info_secure_core_advanced_privacy,
                 CoreR.drawable.ic_proton_hourglass to R.string.info_secure_core_higher_latency
             ),
             modifier = compareModifier

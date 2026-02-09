@@ -449,7 +449,7 @@ fun SettingsView(
             if (viewState.showSignOut) {
                 SettingRowWithIcon(
                     modifier = Modifier.padding(vertical = 8.dp),
-                    icon = CoreR.drawable.ic_proton_arrow_in_to_rectangle,
+                    icon = CoreR.drawable.ic_proton_arrow_out_from_rectangle,
                     title = stringResource(id = R.string.settings_sign_out),
                     onClick = onSignOutClick
                 )

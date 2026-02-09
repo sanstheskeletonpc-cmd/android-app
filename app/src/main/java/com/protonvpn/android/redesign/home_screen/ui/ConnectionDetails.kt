@@ -285,7 +285,7 @@ private fun ServerFeatures(
             FeatureComposable(
                 title = stringResource(id = R.string.connection_feature_secure_core_title),
                 details = stringResource(id = R.string.connection_feature_secure_core_description),
-                iconId = CoreR.drawable.ic_proton_lock_layers,
+                iconId = R.drawable.ic_lock_layers,
                 onClick = { onInfoOpen(InfoType.SecureCore) },
             )
         }

@@ -311,7 +311,7 @@ fun FiltersRow(buttonActions: List<FilterButton>, modifier: Modifier = Modifier)
             ) {
                 val iconRes = when (filterButton.filter) {
                     ServerFilterType.All -> null
-                    ServerFilterType.SecureCore -> CoreR.drawable.ic_proton_lock_layers
+                    ServerFilterType.SecureCore -> R.drawable.ic_lock_layers
                     ServerFilterType.P2P -> CoreR.drawable.ic_proton_arrow_right_arrow_left
                     ServerFilterType.Tor -> CoreR.drawable.ic_proton_brand_tor
                 }
