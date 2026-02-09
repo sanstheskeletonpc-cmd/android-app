@@ -53,6 +53,8 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
+import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.redesign.base.ui.rtlMirror
 import com.protonvpn.android.telemetry.UpgradeSource
 import com.protonvpn.android.ui.planupgrade.UpgradeAdvancedCustomizationHighlightsFragment
 import com.protonvpn.android.ui.planupgrade.UpgradeDevicesHighlightsFragment
@@ -237,6 +239,7 @@ private fun UpsellCardNetShield(
         description = stringResource(R.string.upsell_card_netshield_description),
         imageRes = R.drawable.upsell_card_netshield,
         modifier = modifier,
+        requiresImageRltMirror = true,
     )
 }
 
@@ -249,6 +252,7 @@ private fun UpsellCardSecureCore(
         description = stringResource(R.string.upsell_card_secure_core_description),
         imageRes = R.drawable.upsell_card_secure_core,
         modifier = modifier,
+        requiresImageRltMirror = true,
     )
 }
 
@@ -272,7 +276,7 @@ private fun UpsellCardDevices(
     UpsellCard(
         title = pluralStringResource(R.plurals.upsell_card_devices_title, count = devices, devices),
         description = stringResource(R.string.upsell_card_devices_description),
-        imageRes = R.drawable.upsell_card_secure_core,
+        imageRes = R.drawable.upsell_multiple_devices,
         modifier = modifier,
     )
 }
@@ -322,6 +326,7 @@ private fun UpsellCardCustomization(
         description = stringResource(R.string.upsell_card_customization_description),
         imageRes = R.drawable.upsell_card_customization,
         modifier = modifier,
+        requiresImageRltMirror = true,
     )
 }
 
@@ -330,7 +335,8 @@ private fun UpsellCard(
     title: String,
     description: String,
     @DrawableRes imageRes: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    requiresImageRltMirror: Boolean = false,
 ) {
     Card(
         modifier = modifier,
@@ -341,9 +347,14 @@ private fun UpsellCard(
             Modifier.padding(horizontal = 16.dp, vertical = 24.dp)
         ) {
             Image(
+                modifier = Modifier
+                    .padding(bottom = 8.dp)
+                    .optional(
+                        predicate = { requiresImageRltMirror },
+                        modifier = Modifier.rtlMirror(),
+                    ),
                 painter = painterResource(id = imageRes),
                 contentDescription = null,
-                modifier = Modifier.padding(bottom = 8.dp),
             )
             Text(
                 title,
