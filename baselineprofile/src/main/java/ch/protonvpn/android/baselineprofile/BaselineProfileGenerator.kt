@@ -62,12 +62,11 @@ class BaselineProfileGenerator {
     val rule = BaselineProfileRule()
 
     // This currently requires to:
-    // - build and install productionGooglePlayStoreNonMinifiedRelease
+    // - ./gradlew :app:installProductionGooglePlayStoreNonMinifiedRelease
     // - ./gradlew :app:generateProductionGooglePlayStoreReleaseBaselineProfile
     // - commit the changes
     // TODO:
     // - schedule periodic regeneration of the baseline profile on CI
-    // - include TV startup in profile generation
     // - extend the profile with more user flows
     // - include other build flavors
     @Test
@@ -82,6 +81,7 @@ class BaselineProfileGenerator {
         // The application id for the running build variant is read from the instrumentation arguments.
         val packageName = InstrumentationRegistry.getArguments().getString("targetAppId")
             ?: throw Exception("targetAppId not passed as instrumentation runner arg")
+        val instrumentationContext = InstrumentationRegistry.getInstrumentation().context
         // Clear data to force a new login.
         val output = Shell.executeScriptCaptureStdoutStderr("pm clear $packageName")
         Log.i("StartupBenchmarks", "pm clear $packageName output:\n${output.stdout}\n${output.stderr}")
@@ -91,10 +91,24 @@ class BaselineProfileGenerator {
             includeInStartupProfile = true,
             maxIterations = 10
         ) {
+            val mobileIntent =
+                instrumentationContext.packageManager.getLaunchIntentForPackage(packageName)
+            val tvIntent =
+                instrumentationContext.packageManager.getLeanbackLaunchIntentForPackage(packageName)
+            checkNotNull(mobileIntent)
+            checkNotNull(tvIntent)
+
             pressHome()
-            startActivityAndWait()
-            LoginRobot.signInIfNeeded(TestConstants.USERNAME_PLUS, BuildConfig.TEST_ACCOUNT_PASSWORD)
+            // Mobile UI with login.
+            startActivityAndWait(mobileIntent)
+            LoginRobot.signInIfNeeded(username, BuildConfig.TEST_ACCOUNT_PASSWORD)
                 .waitUntilLoggedIn()
+
+            // TV, already logged in.
+            killProcess()
+            startActivityAndWait(tvIntent)
+            // UiAutomator doesn't seem to see the Leanback UI elements, wait a bit and finish.
+            Thread.sleep(5_000)
         }
     }
 }

@@ -46,6 +46,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.protonvpn.android.BuildConfig
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
 import com.protonvpn.android.base.ui.theme.VpnTheme
@@ -134,7 +135,8 @@ class MainActivity : VpnUiDelegateProvider, AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (isTv()) {
+        val isBaselineProfileRun = BuildConfig.BUILD_TYPE == "nonMinifiedRelease"
+        if (!isBaselineProfileRun && isTv()) {
             startActivity(Intent(this, TvMainActivity::class.java))
             finish()
             return
