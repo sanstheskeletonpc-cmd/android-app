@@ -29,7 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.protonvpn.android.components.BaseTvActivity
-import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
+import com.protonvpn.android.vpn.ui.LocalVpnUiDelegate
 import dagger.hilt.android.AndroidEntryPoint
 import me.proton.core.presentation.compose.tv.theme.ProtonThemeTv
 

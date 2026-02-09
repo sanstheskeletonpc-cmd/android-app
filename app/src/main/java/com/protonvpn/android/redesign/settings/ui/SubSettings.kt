@@ -56,7 +56,6 @@ import com.protonvpn.android.profiles.ui.nav.ProfileCreationStepTarget
 import com.protonvpn.android.redesign.app.ui.SettingsChangeViewModel
 import com.protonvpn.android.redesign.base.ui.InfoSheet
 import com.protonvpn.android.redesign.base.ui.InfoType
-import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
 import com.protonvpn.android.redesign.base.ui.ProtonSnackbar
 import com.protonvpn.android.redesign.base.ui.ProtonSnackbarType
 import com.protonvpn.android.base.ui.collectAsEffect
@@ -79,6 +78,7 @@ import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.DebugUtils
 import com.protonvpn.android.utils.openUrl
 import com.protonvpn.android.utils.openVpnSettings
+import com.protonvpn.android.vpn.ui.LocalVpnUiDelegate
 import com.protonvpn.android.widget.ui.WidgetAddScreen
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch

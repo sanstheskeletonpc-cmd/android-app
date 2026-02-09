@@ -78,7 +78,6 @@ import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.redesign.app.ui.MainActivityViewModel
 import com.protonvpn.android.redesign.app.ui.SettingsChangeViewModel
 import com.protonvpn.android.redesign.app.ui.nav.MainNavEvent
-import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
 import com.protonvpn.android.redesign.base.ui.ProtonAlert
 import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.base.ui.extraPaddingForWindowSize
@@ -115,6 +114,7 @@ import com.protonvpn.android.utils.openUrl
 import com.protonvpn.android.vpn.ConnectTrigger
 import com.protonvpn.android.vpn.DisconnectTrigger
 import com.protonvpn.android.vpn.VpnErrorUIManager
+import com.protonvpn.android.vpn.ui.LocalVpnUiDelegate
 import com.protonvpn.android.widget.ui.OnboardingWidgetBottomSheetContent
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.launch

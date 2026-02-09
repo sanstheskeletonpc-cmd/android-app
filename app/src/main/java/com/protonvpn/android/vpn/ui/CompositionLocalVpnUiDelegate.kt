@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 Proton AG
+ * Copyright (c) 2026. Proton AG
  *
  * This file is part of ProtonVPN.
  *
@@ -16,7 +16,8 @@
  * You should have received a copy of the GNU General Public License
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
-package com.protonvpn.android.redesign.base.ui
+
+package com.protonvpn.android.vpn.ui
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import com.protonvpn.android.vpn.VpnUiDelegate

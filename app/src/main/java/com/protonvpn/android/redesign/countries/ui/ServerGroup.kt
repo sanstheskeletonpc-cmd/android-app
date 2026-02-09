@@ -67,7 +67,6 @@ import com.protonvpn.android.base.ui.protonElevation
 import com.protonvpn.android.redesign.base.ui.InfoSheet
 import com.protonvpn.android.redesign.base.ui.InfoSheetState
 import com.protonvpn.android.redesign.base.ui.InfoType
-import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
 import com.protonvpn.android.redesign.base.ui.UpsellBanner
 import com.protonvpn.android.base.ui.VpnDivider
 import com.protonvpn.android.base.ui.largeScreenContentPadding
@@ -83,6 +82,7 @@ import com.protonvpn.android.ui.planupgrade.UpgradeSecureCoreHighlightsFragment
 import com.protonvpn.android.ui.planupgrade.UpgradeTorHighlightsFragment
 import com.protonvpn.android.utils.openUrl
 import com.protonvpn.android.vpn.VpnUiDelegate
+import com.protonvpn.android.vpn.ui.LocalVpnUiDelegate
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.compose.theme.defaultSmallUnspecified
 import me.proton.core.presentation.utils.currentLocale

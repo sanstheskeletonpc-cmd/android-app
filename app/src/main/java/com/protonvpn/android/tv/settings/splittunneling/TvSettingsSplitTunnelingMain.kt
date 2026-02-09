@@ -51,7 +51,6 @@ import androidx.tv.material3.Surface
 import androidx.tv.material3.SurfaceDefaults
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.base.ui.LocalVpnUiDelegate
 import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.settings.data.SplitTunnelingMode
 import com.protonvpn.android.tv.settings.TvSettingsHeader
@@ -64,6 +63,7 @@ import com.protonvpn.android.tv.ui.TvUiConstants
 import com.protonvpn.android.ui.settings.formatSplitTunnelingItems
 import com.protonvpn.android.userstorage.DontShowAgainStore
 import com.protonvpn.android.utils.DebugUtils
+import com.protonvpn.android.vpn.ui.LocalVpnUiDelegate
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.compose.tv.theme.ProtonThemeTv
 import me.proton.core.presentation.R as CoreR
