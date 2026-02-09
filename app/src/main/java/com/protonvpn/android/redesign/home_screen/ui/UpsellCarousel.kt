@@ -53,8 +53,8 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.optional
-import com.protonvpn.android.redesign.base.ui.rtlMirror
+import com.protonvpn.android.base.ui.optional
+import com.protonvpn.android.base.ui.rtlMirror
 import com.protonvpn.android.telemetry.UpgradeSource
 import com.protonvpn.android.ui.planupgrade.UpgradeAdvancedCustomizationHighlightsFragment
 import com.protonvpn.android.ui.planupgrade.UpgradeDevicesHighlightsFragment

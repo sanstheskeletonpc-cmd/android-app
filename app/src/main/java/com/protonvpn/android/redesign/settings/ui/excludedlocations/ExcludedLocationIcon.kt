@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
 import com.protonvpn.android.redesign.base.ui.Flag
-import com.protonvpn.android.redesign.base.ui.previews.PreviewBooleanProvider
+import com.protonvpn.android.base.ui.previews.PreviewBooleanProvider
 import me.proton.core.presentation.R as CoreR
 
 @Composable

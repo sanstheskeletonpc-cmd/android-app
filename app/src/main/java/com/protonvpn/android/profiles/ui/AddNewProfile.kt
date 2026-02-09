@@ -62,8 +62,8 @@ import com.protonvpn.android.profiles.ui.nav.ProfileCreationStepTarget
 import com.protonvpn.android.profiles.ui.nav.ProfilesAddEditStepNav
 import com.protonvpn.android.profiles.ui.nav.ProfilesRegularAndSubscreenNav
 import com.protonvpn.android.redesign.base.ui.ProtonAlert
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
-import com.protonvpn.android.redesign.base.ui.preventMultiClick
+import com.protonvpn.android.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.preventMultiClick
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.utils.currentLocale
 

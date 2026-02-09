@@ -26,9 +26,9 @@ import com.protonvpn.android.profiles.ui.nav.AddEditProfileScreen
 import com.protonvpn.android.profiles.ui.nav.AddEditProfileScreen.addEditProfile
 import com.protonvpn.android.redesign.app.ui.CoreNavigation
 import com.protonvpn.android.redesign.app.ui.SettingsChangeViewModel
-import com.protonvpn.android.redesign.base.ui.nav.BaseNav
-import com.protonvpn.android.redesign.base.ui.nav.Screen
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.BaseNav
+import com.protonvpn.android.base.ui.nav.Screen
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.redesign.countries.ui.nav.SearchRouteScreen.searchScreen
 import com.protonvpn.android.redesign.home_screen.ui.nav.ConnectionDetailsScreen.connectionStatus
 import com.protonvpn.android.redesign.main_screen.ui.nav.MainScreen

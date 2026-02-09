@@ -40,7 +40,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Text
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.base.ui.optional
 import com.protonvpn.android.tv.buttons.TvTextButton
 import me.proton.core.compose.theme.ProtonTheme
 

@@ -38,8 +38,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Icon
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.base.ui.VpnDivider
-import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.base.ui.VpnDivider
+import com.protonvpn.android.base.ui.optional
 import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.R as CoreR

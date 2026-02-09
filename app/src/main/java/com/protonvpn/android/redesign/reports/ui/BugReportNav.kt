@@ -23,7 +23,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
-import com.protonvpn.android.redesign.base.ui.nav.BaseNav
+import com.protonvpn.android.base.ui.nav.BaseNav
 import com.protonvpn.android.redesign.reports.ui.completion.error.BugReportCompletionErrorScreen
 import com.protonvpn.android.redesign.reports.ui.completion.error.BugReportCompletionErrorScreen.bugReportCompletionErrorScreen
 import com.protonvpn.android.redesign.reports.ui.completion.success.BugReportCompletionSuccessScreen

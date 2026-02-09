@@ -33,7 +33,7 @@ import com.protonvpn.android.base.ui.VpnSolidButton
 import com.protonvpn.android.base.ui.ProtonVpnPreview
 import com.protonvpn.android.redesign.base.ui.SettingsItem
 import com.protonvpn.android.redesign.base.ui.UpsellBanner
-import com.protonvpn.android.redesign.base.ui.VpnDivider
+import com.protonvpn.android.base.ui.VpnDivider
 import me.proton.core.accountmanager.presentation.compose.SecurityKeysSettingsItemHint
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.domain.entity.UserId

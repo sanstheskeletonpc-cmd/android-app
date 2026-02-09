@@ -41,7 +41,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.protonvpn.android.R
 import com.protonvpn.android.components.BaseTvActivity
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.tv.dialogs.TvAlertDialog
 import com.protonvpn.android.tv.settings.TvSettingsMainEditTextLayout
 import com.protonvpn.android.tv.ui.TvUiConstants

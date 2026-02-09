@@ -34,7 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.redesign.search.ui.EmptySearchResult
 import com.protonvpn.android.redesign.settings.ui.SubSettingWithLazyContent
 import com.protonvpn.android.ui.progress.ScreenContentLoading

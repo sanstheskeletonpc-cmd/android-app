@@ -67,7 +67,7 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.ProvideTextStyle
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.base.ui.optional
 import com.protonvpn.android.settings.data.SplitTunnelingMode
 import com.protonvpn.android.tv.settings.TvListRow
 import com.protonvpn.android.tv.settings.TvSettingsHeader

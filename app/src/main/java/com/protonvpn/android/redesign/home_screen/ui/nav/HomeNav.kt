@@ -20,10 +20,10 @@
 package com.protonvpn.android.redesign.home_screen.ui.nav
 
 import com.protonvpn.android.redesign.app.ui.nav.RootNav
-import com.protonvpn.android.redesign.base.ui.nav.SafeNavGraphBuilder
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.base.ui.nav.addToGraphWithSlideAnim
+import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.nav.addToGraphWithSlideAnim
 import com.protonvpn.android.redesign.home_screen.ui.ConnectionDetailsRoute
 import com.protonvpn.android.redesign.home_screen.ui.HomeRoute
 import com.protonvpn.android.redesign.main_screen.ui.MainScreenViewModel

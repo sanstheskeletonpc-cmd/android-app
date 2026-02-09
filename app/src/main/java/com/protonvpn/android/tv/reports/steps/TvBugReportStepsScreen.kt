@@ -36,10 +36,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.indicators.StepsProgressIndicator
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
-import com.protonvpn.android.redesign.base.ui.nav.SafeNavGraphBuilder
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
 import com.protonvpn.android.redesign.reports.ui.BugReportNav
 import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
 import com.protonvpn.android.tv.reports.steps.form.TvBugReportFormScreen

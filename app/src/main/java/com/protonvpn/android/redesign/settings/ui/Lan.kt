@@ -28,7 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.largeScreenContentPadding
 
 @Composable
 fun LanSetting(

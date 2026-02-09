@@ -26,10 +26,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -39,7 +35,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
 import com.protonvpn.android.components.BaseTvActivity
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.tv.drawers.TvModalDrawer
 import com.protonvpn.android.tv.settings.TvSettingsMainToggleLayout
 import com.protonvpn.android.tv.settings.TvSettingsReconnectDialog

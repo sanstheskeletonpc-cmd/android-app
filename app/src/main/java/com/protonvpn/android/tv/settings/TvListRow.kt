@@ -43,7 +43,7 @@ import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ClickableSurfaceScale
 import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.Surface
-import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.base.ui.optional
 import com.protonvpn.android.tv.ui.TvUiConstants
 import com.protonvpn.android.tv.ui.onFocusLost
 import me.proton.core.compose.theme.ProtonTheme

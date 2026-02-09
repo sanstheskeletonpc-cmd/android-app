@@ -66,7 +66,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
 import com.protonvpn.android.components.BaseTvActivity
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.collectAsEffect
 import com.protonvpn.android.tv.buttons.TvSolidButton
 import com.protonvpn.android.tv.dialogs.TvAlertDialog
 import com.protonvpn.android.tv.drawers.TvModalDrawer

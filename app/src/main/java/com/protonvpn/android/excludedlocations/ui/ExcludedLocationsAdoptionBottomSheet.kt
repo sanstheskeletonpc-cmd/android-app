@@ -41,7 +41,7 @@ import com.protonvpn.android.base.ui.ProtonVpnPreview
 import com.protonvpn.android.base.ui.SimpleModalBottomSheet
 import com.protonvpn.android.base.ui.VpnSolidButton
 import com.protonvpn.android.base.ui.VpnTextButton
-import com.protonvpn.android.redesign.base.ui.previews.PreviewBooleanProvider
+import com.protonvpn.android.base.ui.previews.PreviewBooleanProvider
 import me.proton.core.compose.theme.ProtonTheme
 
 @Composable

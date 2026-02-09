@@ -45,7 +45,7 @@ import com.protonvpn.android.base.ui.SimpleTopAppBar
 import com.protonvpn.android.base.ui.TopAppBarBackIcon
 import com.protonvpn.android.redesign.base.ui.ClickableTextAnnotation
 import com.protonvpn.android.redesign.base.ui.SettingDescription
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.largeScreenContentPadding
 import com.protonvpn.android.redesign.settings.ui.SettingsViewModel.SettingViewState
 import me.proton.core.compose.theme.ProtonTheme
 import kotlin.math.min

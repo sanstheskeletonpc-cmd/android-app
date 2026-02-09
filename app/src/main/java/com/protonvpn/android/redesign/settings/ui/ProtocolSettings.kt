@@ -41,7 +41,7 @@ import com.protonvpn.android.models.config.TransmissionProtocol
 import com.protonvpn.android.models.config.VpnProtocol
 import com.protonvpn.android.redesign.base.ui.SettingsRadioItemSmall
 import com.protonvpn.android.redesign.base.ui.SettingsToggleItem
-import com.protonvpn.android.redesign.base.ui.VpnDivider
+import com.protonvpn.android.base.ui.VpnDivider
 import com.protonvpn.android.vpn.ProtocolSelection
 import com.protonvpn.android.vpn.mapFromProtun
 import com.protonvpn.android.vpn.mapToProtun

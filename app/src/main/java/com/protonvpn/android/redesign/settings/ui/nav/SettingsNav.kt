@@ -21,9 +21,9 @@ package com.protonvpn.android.redesign.settings.ui.nav
 
 import com.protonvpn.android.profiles.ui.nav.ProfileCreationStepTarget
 import com.protonvpn.android.redesign.app.ui.CoreNavigation
-import com.protonvpn.android.redesign.base.ui.nav.SafeNavGraphBuilder
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
 import com.protonvpn.android.redesign.main_screen.ui.nav.MainNav
 import com.protonvpn.android.redesign.settings.ui.SettingsRoute
 

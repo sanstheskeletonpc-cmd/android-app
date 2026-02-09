@@ -51,7 +51,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.DpOffset
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.previews.PreviewBooleanProvider
+import com.protonvpn.android.base.ui.optional
+import com.protonvpn.android.base.ui.previews.PreviewBooleanProvider
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.compose.theme.defaultNorm
 import me.proton.core.presentation.R as CoreR

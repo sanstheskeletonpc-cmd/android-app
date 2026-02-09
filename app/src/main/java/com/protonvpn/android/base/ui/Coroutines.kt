@@ -1,4 +1,4 @@
-package com.protonvpn.android.redesign.base.ui
+package com.protonvpn.android.base.ui
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect

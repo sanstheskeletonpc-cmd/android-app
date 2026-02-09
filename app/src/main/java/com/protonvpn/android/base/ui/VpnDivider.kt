@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2025 Proton AG
+ * Copyright (c) 2026. Proton AG
  *
  * This file is part of ProtonVPN.
  *
@@ -17,12 +17,19 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.base.ui.previews
+package com.protonvpn.android.base.ui
 
-import androidx.compose.ui.tooling.preview.PreviewParameterProvider
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.Dp
+import me.proton.core.compose.theme.ProtonTheme
 
-class PreviewBooleanProvider : PreviewParameterProvider<Boolean> {
-
-    override val values: Sequence<Boolean> = sequenceOf(false, true)
-
+@Composable
+inline fun VpnDivider(modifier: Modifier = Modifier.Companion) {
+    HorizontalDivider(
+        color = ProtonTheme.colors.separatorNorm,
+        thickness = Dp.Companion.Hairline,
+        modifier = modifier
+    )
 }

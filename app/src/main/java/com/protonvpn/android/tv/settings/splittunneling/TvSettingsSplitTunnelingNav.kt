@@ -22,10 +22,10 @@ package com.protonvpn.android.tv.settings.splittunneling
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.protonvpn.android.redesign.base.ui.nav.BaseNav
-import com.protonvpn.android.redesign.base.ui.nav.Screen
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.nav.BaseNav
+import com.protonvpn.android.base.ui.nav.Screen
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
 import com.protonvpn.android.settings.data.SplitTunnelingMode
 
 class TvSplitTunnelingNav(

@@ -38,7 +38,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.previews.PreviewBooleanProvider
+import com.protonvpn.android.base.ui.previews.PreviewBooleanProvider
 import me.proton.core.compose.theme.ProtonTheme
 
 @Composable

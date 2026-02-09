@@ -65,6 +65,7 @@ import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonVpnPreview
 import com.protonvpn.android.base.ui.createHueRotationMatrix
 import com.protonvpn.android.base.ui.rgbToHueInRadians
+import com.protonvpn.android.base.ui.thenNotNull
 import com.protonvpn.android.base.ui.vpnGreen
 import com.protonvpn.android.profiles.data.ProfileColor
 import com.protonvpn.android.profiles.data.ProfileIcon

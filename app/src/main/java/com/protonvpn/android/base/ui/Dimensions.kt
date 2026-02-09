@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023. Proton AG
+ * Copyright (c) 2026. Proton AG
  *
  * This file is part of ProtonVPN.
  *
@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.base.ui
+package com.protonvpn.android.base.ui
 
 import android.app.Activity
 import androidx.activity.compose.LocalActivity
@@ -85,6 +85,6 @@ fun largeScreenContentPadding(): Dp =
 
 // Set additional padding (beyond the default 16.dp) for the content based on the activity's dimensions.
 fun Modifier.largeScreenContentPadding() = composed {
-    val extraScreenPadding = com.protonvpn.android.redesign.base.ui.largeScreenContentPadding()
+    val extraScreenPadding = com.protonvpn.android.base.ui.largeScreenContentPadding()
     this.padding(horizontal = extraScreenPadding)
 }

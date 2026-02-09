@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Text
 import com.protonvpn.android.base.ui.ProtonVpnPreview
-import com.protonvpn.android.redesign.base.ui.previews.PreviewBooleanProvider
+import com.protonvpn.android.base.ui.previews.PreviewBooleanProvider
 import com.protonvpn.android.tv.settings.ProtonTvFocusableSurface
 import me.proton.core.compose.theme.ProtonTheme
 import androidx.compose.material3.ButtonDefaults as CoreButtonDefaults

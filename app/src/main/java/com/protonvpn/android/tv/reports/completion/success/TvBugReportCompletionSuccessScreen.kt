@@ -3,9 +3,9 @@ package com.protonvpn.android.tv.reports.completion.success
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.base.ui.nav.SafeNavGraphBuilder
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
 import com.protonvpn.android.redesign.reports.ui.BugReportNav
 import com.protonvpn.android.tv.reports.completion.TvBugReportCompletion
 

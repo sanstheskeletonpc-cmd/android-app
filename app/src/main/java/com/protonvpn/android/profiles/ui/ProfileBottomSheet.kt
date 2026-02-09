@@ -53,7 +53,7 @@ import com.protonvpn.android.profiles.data.ProfileInfo
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.base.ui.ConnectIntentIconSize
 import com.protonvpn.android.redesign.base.ui.ProfileConnectIntentIcon
-import com.protonvpn.android.redesign.base.ui.VpnDivider
+import com.protonvpn.android.base.ui.VpnDivider
 import com.protonvpn.android.redesign.settings.ui.NatType
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentAvailability
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentBlankRow

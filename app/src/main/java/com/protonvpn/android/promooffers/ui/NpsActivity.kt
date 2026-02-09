@@ -75,7 +75,7 @@ import com.protonvpn.android.base.ui.SimpleTopAppBar
 import com.protonvpn.android.base.ui.VpnSolidButton
 import com.protonvpn.android.base.ui.theme.VpnTheme
 import com.protonvpn.android.redesign.base.ui.ProtonOutlinedTextField
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.largeScreenContentPadding
 import dagger.hilt.android.AndroidEntryPoint
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.compose.theme.captionWeak

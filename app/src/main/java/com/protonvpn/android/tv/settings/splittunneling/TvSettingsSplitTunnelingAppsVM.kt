@@ -23,7 +23,7 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.components.InstalledAppsProvider
-import com.protonvpn.android.redesign.base.ui.nav.Screen
+import com.protonvpn.android.base.ui.nav.Screen
 import com.protonvpn.android.settings.data.CurrentUserLocalSettingsManager
 import com.protonvpn.android.settings.data.SplitTunnelingMode
 import com.protonvpn.android.ui.settings.LabeledItem

@@ -24,7 +24,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import app.cash.turbine.test
 import com.protonvpn.android.components.InstalledAppsProvider
-import com.protonvpn.android.redesign.base.ui.nav.Screen
+import com.protonvpn.android.base.ui.nav.Screen
 import com.protonvpn.android.settings.data.CurrentUserLocalSettingsManager
 import com.protonvpn.android.settings.data.LocalUserSettingsStoreProvider
 import com.protonvpn.android.settings.data.SplitTunnelingMode

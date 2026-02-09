@@ -45,11 +45,11 @@ import com.protonvpn.android.base.ui.TopAppBarBackIcon
 import com.protonvpn.android.base.ui.TopAppBarTitle
 import com.protonvpn.android.base.ui.VpnSolidButton
 import com.protonvpn.android.base.ui.indicators.StepsProgressIndicator
-import com.protonvpn.android.redesign.base.ui.collectAsEffect
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
-import com.protonvpn.android.redesign.base.ui.nav.SafeNavGraphBuilder
-import com.protonvpn.android.redesign.base.ui.nav.ScreenNoArg
-import com.protonvpn.android.redesign.base.ui.nav.addToGraph
+import com.protonvpn.android.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
+import com.protonvpn.android.base.ui.nav.ScreenNoArg
+import com.protonvpn.android.base.ui.nav.addToGraph
 import com.protonvpn.android.redesign.reports.ui.BugReportNav
 import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
 import com.protonvpn.android.redesign.reports.ui.steps.form.BugReportFormScreen

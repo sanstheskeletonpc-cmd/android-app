@@ -65,6 +65,7 @@ import com.protonvpn.android.base.ui.SimpleModalBottomSheet
 import com.protonvpn.android.base.ui.TextBulletRow
 import com.protonvpn.android.base.ui.VpnOutlinedButton
 import com.protonvpn.android.base.ui.VpnSolidButton
+import com.protonvpn.android.base.ui.rtlMirror
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.vpn.IpPair
 import kotlinx.parcelize.Parcelize

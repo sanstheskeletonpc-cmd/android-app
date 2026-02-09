@@ -67,7 +67,7 @@ import com.protonvpn.android.profiles.data.ProfileColor
 import com.protonvpn.android.profiles.data.ProfileIcon
 import com.protonvpn.android.redesign.base.ui.ConnectIntentIconSize
 import com.protonvpn.android.redesign.base.ui.ProfileIcon
-import com.protonvpn.android.redesign.base.ui.optional
+import com.protonvpn.android.base.ui.optional
 import me.proton.core.compose.theme.ProtonTheme
 
 const val MAX_PROFILE_LENGTH = 30

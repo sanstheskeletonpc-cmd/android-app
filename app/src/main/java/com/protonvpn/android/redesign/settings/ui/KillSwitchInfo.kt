@@ -52,14 +52,13 @@ import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
-import androidx.compose.ui.unit.sp
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.ProtonOutlinedButton
 import com.protonvpn.android.base.ui.ProtonSolidButton
 import com.protonvpn.android.base.ui.TextBulletRow
 import com.protonvpn.android.base.ui.replaceWithInlineContent
-import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
-import com.protonvpn.android.redesign.base.ui.rtlMirror
+import com.protonvpn.android.base.ui.largeScreenContentPadding
+import com.protonvpn.android.base.ui.rtlMirror
 import me.proton.core.compose.component.VerticalSpacer
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.R as CoreR

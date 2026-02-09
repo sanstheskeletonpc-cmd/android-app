@@ -74,8 +74,8 @@ import com.protonvpn.android.profiles.data.ProfileColor
 import com.protonvpn.android.profiles.data.ProfileIcon
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.base.ui.ActiveDot
-import com.protonvpn.android.redesign.base.ui.optional
-import com.protonvpn.android.redesign.base.ui.unavailableServerAlpha
+import com.protonvpn.android.base.ui.optional
+import com.protonvpn.android.base.ui.unavailableServerAlpha
 import com.protonvpn.android.redesign.vpn.ServerFeature
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.compose.theme.captionUnspecified
