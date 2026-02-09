@@ -324,7 +324,6 @@ class VpnConnectionTestsIntegration {
             scope,
             testDispatcherProvider,
             MockedServers.serverList,
-            builtInGuestHoles = MockedServers.serverList.filter { supportsProtocol(it, GuestHole.PROTOCOL, emptyList()) }
         )
         val serverManager2 = ServerManager2(serverManager, getSmartProtocols)
         manager = VpnConnectionManager(
@@ -471,18 +470,7 @@ class VpnConnectionTestsIntegration {
         // Guest Hole requires no user is logged in.
         currentUserProvider.set(null, null)
 
-        val guestHole = GuestHole(
-            backgroundScope,
-            testDispatcherProvider,
-            Lazy { serverManager },
-            monitor,
-            permissionDelegate,
-            Lazy { manager },
-            mockk(relaxed = true),
-            foregroundActivityTracker,
-            appFeaturesPrefs,
-            mockGhSuppressor,
-        )
+        val guestHole = createGuestHole()
 
         every { foregroundActivityTracker.foregroundActivity } returns mockk<ComponentActivity>()
         var wasExecuted = false
@@ -498,18 +486,7 @@ class VpnConnectionTestsIntegration {
 
     @Test
     fun whenUserActionTriggeredGuestholeIsCanceled() = scope.runTest {
-        val guestHole = GuestHole(
-            backgroundScope,
-            testDispatcherProvider,
-            Lazy { serverManager },
-            monitor,
-            permissionDelegate,
-            Lazy { manager },
-            mockk(relaxed = true),
-            foregroundActivityTracker,
-            appFeaturesPrefs,
-            mockGhSuppressor,
-        )
+        val guestHole = createGuestHole()
         every { foregroundActivityTracker.foregroundActivity } returns mockk<ComponentActivity>()
 
         var wasExecuted = false
@@ -531,19 +508,7 @@ class VpnConnectionTestsIntegration {
 
     @Test
     fun whenVpnIsConnectedGuestholeIsNotTriggered() = scope.runTest {
-        val guestHole = GuestHole(
-            backgroundScope,
-            testDispatcherProvider,
-            Lazy { serverManager },
-            monitor,
-            permissionDelegate,
-            Lazy { manager },
-            mockk(relaxed = true),
-            foregroundActivityTracker,
-            appFeaturesPrefs,
-            mockGhSuppressor,
-        )
-
+        val guestHole = createGuestHole()
         manager.connect(mockVpnUiDelegate, connectIntentFastest, trigger)
 
         every { foregroundActivityTracker.foregroundActivity } returns mockk<ComponentActivity>()
@@ -1053,6 +1018,25 @@ class VpnConnectionTestsIntegration {
         }
         assertEquals(expectedOutcome, dimensions.captured["outcome"])
         assertEquals("quick", dimensions.captured["vpn_trigger"]) // Initial trigger is reported.
+    }
+
+    private fun TestScope.createGuestHole(): GuestHole {
+        val guestHoleServers = MockedServers.serverList.filter {
+            supportsProtocol(it, GuestHole.PROTOCOL, emptyList())
+        }
+        return GuestHole(
+            backgroundScope,
+            testDispatcherProvider,
+            Lazy { serverManager },
+            monitor,
+            permissionDelegate,
+            Lazy { manager },
+            mockk(relaxed = true),
+            foregroundActivityTracker,
+            appFeaturesPrefs,
+            mockGhSuppressor,
+            builtInGuestHoles = { guestHoleServers },
+        )
     }
 
     private fun createMockVpnBackend(

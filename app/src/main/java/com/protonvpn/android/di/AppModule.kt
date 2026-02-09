@@ -29,6 +29,8 @@ import androidx.core.app.NotificationManagerCompat
 import androidx.work.WorkManager
 import com.protonvpn.android.BuildConfig
 import com.protonvpn.android.ProtonApplication
+import com.protonvpn.android.api.AssetsBuiltInGuestHoles
+import com.protonvpn.android.api.BuiltInGuestHoles
 import com.protonvpn.android.api.GuestHole
 import com.protonvpn.android.api.ProtonVPNRetrofit
 import com.protonvpn.android.api.VpnApiClient
@@ -445,6 +447,9 @@ object AppModule {
         fun bindIsBinaryServerStatusFeatureFlagEnabled(
             impl: IsBinaryServerStatusFeatureFlagEnabledImpl
         ): IsBinaryServerStatusFeatureFlagEnabled
+
+        @Binds
+        fun bindBuiltInGuestHolesProvider(impl: AssetsBuiltInGuestHoles): BuiltInGuestHoles
 
         @Binds
         fun bindIsDirectLanConnectionsFeatureFlagEnabled(

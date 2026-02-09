@@ -20,7 +20,6 @@ package com.protonvpn.android.utils
 
 import androidx.annotation.VisibleForTesting
 import com.protonvpn.android.BuildConfig
-import com.protonvpn.android.api.GuestHole
 import com.protonvpn.android.appconfig.UserCountryPhysical
 import com.protonvpn.android.auth.data.VpnUser
 import com.protonvpn.android.auth.data.hasAccessToServer
@@ -53,7 +52,6 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.builtins.ListSerializer
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -167,11 +165,6 @@ class ServerManager @Inject constructor(
         setServers(serverList, null)
     }
 
-    @VisibleForTesting
-    fun setBuiltInGuestHoleServersForTesting(serverList: List<Server>) {
-        guestHoleServers = serverList
-    }
-
     fun getDownloadedServersForGuestHole(
         serverCount: Int,
         protocol: ProtocolSelection,
@@ -240,17 +233,8 @@ class ServerManager @Inject constructor(
         onServersUpdate()
     }
 
-    fun getGuestHoleServers(): List<Server> =
-        guestHoleServers ?: run {
-            FileUtils.getObjectFromAssets(
-                ListSerializer(Server.serializer()), GuestHole.GUEST_HOLE_SERVERS_ASSET
-            ).apply {
-                guestHoleServers = this
-            }
-        }
-
     fun getServerById(id: String) =
-        allServers.firstOrNull { it.serverId == id } ?: getGuestHoleServers().firstOrNull { it.serverId == id }
+        allServers.firstOrNull { it.serverId == id } ?: guestHoleServers?.firstOrNull { it.serverId == id }
 
     fun getVpnCountries(): List<VpnCountry> = serversData.vpnCountries.sortedByLocaleAware { it.countryName }
 

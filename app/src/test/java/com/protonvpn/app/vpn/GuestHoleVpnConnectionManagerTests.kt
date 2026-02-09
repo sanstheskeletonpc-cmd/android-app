@@ -200,12 +200,12 @@ class GuestHoleVpnConnectionManagerTests {
             foregroundActivityTracker = foregroundActivityTracker,
             appFeaturesPrefs = AppFeaturesPrefs(MockSharedPreferencesProvider()),
             guestHoleSuppressor = mockk(relaxed = true),
+            builtInGuestHoles = { listOf(createServer("ghServerId", tier = 0)) }
         )
 
         // Can't use runBlocking because ServerManager uses testScope's StandardTestDispatcher, so it would deadlock.
         testScope.launch {
             serverManager.setServers(listOf(createServer("serverId", tier = 0)), null)
-            serverManager.setBuiltInGuestHoleServersForTesting(listOf(createServer("ghServerId", tier = 0)))
         }
         testScope.runCurrent()
 

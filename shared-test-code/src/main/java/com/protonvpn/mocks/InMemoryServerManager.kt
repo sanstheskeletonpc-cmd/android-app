@@ -44,7 +44,6 @@ fun createInMemoryServerManager(
     initialServers: List<Server>,
     initialStatusId: LogicalsStatusId? = null,
     updateWithBinaryStatus: UpdateServersWithBinaryStatus = FakeUpdateServersWithBinaryStatus(),
-    builtInGuestHoles: List<Server> = emptyList(),
     physicalUserCountry: UserCountryPhysical = createNoopUserCountry(),
 ): ServerManager {
     val serverStore = createInMemoryServersStore(initialServers, initialStatusId)
@@ -63,7 +62,6 @@ fun createInMemoryServerManager(
         serverManager.setServers(initialServers, initialStatusId)
     }
     testScope.runCurrent()
-    serverManager.setBuiltInGuestHoleServersForTesting(builtInGuestHoles)
     return serverManager
 }
 

@@ -23,8 +23,8 @@ import com.protonvpn.android.api.GuestHole
 import com.protonvpn.android.api.GuestHoleSuppressor
 import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.models.vpn.ConnectionParams
-import com.protonvpn.android.servers.Server
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
+import com.protonvpn.android.servers.Server
 import com.protonvpn.android.ui.ForegroundActivityTracker
 import com.protonvpn.android.utils.ServerManager
 import com.protonvpn.android.vpn.VpnConnectionManager
@@ -82,7 +82,6 @@ class GuestHoleTests {
         badServer = servers[1]
         val ghServers = listOf(badServer, goodServer)
         coEvery { serverManager.ensureLoaded() } just runs
-        every { serverManager.getGuestHoleServers() } returns ghServers
         coEvery { serverManager.setGuestHoleServers(any()) } just runs
         every { serverManager.getServerById(any()) } answers {
             val id = firstArg<String>()
@@ -102,9 +101,19 @@ class GuestHoleTests {
         }
         every { mockGhSuppressor.disableGh() } returns false
 
-        guestHole = GuestHole(scope, TestDispatcherProvider(dispatcher), { serverManager },
-            vpnStateMonitor, { null }, { vpnConnectionManager }, mockk(relaxed = true),
-            foregroundActivityTracker, appFeaturesPrefs, mockGhSuppressor)
+        guestHole = GuestHole(
+            scope = scope,
+            dispatcherProvider = TestDispatcherProvider(dispatcher),
+            serverManager = { serverManager },
+            vpnMonitor = vpnStateMonitor,
+            vpnPermissionDelegate = { null },
+            vpnConnectionManager = { vpnConnectionManager },
+            notificationHelper = mockk(relaxed = true),
+            foregroundActivityTracker = foregroundActivityTracker,
+            appFeaturesPrefs = appFeaturesPrefs,
+            guestHoleSuppressor = mockGhSuppressor,
+            builtInGuestHoles = { ghServers },
+        )
         guestHole.shuffler = { it }
     }
 
