@@ -59,6 +59,7 @@ import com.protonvpn.android.base.ui.ProtonSolidButton
 import com.protonvpn.android.base.ui.TextBulletRow
 import com.protonvpn.android.base.ui.replaceWithInlineContent
 import com.protonvpn.android.redesign.base.ui.largeScreenContentPadding
+import com.protonvpn.android.redesign.base.ui.rtlMirror
 import me.proton.core.compose.component.VerticalSpacer
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.R as CoreR
@@ -85,9 +86,11 @@ fun KillSwitchInfo(
                     .verticalScroll(rememberScrollState()),
             ) {
                 Image(
-                    painterResource(R.drawable.killswitch_settings_promo),
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .rtlMirror(),
+                    painter = painterResource(R.drawable.killswitch_settings_promo),
                     contentDescription = null,
-                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 VerticalSpacer(height = 32.dp)
                 Text(
