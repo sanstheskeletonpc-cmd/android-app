@@ -1612,7 +1612,7 @@
     <string name="settings_protocol_proton_protocols">Proton-protokoll</string>
     <string name="settings_protocol_proton_protocols_description">Använd Protons egen implementering av WireGuard. Detta är en experimentell funktion, så du kan uppleva viss instabilitet.</string>
     <string name="connection_preferences_smart_discovery_dialog_title">Inte det land du ville ha?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">Om det finns platser som du inte vill anslutas till automatiskt kan du exkludera dem från “Snabbaste land“.</string>
     <string name="excluded_locations_adoption_title">Undvik oönskade platser</string>
     <string name="excluded_locations_adoption_description"><![CDATA[Du kan nu exkludera länder och orter från <b>Snabbaste</b> anslutningar.]]></string>
 </resources>

@@ -95,10 +95,10 @@
     <string name="copy_to_clipboard">复制</string>
     <string name="copied_to_clipboard">已复制到剪贴板</string>
     <string name="got_it">知道了</string>
-    <string name="exclude_locations">Exclude locations</string>
+    <string name="exclude_locations">排除位置</string>
     <string name="excluded_locations">排除的位置</string>
-    <string name="cannot_connect">Cannot connect</string>
-    <string name="skip">Skip</string>
+    <string name="cannot_connect">无法连接</string>
+    <string name="skip">跳过</string>
     <string name="something_went_wrong">出错了</string>
     <string name="try_again">重试</string>
     <string name="delete">删除</string>
@@ -140,7 +140,7 @@
     <!-- Displayed as a badge next to setting item ("Widget [NEW]") -->
     <string name="settings_new_label_badge">新的</string>
     <!-- Displayed as a badge next to setting item ("Proton protocols [BETA]") -->
-    <string name="settings_beta_label_badge">BETA</string>
+    <string name="settings_beta_label_badge">测试版</string>
     <string name="settingsExcludedIPAddressesListHeader">已排除IP地址 (%1$d)</string>
     <string name="settingsIncludedIPAddressesListHeader">纳入了 IP 地址（%1$d）</string>
     <string name="settingsExcludedApps">排除的应用</string>
@@ -230,12 +230,12 @@
     <string name="settingsTelemetryScreenTitle">使用统计</string>
     <string name="settingsTelemetryScreenInfo"><![CDATA[这些统计数据不包含您的IP地址，且无法用于识别您的身份。我们绝不会与第三方共享这些数据。<a href="%1$s">了解详情</a>]]></string>
     <string name="netshield_settings_description_not_html">保护自己免受网站和应用上的广告、恶意软件和跟踪器的侵害。%1$s</string>
-    <string name="netshield_settings_description_tv">Protects you from third-party ads, trackers, and malware. NetShield doesn\'t block ads that are built into streaming services like YouTube and Netflix.</string>
+    <string name="netshield_settings_description_tv">保护您免受第三方广告、跟踪器和恶意软件的侵害。NetShield 无法拦截嵌入 YouTube 和 Netflix 等流媒体服务中的广告。</string>
     <string name="netshield_settings_more_info_title_tv">NetShield 的原理</string>
     <string-array name="netshield_settings_more_info_paragraphs_tv">
-        <item>NetShield blocks DNS requests to third-party domains known for ads, trackers, and malware.</item>
-        <item>This means you won\'t receive ads from your browser or free apps that use third-party ad services.</item>
-        <item>However, it can\'t block ads from streaming platforms like YouTube and Netflix, because their ads come from their own servers.</item>
+        <item>NetShield 会拦截发往已知第三方广告、跟踪器和恶意软件域名的 DNS 请求。</item>
+        <item>这意味着您将不会收到来自浏览器或使用第三方广告服务的免费应用程序的广告！</item>
+        <item>但是，它无法拦截来自 YouTube 和 Netflix 等流媒体平台的广告，因为它们的广告来自其自己的服务器。</item>
     </string-array>
     <string name="settings_icon_change_description">把 Proton VPN 的应用图标伪装成其他类型的应用。通知仍会显示默认的 Proton VPN 名称和图标。%1$s</string>
     <string name="settings_icon_change_learn_more">了解详情</string>
@@ -521,7 +521,7 @@
     <string name="upsell_card_streaming_description">看你想看的电影电视</string>
     <string name="upsell_card_tor_title">经 Tor 连接 VPN</string>
     <string name="upsell_card_tor_description">经 Tor 网络，连接 VPN，更强隐私</string>
-    <string name="upsell_tv_all_countries_title">使用 Plus 即可连接到所有国家</string>
+    <string name="upsell_tv_all_countries_title">通过 Plus 套餐访问所有国家/地区</string>
     <!-- Format for upselling countries on TV".
         %1$s - replaced with upgrade_plus_servers_new plurals key (e.g. 1 secure server or 10 secure servers)
         %2$s - replaced with upgrade_plus_countries plurals key (e.g. 1 country or 10 countries)
@@ -529,14 +529,14 @@
 
         Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
     -->
-    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
-    <string name="upsell_tv_netshield_title">使用 Plus 享受无广告浏览</string>
+    <string name="upsell_tv_all_countries_description">在 %2$s 中解锁 %1$s。%3$s</string>
+    <string name="upsell_tv_netshield_title">通过 Plus 套餐享受无广告浏览体验</string>
     <string name="upsell_tv_netshield_description"><![CDATA[使用 <b>NetShield</b> 屏蔽广告，跟踪器与恶意软件。%1$s]]></string>
-    <string name="upsell_tv_split_tunneling_title">使用 Plus，两全其美</string>
-    <string name="upsell_tv_split_tunneling_description"><![CDATA[通过<b>拆分隧道</b>功能，将您的流量分为 VPN 隧道流量与非 VPN 隧道流量。 %1$s]]></string>
-    <string name="upsell_tv_customization_title">Get advanced VPN customization with Plus</string>
-    <string name="upsell_tv_customization_description"><![CDATA[Unlock <b>LAN connections</b>, <b>Custom DNS</b>, and more advanced VPN features. %1$s]]></string>
-    <string name="upsell_tv_description_placeholder">前往 Proton VPN 网站已升级您的套餐。</string>
+    <string name="upsell_tv_split_tunneling_title">通过 Plus 套餐兼享双重优势</string>
+    <string name="upsell_tv_split_tunneling_description"><![CDATA[使用<b>拆分隧道</b>将您的流量划分为 VPN 隧道和非 VPN 隧道。%1$s]]></string>
+    <string name="upsell_tv_customization_title">通过 Plus 套餐获取高级 VPN 自定义功能</string>
+    <string name="upsell_tv_customization_description"><![CDATA[解锁 <b>局域网连接</b>、<b>自定义 DNS</b> 以及更多高级 VPN 功能。%1$s]]></string>
+    <string name="upsell_tv_description_placeholder">前往 Proton VPN 网站升级您的套餐</string>
     <!-- Format for price per period of time.
         %1$s - replaced with price and currency (e.g. "$100")
         %2$s - replaced with time period, one of payment_price_per_ (e.g. "month", "2 years")
@@ -583,12 +583,12 @@
     <string name="dynamic_report_tips_description">这些提示可能有助更快排除问题。</string>
     <string name="dynamic_report_tips_title">快速修复</string>
     <string name="dynamic_report_logs_title">发送错误日志</string>
-    <string name="dynamic_report_logs_tooltip">Error logs show us what went wrong, and which actions led to the problem. We’ll only ever use them to help our engineers fix issues.</string>
-    <string name="dynamic_report_error_title">We couldn’t send your report.</string>
-    <string name="dynamic_report_completion_error_description_generic">We couldn’t send your report. Please try again.</string>
-    <string name="dynamic_report_completion_error_description_no_internet">We couldn’t send your report. Please check your connection and try again.</string>
-    <string name="dynamic_report_completion_error_description_timeout">We couldn’t send your report. Connection timed out, please try again.</string>
-    <string name="dynamic_report_completion_success_title">Thanks for your feedback. We’ll get back to you as soon as we can.</string>
+    <string name="dynamic_report_logs_tooltip">错误日志向我们显示了出错原因以及导致问题的操作，我们仅会使用它们来帮助工程师修复问题。</string>
+    <string name="dynamic_report_error_title">我们无法发送您的报告</string>
+    <string name="dynamic_report_completion_error_description_generic">我们无法发送您的报告，请重试。</string>
+    <string name="dynamic_report_completion_error_description_no_internet">我们无法发送您的报告，请检查您的网络连接并重试。</string>
+    <string name="dynamic_report_completion_error_description_timeout">我们无法发送您的报告！连接超时，请重试。</string>
+    <string name="dynamic_report_completion_success_title">感谢您的反馈，我们将尽快回复您。</string>
     <string name="dynamic_report_success_title">感谢您的反馈</string>
     <string name="dynamic_report_success_description">我们会尽快与您联系。</string>
     <string name="dynamic_report_field_mandatory">此栏必填</string>
@@ -600,9 +600,9 @@
     <string name="dynamic_report_your_issue_headline">问题是什么？</string>
     <string name="update_screen_title">升级 Proton VPN</string>
     <string name="update_screen_description">继续使用旧版本 Proton VPN 可能会出问题。</string>
-    <string name="update_banner_description_settings">A new version of the app is available</string>
-    <string name="update_banner_warning_vpn_connected_title">VPN will disconnect briefly</string>
-    <string name="update_banner_warning_vpn_connected_message">The app needs to restart to finish the update. You will be reconnected automatically afterward.</string>
+    <string name="update_banner_description_settings">有新版本的应用程序可用</string>
+    <string name="update_banner_warning_vpn_connected_title">VPN 将短暂断开连接</string>
+    <string name="update_banner_warning_vpn_connected_message">应用程序需要重启以完成更新，之后您将自动重新连接。</string>
     <string name="dialog_create_account_title">下一步操作需创建账户</string>
     <string name="dialog_create_account_action_create">创建账户</string>
     <string name="dialog_create_account_action_signin">登录</string>
@@ -626,16 +626,16 @@
     <string name="select_default_connection">默认连接选择</string>
     <string name="settings_default_connection_title">默认连接</string>
     <string name="fastest_country_description">从所在位置来看最适合的服务器</string>
-    <string name="settings_connection_preferences_title">Connection preferences</string>
-    <string name="settings_connection_preferences_snackbar_message_excluded_location_removed">Item removed</string>
+    <string name="settings_connection_preferences_title">连接偏好设置</string>
+    <string name="settings_connection_preferences_snackbar_message_excluded_location_removed">项目已移除</string>
     <string name="settings_excluded_locations_title">排除的位置</string>
-    <string name="settings_excluded_locations_description">The selected locations will never be used when you connect to Fastest.</string>
-    <string name="settings_excluded_locations_unavailable">No locations available</string>
+    <string name="settings_excluded_locations_description">当您连接到“最快”时，所选位置将永远不会被使用。</string>
+    <string name="settings_excluded_locations_unavailable">无可用位置</string>
     <string name="settings_excluded_locations_selection_hint">选择…</string>
-    <string name="settings_excluded_locations_accessibility_label_deletion">Remove from excluded locations</string>
-    <string name="settings_excluded_locations_accessibility_label_city">City</string>
-    <string name="settings_excluded_locations_accessibility_label_country">Country</string>
-    <string name="settings_excluded_locations_accessibility_label_state">State</string>
+    <string name="settings_excluded_locations_accessibility_label_deletion">从排除位置中移除</string>
+    <string name="settings_excluded_locations_accessibility_label_city">城市/区县</string>
+    <string name="settings_excluded_locations_accessibility_label_country">国家/地区</string>
+    <string name="settings_excluded_locations_accessibility_label_state">州</string>
     <string name="settings_last_connection_title">上次连接</string>
     <string name="settings_last_connection_description">近期连接</string>
     <string name="settings_change_icon_title">应用图标</string>
@@ -713,7 +713,7 @@
     <string name="welcome_plus_description">享受额外的隐私功能、超强的性能和更高级别的 VPN 选项。</string>
     <string name="welcome_plus_feature_security">高级安全功能</string>
     <string name="welcome_unlimited_title">欢迎使用 Proton Unlimited</string>
-    <string name="welcome_unlimited_description"><![CDATA[You unlocked all premium Proton VPN, Mail, Calendar, Drive, Pass, and Wallet features — and <b>%1$d&#160;GB</b> total storage.]]></string>
+    <string name="welcome_unlimited_description"><![CDATA[您已解锁所有高级的 Proton VPN、Mail、Calendar、Drive、Pass 和 Wallet 功能 —— 以及总计 <b>%1$d&#160;GB</b> 的存储空间。]]></string>
     <string name="welcome_generic_title">祝贺</string>
     <string name="welcome_generic_description">订阅已升级。享受高级隐私功能和更高水平的性能。</string>
     <!-- Example: Up to 10 devices at once
@@ -1029,7 +1029,7 @@
     <string name="countries_title">国家</string>
     <string name="profiles_title">收藏</string>
     <string name="settings_autoconnect_title">自动连接</string>
-    <string name="settings_autoconnect_boot_description">Automatically connects you to VPN using quick-connect once your device has launched.</string>
+    <string name="settings_autoconnect_boot_description">在您的设备启动后，自动使用“快速连接”将您连接到 VPN。</string>
     <!-- tag(Redesign_2023) -->
     <string name="settings_category_features">功能</string>
     <!-- tag(Redesign_2023) -->
@@ -1101,7 +1101,7 @@
     <string name="country_filter_p2p_list_header">P2P 地域（%1$d）</string>
     <string name="country_filter_p2p_list_header_cities">P2P 城市（%1$d）</string>
     <string name="country_filter_p2p_list_header_states">P2P 状态（%1$d）</string>
-    <string name="counrty_filter_p2p_servers_list_header">P2P servers</string>
+    <string name="counrty_filter_p2p_servers_list_header">P2P 服务器</string>
     <string name="country_filter_tor_list_header">Tor 国家 / 地区（%1$d）</string>
     <string name="country_filter_tor_servers_list_header">Tor 服务器</string>
     <string name="country_filter_info_label">提示</string>
@@ -1157,7 +1157,7 @@
     <!-- tag(Redesign_2023) -->
     <string name="connection_details_city">城市 / 区县</string>
     <!-- Label for server location "state", as a state of the USA. -->
-    <string name="connection_details_state">State</string>
+    <string name="connection_details_state">州</string>
     <!-- tag(Redesign_2023)
          Will be shown in a UI row which indicates Server load, on the left side will be Server load, and on the right actual load values.
     -->
@@ -1367,7 +1367,7 @@
     <string name="settings_advanced_alternative_routing_description">倘若网络限制拦截了 Proton 服务，我们将用备用网络路线把你连到你要去的地方。</string>
     <string name="settings_advanced_allow_lan_title">LAN 连接</string>
     <string name="settings_advanced_allow_lan_description">允许连至打印机、扬声器等局域网设备。</string>
-    <string name="settings_advanced_allow_lan_description_tv">连接至局域网上的扬声器，电脑等设备</string>
+    <string name="settings_advanced_allow_lan_description_tv">连接到您本地网络上的扬声器、计算机和其他设备</string>
     <string name="settings_advanced_allow_lan_title_tv">允许 LAN 连接</string>
     <string name="settings_advanced_nat_type_title">NAT 类型</string>
     <!-- %1$s - will have translated learn_more value -->
@@ -1387,14 +1387,14 @@
     <string name="settings_protocol_smart_title">Smart</string>
     <string name="settings_protocol_smart_description">Smart 模式根据网络状况，自动选择最佳协议。</string>
     <string name="settings_protocol_wireguard_title">WireGuard</string>
-    <string name="settings_protocol_smart_protun_description">Auto-selects the best protocol for your connection [experimental].</string>
+    <string name="settings_protocol_smart_protun_description">自动为您的连接选择最佳协议 [实验性]</string>
     <string name="settings_protocol_wireguard_udp_description">安全性和性能上最先进的协议。</string>
     <string name="settings_protocol_wireguard_tcp_description">安全性和性能上最先进的协议。</string>
     <string name="settings_protocol_stealth_title">Stealth</string>
     <string name="settings_protocol_stealth_description">隐藏 VPN 连接，避开审查，避免 VPN 受阻。该协议可预防 DPI（深度包检测），不过可能不如别的协议快。Stealth，只有 Proton VPN 有。</string>
     <!-- Text on a badge displayed next to the "smart" protocol name in settings -->
     <string name="settings_protocol_badge_recommended">推荐</string>
-    <string name="settings_protocol_badge_experimental">Experimental</string>
+    <string name="settings_protocol_badge_experimental">实验性</string>
     <string name="settings_split_tunneling_mode_title">模式</string>
     <string name="settings_split_tunneling_mode_standard">排除</string>
     <string name="settings_split_tunneling_mode_inverse">包含</string>
@@ -1417,14 +1417,14 @@
     <string name="settings_needs_reconnect_banner">新设置应用于下次连接。</string>
     <string name="private_dns_conflict_banner_custom_dns_title">自定义DNS不可用</string>
     <string name="private_dns_conflict_banner_custom_dns_description">您的设备正在使用第三方DNS服务，导致Proton VPN的自定义DNS功能无法生效。了解详情</string>
-    <string name="private_dns_conflict_banner_custom_dns_description_tv">您的设备正在使用第三方 DNS 服务，导致 Proton VPN 的自定义 DNS 功能无法生效。</string>
+    <string name="private_dns_conflict_banner_custom_dns_description_tv">您的设备正在使用第三方 DNS，这导致 Proton VPN 的自定义 DNS 无法工作。</string>
     <string name="private_dns_conflict_banner_netshield_title">NetShield 不可用</string>
     <string name="private_dns_conflict_banner_netshield_description">您的设备当前使用的第三方DNS服务导致NetShield无法正常运作。了解详情</string>
     <string name="private_dns_conflict_banner_network_settings_button">网络配置</string>
     <string name="custom_dns_conflict_banner_netshield_title">NetShield不可用</string>
     <string name="custom_dns_conflict_banner_netshield_description">检测到您启用了自定义DNS服务器，这将导致NetShield防护功能失效。了解详情</string>
     <string name="custom_dns_conflict_banner_netshield_title_tv">关闭自定义 DNS 以使用 NetShield</string>
-    <string name="custom_dns_conflict_banner_netshield_description_tv">自定义 DNS 目前已启用，这将导致 NetShield 防护功能生效。</string>
+    <string name="custom_dns_conflict_banner_netshield_description_tv">已启用自定义 DNS，这将导致 NetShield 无法工作。</string>
     <string name="custom_dns_conflict_banner_disable_custom_dns_button">关闭自定义 DNS</string>
     <string name="info_secure_core_standard_high_privacy">隐私性高</string>
     <string name="info_secure_core_standard_lower_latency">延迟较低</string>
@@ -1518,10 +1518,10 @@
     <!-- Displayed as a badge next to create_profile_auto_open_label ("Auto-launch website [NEW]") -->
     <string name="create_profile_auto_open_label_badge">新版本</string>
     <string name="create_profile_auto_open_url_input_label">网站 URL</string>
-    <string name="create_profile_auto_open_url_private_mode_label">Use private browsing mode</string>
+    <string name="create_profile_auto_open_url_private_mode_label">使用隐私浏览模式</string>
     <!-- Label for disabled "Auto-launch website" setting in profile creation -->
     <string name="profile_auto_open_off">关闭</string>
-    <string name="profile_auto_open_app_failed_to_launch">Connect and Go: application not found</string>
+    <string name="profile_auto_open_app_failed_to_launch">连接即走：未找到应用程序</string>
     <!-- Label for enabled "Auto-launch website" setting in profile creation -->
     <string name="profile_auto_open_website">打开网站</string>
     <string name="profile_auto_open_app">打开应用</string>
@@ -1573,10 +1573,10 @@
     <string name="settings_protocol_openvpn_deprecation_dialog_description_tv">该协议将在不久后移除，因为我们正专注于更快速、更安全的技术。我们建议切换到 Smart Protocol。</string>
     <string name="settings_protocol_openvpn_change_dialog_continue_openvpn">改用 OpenVPN</string>
     <string name="settings_protocol_openvpn_change_dialog_enable_smart">启用智能协议</string>
-    <string name="settings_protocol_proton_protocols">Proton protocols</string>
-    <string name="settings_protocol_proton_protocols_description">Use Proton VPN’s own implementation of WireGuard. This is an experimental feature, so you may experience some instability.</string>
-    <string name="connection_preferences_smart_discovery_dialog_title">Not the country you wanted?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
-    <string name="excluded_locations_adoption_title">Avoid unwanted locations</string>
-    <string name="excluded_locations_adoption_description"><![CDATA[You can now exclude countries and cities from <b>Fastest</b> connections.]]></string>
+    <string name="settings_protocol_proton_protocols">Proton 协议</string>
+    <string name="settings_protocol_proton_protocols_description">使用 Proton VPN 自有的 WireGuard 实现。这是一个实验性功能，因此您可能会遇到一些不稳定的情况。</string>
+    <string name="connection_preferences_smart_discovery_dialog_title">不是您想要的国家/地区？</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">如果有您不希望被自动连接到的位置，您可以将它们从“最快国家/地区”中排除。</string>
+    <string name="excluded_locations_adoption_title">避免不希望连接的位置</string>
+    <string name="excluded_locations_adoption_description"><![CDATA[您现在可以从 <b>最快</b> 连接中排除国家/地区和城市了！]]></string>
 </resources>

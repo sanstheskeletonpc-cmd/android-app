@@ -223,7 +223,7 @@
     <string name="settingsKillSwitchWarningMain">Pokud je Kill Switch povolen, nebudede se moci připojit k:</string>
     <string name="settingsKillSwitchWarningPoint1">Webovým stránkám a aplikacím vyloučeným z připojení VPN prostřednictvím split tunnelingu</string>
     <string name="settingsKillSwitchWarningPoint2">Zařízením ve vaší místní síti (LAN)</string>
-    <string name="settingsEnableTelemetryTitle">Sdílejte anonymní statistiky o používání</string>
+    <string name="settingsEnableTelemetryTitle">Sdílet anonymní statistiky o používání</string>
     <string name="settingsEnableTelemetryDescription">Údaje o používání nám pomáhají obcházet blokování VPN a vylepšovat výkon aplikace.</string>
     <string name="settingsSendCrashReportsTitle">Sdílet anonymní hlášení o pádech</string>
     <string name="settingsSendCrashReportsDescription">Hlášení o pádech nám pomáhají opravovat chyby, detekovat firewally a vyhýbat se blokování VPN.</string>

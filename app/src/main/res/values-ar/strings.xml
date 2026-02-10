@@ -37,7 +37,7 @@
     <string name="dialogLearnMore">لمعرفة المزيد</string>
     <string name="connected">متّصل</string>
     <string name="buttonConnect">اتصل</string>
-    <string name="loaderConnectingTo">جاري الإتصال بـ %1$s</string>
+    <string name="loaderConnectingTo">جاري الاتصال بـ %1$s</string>
     <string name="loaderNotConnected">غير متصل (غير محمي)</string>
     <string name="loaderConnectedTo">متصل بـ %1$s</string>
     <string name="loaderDisconnecting">جارٍ قطع الاتصال</string>
@@ -611,7 +611,7 @@
 
         Example: Unlock 16821 secure servers in 127 countries. Go to the Proton VPN website to upgrade your plan.
     -->
-    <string name="upsell_tv_all_countries_description">Unlock %1$s in %2$s. %3$s</string>
+    <string name="upsell_tv_all_countries_description">فتح %1$s في %2$s. %3$s</string>
     <string name="upsell_tv_netshield_title">استمتع بتصفح خالٍ من الإعلانات مع Plus</string>
     <string name="upsell_tv_netshield_description"><![CDATA[احظر الإعلانات والمتتبعات والبرامج الضارة باستخدام <b>NetShield</b>. %1$s]]></string>
     <string name="upsell_tv_split_tunneling_title">احصل على أفضل ما في العالمين مع Plus</string>
@@ -1145,7 +1145,7 @@
     <string name="message_server_in_maintenance">الخادم تحت الصيانة</string>
     <!-- tag(Redesign_2023): Displayed in a dialog -->
     <string name="message_server_not_available">الخادم غير متوفر</string>
-    <string name="message_server_location_excluded">Server location excluded</string>
+    <string name="message_server_location_excluded">موقع الخادم مستبعد</string>
     <!-- tag(Redesign_2023): Displayed in a dialog when all servers of a gateway are in maintenance -->
     <string name="message_gateway_in_maintenance">البوابة تحت الصيانة</string>
     <!-- tag(Redesign_2023) -->
@@ -1687,7 +1687,7 @@
     <!-- %1$s - profile name
          Example: Your server selection for MyProfile is unavailable. Select a different server or try again later -->
     <string name="profile_unavailable_dialog_message">اختيار الخادم الخاص بك لـ %1$s غير متوفر. حدد خادمًا مختلفًا أو حاول مرة أخرى لاحقًا.</string>
-    <string name="profile_location_excluded_dialog_message"><![CDATA[Your server selection for <b>%1$s</b> is unavailable. Select a different server, check your excluded locations or try again later.]]></string>
+    <string name="profile_location_excluded_dialog_message"><![CDATA[الخادم الذي اخترته لـ <b>%1$s</b> غير متاح. اختر خادم آخر، أو تحقق من المواقع المستبعدة، أو حاول مرة أخرى لاحقًا.]]></string>
     <!-- %1$d - profile icon number
          Example: Icon 1, Icon 2, ... -->
     <string name="profile_icon_accessibility">أيقونة %1$d</string>
@@ -1758,8 +1758,8 @@
     <string name="settings_protocol_openvpn_change_dialog_enable_smart">تفعيل Smart protocol</string>
     <string name="settings_protocol_proton_protocols">بروتوكولات Proton</string>
     <string name="settings_protocol_proton_protocols_description">استخدم تطبيق WireGuard الخاص بـ Proton VPN. هذه ميزة تجريبية، لذا قد تواجه بعض عدم الاستقرار.</string>
-    <string name="connection_preferences_smart_discovery_dialog_title">Not the country you wanted?</string>
-    <string name="connection_preferences_smart_discovery_dialog_message">If there are locations you don’t want to be automatically connected to, you can exclude them from Fastest country.</string>
-    <string name="excluded_locations_adoption_title">Avoid unwanted locations</string>
-    <string name="excluded_locations_adoption_description"><![CDATA[You can now exclude countries and cities from <b>Fastest</b> connections.]]></string>
+    <string name="connection_preferences_smart_discovery_dialog_title">أليست هي الدولة المطلوبة؟</string>
+    <string name="connection_preferences_smart_discovery_dialog_message">إذا كانت هناك مواقع لا تريد الاتصال بها تلقائيًا، فيمكنك استبعادها من طريقة اتصال أسرع بلد.</string>
+    <string name="excluded_locations_adoption_title">تجنب المواقع غير المرغوب فيها</string>
+    <string name="excluded_locations_adoption_description"><![CDATA[يمكنك الآن استبعاد دول ومدن من <b>أسرع</b> الاتصالات.]]></string>
 </resources>

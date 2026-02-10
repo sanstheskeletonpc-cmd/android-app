@@ -85,7 +85,7 @@
     <string name="report_bug_email_label">Ваша электронная пошта</string>
     <string name="report_bug_email_hint">Увядзіце адрас сваёй электроннай пошты</string>
     <string name="report_bug_message_label">Паведамленне</string>
-    <string name="report_bug_message_hint">Апішыце праблему і раскажыце нам, як вы знайшлі яе</string>
+    <string name="report_bug_message_hint">Апішыце памылку і раскажыце нам, як вы знайшлі яе</string>
     <string name="send_report">Адправіць справаздачу</string>
     <string name="report_sent">Справаздача адпраўлена</string>
     <string name="discardChanges">Скасаваць незахаваныя змены?</string>
@@ -523,7 +523,7 @@
         <item quantity="other">Абагуленне з %1$d іншымі карыстальнікамі</item>
     </plurals>
     <string name="upgrade_unlimited_pass_2fa_auth">Інтэграваная аўтэнтыфікацыя 2ФА</string>
-    <string name="upgrade_not_now_button">Не зараз</string>
+    <string name="upgrade_not_now_button">Не цяпер</string>
     <!-- Content description for plan selection list.
          Only used by accessibility services.
 
@@ -656,7 +656,7 @@
     <string name="dialog_create_account_action_signin">Увайсці</string>
     <string name="server_search_menu_title">Пошук</string>
     <string name="search_empty_result_subtitle">Паспрабуйце іншае ключавое слова</string>
-    <string name="search_empty_result_title">Няма вынікаў</string>
+    <string name="search_empty_result_title">Нічога не знойдзена</string>
     <!-- Content description for an icon button that clears search query in the input field. -->
     <string name="search_clear_query_content_description">Ачысціць</string>
     <!-- Example: Want to connect to Italy? -->
@@ -1279,7 +1279,7 @@
     <string name="info_dialog_button_learn_more_tor">Як атрымаць доступ да сеткі Tor</string>
     <string name="info_dialog_button_learn_more_p2p">Як карыстацца торэнтамі з дапамогай P2P</string>
     <string name="info_dialog_button_learn_more_ipaddress">Што такое IP-адрас?</string>
-    <string name="info_dialog_button_learn_more_streaming">Патрэбная дапамогай з трансляцыяй?</string>
+    <string name="info_dialog_button_learn_more_streaming">Неабходна дапамога з трансляцыяй?</string>
     <string name="info_dialog_streaming_title">Трансляцыя</string>
     <string name="info_dialog_streaming_description">Серверы трансляцый распрацаваны для хуткага і бяспечнага ўзнаўлення тэлебачання і фільмаў.</string>
     <string name="info_dialog_how_to_stream">Як трансліраваць:</string>
@@ -1296,7 +1296,7 @@
     <string name="info_dialog_ipaddress_description">Ваш IP-адрас у VPN маскіруе ваш рэальны IP-адрас. Гэта выглядае так, быццам вы праглядаеце старонкі з месцазнаходжання да якога падключыліся праз VPN. Дзякуючы гэтаму вашу актыўнасць у інтэрнэце нельга звязаць з вашай прыладай.</string>
     <string name="info_dialog_ipv6_traffic_description">Пратакол інтэрнэту (IP) прызначае адрасы прыладам і накіроўвае трафік інтэрнэту. IPv6 - гэта апошняя версія, якая прапануе больш адрасоў і лепшую сувязь, але яна яшчэ адносна рэдка выкарыстоўваецца.</string>
     <string name="connection_feature_p2p_title">P2P</string>
-    <string name="connection_feature_p2p_description">Аднарангавае абагульванне файла ўключана на гэтым серверы.</string>
+    <string name="connection_feature_p2p_description">Аднарангавае абагульванне файлаў уключана на гэтым серверы.</string>
     <string name="connection_feature_tor_title">Tor</string>
     <string name="connection_feature_tor_description">Вы можаце падключацца да сайтаў onion з вашым звычайным браўзерам.</string>
     <string name="connection_feature_secure_core_title">Secure Core</string>
@@ -1499,7 +1499,7 @@
     <string name="settings_protocol_wireguard_udp_description">Перадавы пратакол для бяспекі і прадукцыйнасці.</string>
     <string name="settings_protocol_wireguard_tcp_description">Перадавы пратакол для бяспекі і прадукцыйнасці.</string>
     <string name="settings_protocol_stealth_title">Stealth</string>
-    <string name="settings_protocol_stealth_description">Пераадольвае блакіроўкі VPN хаваючы ваша падключэнне па VPN ад рэгулятара. Гэты пратакол устойлівы да тэхналогіі DPI (deep packet inspection), але можа саступаць іншым пратаколам па хуткасці перадачы даных. Stealth з\'яўляецца эксклюзіўным пратаколам Proton VPN.</string>
+    <string name="settings_protocol_stealth_description">Пераадольвае блакіроўкі VPN хаваючы ваша падключэнне па VPN ад цэнзараў. Гэты пратакол устойлівы да тэхналогіі DPI (deep packet inspection), але можа саступаць іншым пратаколам па хуткасці перадачы даных. Stealth з\'яўляецца эксклюзіўным пратаколам Proton VPN.</string>
     <!-- Text on a badge displayed next to the "smart" protocol name in settings -->
     <string name="settings_protocol_badge_recommended">Рэкамендавана</string>
     <string name="settings_protocol_badge_experimental">Эксперыментальны</string>
@@ -1539,7 +1539,7 @@
     <string name="info_secure_core_advanced_privacy">Пашыраная прыватнасць</string>
     <string name="info_secure_core_higher_latency">Вышэйшая затрымка</string>
     <string name="info_p2p_what_title">Што такое P2P?</string>
-    <string name="info_p2p_what_description">Тэхналогія аднарангавай сеткі (P2P) дазваляе вам падключацца і абагульваць файлы наўпрост з іншымі прыладамі\n\nНашы серверы P2P спецыяльна распрацаваны для падтрымкі гэтага тыпу абагульвання файла.</string>
+    <string name="info_p2p_what_description">Тэхналогія аднарангавай сеткі (P2P) дазваляе вам падключацца і абагульваць файлы наўпрост з іншымі прыладамі\n\nНашы серверы P2P спецыяльна распрацаваны для падтрымкі гэтага тыпу абагульвання файламі.</string>
     <string name="info_p2p_torrenting_title">Што ўяўляе сабой праца з торэнтамі?</string>
     <string name="info_p2p_torrenting_description">Гэта хуткае абагульванне і спампоўванне вялікіх файлаў праз сетку P2P.</string>
     <string name="info_p2p_why_title">Навошта выкарыстоўваць сервер P2P падчас працы з торэнтамі?</string>
@@ -1674,7 +1674,7 @@
     <string name="no_connections_description_no_servers">Папрасіце свайго адміністратара ўключыць доступ да VPN для вашага ўліковага запісу.</string>
     <string name="no_connections_action_refresh">Абнавіць</string>
     <string name="no_connections_action_sign_out">Выйсці з уліковага запісу</string>
-    <string name="no_connections_help_contact_us"><![CDATA[Патрэбна дапамога? <a href="">Звяжыцеся з намі</a>]]></string>
+    <string name="no_connections_help_contact_us"><![CDATA[Неабходна дапамога? <a href="">Звяжыцеся з намі</a>]]></string>
     <string name="no_connections_help_follow_instructions"><![CDATA[Адпраўце свайму адміністратару <a href="">гэтыя інструкцыі</a>, калі яму патрэбна дапамога з уключэннем доступу па VPN.]]></string>
     <string name="settings_protocol_openvpn_deprecation_dialog_title">Уключыць OpenVPN?</string>
     <string name="settings_protocol_openvpn_deprecation_dialog_description"><![CDATA[Гэты пратакол неўзабаве будзе выдалены, бо ў цяперашні час аддаецца перавага больш хуткім і бяспечным тэхналогіям. Рэкамендуецца пераключыцца на Smart Protocol. <a href="proton.me">Даведацца больш</a>.]]></string>
