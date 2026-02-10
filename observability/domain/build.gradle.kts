@@ -23,9 +23,6 @@ plugins {
 }
 
 dependencies {
-    val core_version: String by project
-    val kotlinx_serialization_json_version: String by project
-
-    implementation("me.proton.core:observability-domain:$core_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_json_version")
+    implementation(libs.proton.core.observability.domain)
+    implementation(libs.kotlinx.serialization.json)
 }

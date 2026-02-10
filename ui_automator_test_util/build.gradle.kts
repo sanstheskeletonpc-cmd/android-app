@@ -32,15 +32,11 @@ android {
     }
 }
 
-// TODO: we need to introduce version catalog!
-val androidx_lifecycle_version: String by rootProject.extra
-val core_version: String by rootProject.extra
-
 dependencies {
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version")
-    implementation("androidx.test.uiautomator:uiautomator:2.3.0")
-    implementation("com.squareup.okhttp3:okhttp:4.12.0")
-    implementation("me.proton.test:fusion:0.9.62")
-    implementation("me.proton.core:test-performance:$core_version")
-    implementation("androidx.test:rules:1.6.1")
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.test.uiautomator)
+    implementation(libs.okhttp3)
+    implementation(libs.proton.test.fusion)
+    implementation(libs.proton.core.test.performance)
+    implementation(libs.androidx.test.rules)
 }

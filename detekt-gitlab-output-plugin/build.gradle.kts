@@ -17,9 +17,6 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-@Suppress("PropertyName")
-val detekt_version: String by rootProject.extra
-
 plugins {
     `kotlin-dsl`
     kotlin("jvm")
@@ -33,7 +30,6 @@ repositories {
 }
 
 dependencies {
-    implementation("io.gitlab.arturbosch.detekt:detekt-api:$detekt_version")
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
+    implementation(libs.detekt.api)
+    implementation(libs.kotlinx.serialization.json)
 }
-

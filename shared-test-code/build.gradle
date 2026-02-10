@@ -92,74 +92,74 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$desugar_jdk_version"
+    coreLibraryDesugaring(libs.android.tools.desugar.jdk.libs)
 
-    ksp "com.google.dagger:hilt-compiler:$hilt_version"
-    implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation "com.google.dagger:hilt-android-testing:$hilt_version"
-    implementation 'androidx.hilt:hilt-work:1.2.0'
-    ksp "androidx.hilt:hilt-compiler:$hilt_compiler_version"
+    ksp(libs.dagger.hilt.compiler)
+    implementation(libs.dagger.hilt.android)
+    implementation(libs.dagger.hilt.android.testing)
+    implementation(libs.androidx.hilt.work)
+    ksp(libs.androidx.hilt.compiler)
 
     implementation project(':app')
-    implementation "me.proton.core:auth-dagger:$core_version"
-    implementation "me.proton.core:account-data:$core_version"
-    implementation "me.proton.core:account-recovery-dagger:$core_version"
-    implementation("me.proton.core:account-recovery-test:$core_version") {
+    implementation(libs.proton.core.auth.dagger)
+    implementation(libs.proton.core.account.data)
+    implementation(libs.proton.core.account.recovery.dagger)
+    implementation(libs.proton.core.account.recovery.test) {
         // account-recovery modules are pulling in notification-dagger.
         exclude group: "me.proton.core", module: "notification"
         exclude group: "me.proton.core", module: "notification-dagger"
     }
-    implementation "me.proton.core:configuration-data:$core_version"
-    implementation "me.proton.core:crypto-android:$core_version"
-    implementation "me.proton.core:domain:$core_version"
-    implementation "me.proton.core:event-manager-data:$core_version"
-    implementation "me.proton.core:feature-flag-data:$core_version"
-    implementation "me.proton.core:human-verification-data:$core_version"
-    implementation "me.proton.core:network-data:$core_version"
-    implementation "me.proton.core:network-domain:$core_version"
-    implementation "me.proton.core:network-presentation:$core_version"
-    implementation "me.proton.core:notification-data:$core_version"
-    implementation "me.proton.core:notification-domain:$core_version"
-    implementation("me.proton.core:notification-test:$core_version") {
+    implementation(libs.proton.core.configuration.data)
+    implementation(libs.proton.core.crypto.android)
+    implementation(libs.proton.core.domain)
+    implementation(libs.proton.core.event.manager.data)
+    implementation(libs.proton.core.feature.flag.data)
+    implementation(libs.proton.core.human.verification.data)
+    implementation(libs.proton.core.network.data)
+    implementation(libs.proton.core.network.domain)
+    implementation(libs.proton.core.network.presentation)
+    implementation(libs.proton.core.notification.data)
+    implementation(libs.proton.core.notification.domain)
+    implementation(libs.proton.core.notification.test) {
         // It's pulling in notification-dagger.
         exclude group: "me.proton.core", module: "notification"
         exclude group: "me.proton.core", module: "notification-dagger"
     }
-    implementation "me.proton.core:observability-data:$core_version"
-    implementation "me.proton.core:payment-data:$core_version"
-    implementation "me.proton.core:presentation:$core_version"
-    implementation "me.proton.core:plan-domain:$core_version"
-    implementation "me.proton.core:plan-presentation:$core_version"
-    implementation "me.proton.core:push-data:$core_version"
-    implementation "me.proton.core:telemetry-data:$core_version"
-    implementation "me.proton.core:test-kotlin:$core_version"
-    implementation "me.proton.core:user-domain:$core_version"
-    implementation "me.proton.core:user-recovery-data:$core_version"
-    implementation "me.proton.core:user-settings-data:$core_version"
-    implementation "me.proton.core:user:$core_version"
-    implementation "me.proton.core:util-android-dagger:$core_version"
-    implementation "me.proton.core:util-android-datetime:$core_version"
-    implementation "me.proton.core:util-kotlin:$core_version"
+    implementation(libs.proton.core.observability.data)
+    implementation(libs.proton.core.payment.data)
+    implementation(libs.proton.core.presentation)
+    implementation(libs.proton.core.plan.domain)
+    implementation(libs.proton.core.plan.presentation)
+    implementation(libs.proton.core.push.data)
+    implementation(libs.proton.core.telemetry.data)
+    implementation(libs.proton.core.test.kotlin)
+    implementation(libs.proton.core.user.domain)
+    implementation(libs.proton.core.user.recovery.data)
+    implementation(libs.proton.core.user.settings.data)
+    implementation(libs.proton.core.user)
+    implementation(libs.proton.core.util.android.dagger)
+    implementation(libs.proton.core.util.android.datetime)
+    implementation(libs.proton.core.util.kotlin)
 
-    implementation "androidx.datastore:datastore-core:$datastore_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$androidx_lifecycle_version"
-    implementation 'androidx.work:work-runtime:2.9.0'
-    implementation 'androidx.work:work-runtime-ktx:2.9.0'
+    implementation(libs.androidx.datastore.core)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.work.runtime)
+    implementation(libs.androidx.work.runtime.ktx)
 
-    implementation 'com.squareup.okhttp3:okhttp-tls:4.12.0'
-    implementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
-    implementation 'com.google.guava:guava:33.2.1-android'
+    implementation(libs.okhttp3.tls)
+    implementation(libs.okhttp3.mockwebserver)
+    implementation(libs.google.guava)
 
-    implementation "me.proton.test:fusion:$test_fusion_version"
-    implementation "me.proton.vpn:go-vpn-lib:$govpnlib_version"
+    implementation(libs.proton.test.fusion)
+    implementation(libs.proton.vpn.govpnlib)
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_version") {
+    implementation(libs.kotlinx.coroutines.test) {
         // https://github.com/Kotlin/kotlinx.coroutines/tree/master/kotlinx-coroutines-debug#debug-agent-and-android
         exclude group: "org.jetbrains.kotlinx", module: "kotlinx-coroutines-debug"
     }
-    implementation "app.cash.turbine:turbine:$turbine_version"
+    implementation(libs.turbine)
 
-    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlinx_serialization_json_version"
+    implementation(libs.kotlinx.serialization.json)
 
-    compileOnly "io.mockk:mockk:$mockk_version" // Tests will include mockk or mockk-android depending on type.
+    compileOnly(libs.mockk) // Tests will include mockk or mockk-android depending on type.
 }

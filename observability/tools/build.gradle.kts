@@ -33,8 +33,7 @@ java {
 }
 
 dependencies {
-    val core_version: String by project
-
     implementation(project(":observability:domain"))
-    implementation("me.proton.core:observability-tools:$core_version")
+
+    implementation(libs.proton.core.observability.tools)
 }

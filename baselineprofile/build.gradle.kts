@@ -51,10 +51,10 @@ baselineProfile {
 dependencies {
     implementation(project(":ui_automator_test_util"))
 
-    implementation("androidx.test.ext:junit:1.3.0")
-    implementation("androidx.test.espresso:espresso-core:3.7.0")
-    implementation("androidx.test.uiautomator:uiautomator:2.3.0")
-    implementation("androidx.benchmark:benchmark-macro-junit4:1.4.1")
+    implementation(libs.androidx.test.junit)
+    implementation(libs.androidx.test.espresso.core)
+    implementation(libs.androidx.test.uiautomator)
+    implementation(libs.androidx.benchmark.macro.junit)
 }
 
 androidComponents {
