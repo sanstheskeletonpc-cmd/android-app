@@ -30,17 +30,16 @@ import com.protonvpn.android.appconfig.AppFeaturesPrefs
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.auth.usecase.uiName
 import com.protonvpn.android.components.InstalledAppsProvider
+import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.managed.ManagedConfig
 import com.protonvpn.android.netshield.NetShieldAvailability
 import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.netshield.getNetShieldAvailability
 import com.protonvpn.android.redesign.countries.Translator
-import com.protonvpn.android.excludedlocations.usecases.ObserveExcludedLocations
 import com.protonvpn.android.redesign.recents.data.DefaultConnection
 import com.protonvpn.android.redesign.recents.data.getRecentIdOrNull
 import com.protonvpn.android.redesign.recents.usecases.ObserveDefaultConnection
 import com.protonvpn.android.redesign.recents.usecases.RecentsManager
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.redesign.settings.IsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.settings.ui.excludedlocations.ExcludedLocationsViewModel.ExcludedLocationUiItem
 import com.protonvpn.android.redesign.settings.ui.excludedlocations.toExcludedLocationUiItem
@@ -64,7 +63,6 @@ import com.protonvpn.android.utils.combine
 import com.protonvpn.android.vpn.DnsOverride
 import com.protonvpn.android.vpn.IsPrivateDnsActiveFlow
 import com.protonvpn.android.vpn.ProtocolSelection
-import com.protonvpn.android.vpn.effectiveProtocol
 import com.protonvpn.android.vpn.getDnsOverride
 import com.protonvpn.android.vpn.usecases.IsDirectLanConnectionsFeatureFlagEnabled
 import com.protonvpn.android.vpn.usecases.IsIPv6FeatureFlagEnabled
@@ -123,7 +121,6 @@ class SettingsViewModel @Inject constructor(
     private val appUpdateManager: AppUpdateManager,
     appUpdateBannerStateFlow: AppUpdateBannerStateFlow,
     private val isDirectLanConnectionsFeatureFlagEnabled: IsDirectLanConnectionsFeatureFlagEnabled,
-    private val isRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled,
     private val isAutomaticConnectionPreferencesFeatureFlagEnabled: IsAutomaticConnectionPreferencesFeatureFlagEnabled,
     isProTunV1FeatureFlagEnabled: IsProTunV1FeatureFlagEnabled,
     private val translator: Translator,
@@ -375,7 +372,6 @@ class SettingsViewModel @Inject constructor(
         val isWidgetDiscovered: Boolean,
         val accountScreenEnabled: Boolean,
         val versionName: String,
-        val isRedesignedBugReportFeatureFlagEnabled: Boolean,
         val appUpdateBannerState: AppUpdateBannerState,
         val showAccountCategory: Boolean,
         val connectionPreferences: SettingViewState.ConnectionPreferencesState,
@@ -425,14 +421,12 @@ class SettingsViewModel @Inject constructor(
 
     private data class FeatureFlags(
         val isIPv6FeatureFlagEnabled: Boolean,
-        val isRedesignedBugReportFeatureFlagEnabled: Boolean,
         val isAutomaticConnectionPreferencesFeatureFlagEnabled: Boolean,
         val isProTunV1Enabled: Boolean,
     )
 
     private val featureFlagsFlow = combine(
         isIPv6FeatureFlagEnabled.observe(),
-        isRedesignedBugReportFeatureFlagEnabled.observe(),
         isAutomaticConnectionPreferencesFeatureFlagEnabled.observe(),
         isProTunV1FeatureFlagEnabled.observe(),
         ::FeatureFlags,
@@ -561,7 +555,6 @@ class SettingsViewModel @Inject constructor(
                 versionName = BuildConfig.VERSION_NAME,
                 ipV6 = if (featureFlags.isIPv6FeatureFlagEnabled) SettingViewState.IPv6(enabled = settings.ipV6Enabled) else null,
                 theme = SettingViewState.Theme(settings.theme),
-                isRedesignedBugReportFeatureFlagEnabled = featureFlags.isRedesignedBugReportFeatureFlagEnabled,
                 appUpdateBannerState = appUpdateBannerState,
                 showAccountCategory = !managedConfig.isManaged,
                 connectionPreferences = SettingViewState.ConnectionPreferencesState(

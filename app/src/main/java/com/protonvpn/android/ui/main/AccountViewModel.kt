@@ -39,7 +39,6 @@ import com.protonvpn.android.auth.usecase.HumanVerificationGuestHoleCheck
 import com.protonvpn.android.auth.usecase.Logout
 import com.protonvpn.android.logging.LogCategory
 import com.protonvpn.android.logging.ProtonLogger
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.ui.planupgrade.IsInAppUpgradeAllowedUseCase
 import com.protonvpn.android.userstorage.DontShowAgainStore
 import com.protonvpn.android.utils.Storage
@@ -98,7 +97,6 @@ class AccountViewModel @Inject constructor(
     private val isInAppUpgradeAllowedUseCase: IsInAppUpgradeAllowedUseCase,
     private val getDynamicSubscription: GetDynamicSubscription,
     private val authFlowTriggerHelper: AuthFlowStartHelper,
-    private val showRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled,
     autoLoginManager: AutoLoginManager,
 ) : ViewModel() {
 
@@ -110,7 +108,7 @@ class AccountViewModel @Inject constructor(
         data object Processing : State()
 
         data object AutoLoginInProgress : State()
-        data class AutoLoginError(val e: Throwable, val showRedesignedBugReport: Boolean) : State()
+        data class AutoLoginError(val e: Throwable) : State()
     }
 
     sealed class OnboardingEvent {
@@ -158,7 +156,6 @@ class AccountViewModel @Inject constructor(
                 is AutoLoginState.Error -> flowOf(
                     State.AutoLoginError(
                         autoLoginState.e,
-                        showRedesignedBugReport = showRedesignedBugReportFeatureFlagEnabled()
                     )
                 )
                 AutoLoginState.Disabled -> {

@@ -31,11 +31,9 @@ import com.protonvpn.android.models.vpn.ConnectionParams
 import com.protonvpn.android.netshield.NetShieldProtocol
 import com.protonvpn.android.profiles.data.toProfile
 import com.protonvpn.android.redesign.CountryId
-import com.protonvpn.android.redesign.countries.TranslationsData
 import com.protonvpn.android.redesign.countries.Translator
 import com.protonvpn.android.redesign.recents.usecases.ObserveDefaultConnection
 import com.protonvpn.android.redesign.recents.usecases.RecentsManager
-import com.protonvpn.android.redesign.reports.FakeIsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.redesign.settings.FakeIsAutomaticConnectionPreferencesFeatureFlagEnabled
 import com.protonvpn.android.redesign.settings.ui.SettingValue
 import com.protonvpn.android.redesign.settings.ui.SettingsViewModel
@@ -85,7 +83,6 @@ import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
-import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -240,7 +237,6 @@ class SettingsViewModelTests {
             isPrivateDnsActiveFlow = IsPrivateDnsActiveFlow(isPrivateDnsActive),
             isDirectLanConnectionsFeatureFlagEnabled = isDirectLanConnectionsFeatureFlagEnabled,
             observeDefaultConnection = mockObserveDefaultConnection,
-            isRedesignedBugReportFeatureFlagEnabled = FakeIsRedesignedBugReportFeatureFlagEnabled(true),
             uiStateStorage = UiStateStorage(UiStateStoreProvider(InMemoryDataStoreFactory()), currentUser),
             appUpdateManager = NoopAppUpdateManager(),
             appUpdateBannerStateFlow = FakeAppUpdateBannerStateFlow(),

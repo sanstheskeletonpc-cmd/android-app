@@ -70,8 +70,6 @@ import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingF
 import com.protonvpn.android.profiles.usecases.IsProfileAutoOpenPrivateBrowsingFeatureFlagEnabledImpl
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapter
 import com.protonvpn.android.redesign.countries.ui.ServerListViewModelDataAdapterLegacy
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabledImpl
 import com.protonvpn.android.redesign.search.ui.SearchViewModelDataAdapter
 import com.protonvpn.android.redesign.search.ui.SearchViewModelDataAdapterLegacy
 import com.protonvpn.android.redesign.settings.IsAutomaticConnectionPreferencesFeatureFlagEnabled
@@ -469,11 +467,6 @@ object AppModule {
 
         @Binds
         fun bindsIsProTunV1FeatureFlagEnabled(impl: IsProTunV1FeatureFlagEnabledImpl): IsProTunV1FeatureFlagEnabled
-
-        @Binds
-        fun bindIsRedesignedBugReportFeatureFlagEnabled(
-            impl: IsRedesignedBugReportFeatureFlagEnabledImpl,
-        ): IsRedesignedBugReportFeatureFlagEnabled
 
         @Binds
         fun bindIsAutomaticConnectionPreferencesFeatureFlagEnabled(

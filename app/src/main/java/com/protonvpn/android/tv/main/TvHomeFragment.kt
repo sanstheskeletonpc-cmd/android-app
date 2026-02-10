@@ -46,7 +46,6 @@ import com.protonvpn.android.components.BaseTvActivity
 import com.protonvpn.android.components.BaseTvBrowseFragment
 import com.protonvpn.android.databinding.TvCardRowBinding
 import com.protonvpn.android.models.features.PaidFeature
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.tv.detailed.CountryDetailFragment
 import com.protonvpn.android.tv.models.CardListRow
 import com.protonvpn.android.tv.models.CardRow
@@ -75,7 +74,6 @@ import com.protonvpn.android.tv.settings.splittunneling.TvSettingsSplitTunneling
 import com.protonvpn.android.tv.showTvDialog
 import com.protonvpn.android.tv.ui.TvKeyConstants
 import com.protonvpn.android.tv.upsell.TvUpsellActivity
-import com.protonvpn.android.ui.drawer.bugreport.DynamicReportActivity
 import com.protonvpn.android.utils.AndroidUtils.isRtl
 import com.protonvpn.android.utils.CountryTools
 import com.protonvpn.android.utils.ViewUtils.toPx
@@ -86,9 +84,6 @@ import javax.inject.Inject
 
 @AndroidEntryPoint
 class TvHomeFragment : BaseTvBrowseFragment() {
-
-    @Inject
-    lateinit var isRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled
 
     private val viewModel by activityViewModels<TvMainViewModel>()
 
@@ -228,11 +223,7 @@ class TvHomeFragment : BaseTvBrowseFragment() {
 
                 is ReportBugCard -> {
                     viewLifecycleOwner.lifecycleScope.launch {
-                        if (isRedesignedBugReportFeatureFlagEnabled()) {
-                            startActivity(Intent(context, TvBugReportActivity::class.java))
-                        } else {
-                            startActivity(Intent(context, DynamicReportActivity::class.java))
-                        }
+                        startActivity(Intent(context, TvBugReportActivity::class.java))
                     }
                 }
             }

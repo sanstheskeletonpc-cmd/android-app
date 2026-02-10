@@ -33,21 +33,15 @@ import com.protonvpn.android.base.ui.theme.enableEdgeToEdgeVpn
 import com.protonvpn.android.components.BaseActivityV2
 import com.protonvpn.android.databinding.ActivityTroubleshootBinding
 import com.protonvpn.android.databinding.ItemTroubleshootingInfoBinding
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.redesign.reports.ui.BugReportActivity
-import com.protonvpn.android.ui.drawer.bugreport.DynamicReportActivity
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.HtmlTools
 import com.protonvpn.android.utils.applySystemBarInsets
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
 class TroubleshootActivity : BaseActivityV2() {
-
-    @Inject
-    lateinit var isRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled
 
     private val viewModel: TroubleshootViewModel by viewModels()
 
@@ -79,11 +73,7 @@ class TroubleshootActivity : BaseActivityV2() {
 
             textCustomerSupport.setOnClickListener {
                 lifecycleScope.launch {
-                    if (isRedesignedBugReportFeatureFlagEnabled()) {
-                        startActivity(Intent(this@TroubleshootActivity, BugReportActivity::class.java))
-                    } else {
-                        startActivity(Intent(this@TroubleshootActivity, DynamicReportActivity::class.java))
-                    }
+                    startActivity(Intent(this@TroubleshootActivity, BugReportActivity::class.java))
                 }
             }
         }

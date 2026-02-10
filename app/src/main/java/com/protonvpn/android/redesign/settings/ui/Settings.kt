@@ -64,19 +64,18 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.LabelBadge
 import com.protonvpn.android.base.ui.ProtonVpnPreview
+import com.protonvpn.android.base.ui.collectAsEffect
+import com.protonvpn.android.base.ui.largeScreenContentPadding
 import com.protonvpn.android.profiles.data.ProfileColor
 import com.protonvpn.android.profiles.data.ProfileIcon
 import com.protonvpn.android.profiles.ui.nav.ProfileCreationStepTarget
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.base.ui.CollapsibleToolbarScaffold
-import com.protonvpn.android.base.ui.collectAsEffect
-import com.protonvpn.android.base.ui.largeScreenContentPadding
 import com.protonvpn.android.redesign.reports.ui.BugReportActivity
 import com.protonvpn.android.redesign.settings.ui.nav.SubSettingsScreen
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentPrimaryLabel
 import com.protonvpn.android.redesign.vpn.ui.label
 import com.protonvpn.android.ui.drawer.LogActivity
-import com.protonvpn.android.ui.drawer.bugreport.DynamicReportActivity
 import com.protonvpn.android.ui.planupgrade.CarouselUpgradeDialogActivity
 import com.protonvpn.android.ui.planupgrade.UpgradeNetShieldHighlightsFragment
 import com.protonvpn.android.ui.planupgrade.UpgradeSplitTunnelingHighlightsFragment
@@ -207,11 +206,7 @@ fun SettingsRoute(
                     context.openUrl(contactSupportLink)
                 },
                 onReportBugClick = {
-                    if (viewState.isRedesignedBugReportFeatureFlagEnabled) {
-                        context.startActivity(Intent(context, BugReportActivity::class.java))
-                    } else {
-                        context.startActivity(Intent(context, DynamicReportActivity::class.java))
-                    }
+                    context.startActivity(Intent(context, BugReportActivity::class.java))
                 },
                 onDebugLogsClick = {
                     context.startActivity(Intent(context, LogActivity::class.java))

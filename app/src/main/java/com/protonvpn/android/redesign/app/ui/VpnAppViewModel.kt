@@ -29,11 +29,9 @@ import com.protonvpn.android.appconfig.periodicupdates.UpdateState
 import com.protonvpn.android.auth.LOGIN_GUEST_HOLE_ID
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.auth.usecase.PartialJointUserInfo
-import com.protonvpn.android.redesign.reports.IsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.redesign.reports.ui.BugReportActivity
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.servers.UpdateServerListFromApi
-import com.protonvpn.android.ui.drawer.bugreport.DynamicReportActivity
 import com.protonvpn.android.ui.home.ServerListUpdater
 import com.protonvpn.android.utils.Constants
 import com.protonvpn.android.utils.UserPlanManager
@@ -59,7 +57,6 @@ class VpnAppViewModel @Inject constructor(
     currentUser: CurrentUser,
     private val userPlanManager: UserPlanManager,
     private val guestHole: GuestHole,
-    private val isRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled,
 ) : ViewModel() {
 
     private val serversLoaderState = combine(
@@ -75,7 +72,6 @@ class VpnAppViewModel @Inject constructor(
                     when (updateState.lastResult) {
                         is UpdateServerListFromApi.Result.Error -> LoaderState.Error.RequestFailed(
                             scope = mainScope,
-                            isRedesignedBugReportFeatureFlagEnabled = isRedesignedBugReportFeatureFlagEnabled,
                             retryAction = ::updateServerList,
                         )
                         UpdateServerListFromApi.Result.Success ->
@@ -107,7 +103,6 @@ class VpnAppViewModel @Inject constructor(
                         null,
                         UserPlanManager.UpdateResult.UpdateError -> LoaderState.Error.RequestFailed(
                             scope = mainScope,
-                            isRedesignedBugReportFeatureFlagEnabled = isRedesignedBugReportFeatureFlagEnabled,
                             retryAction = ::updateVpnUser,
                         )
                         UserPlanManager.UpdateResult.NoConnectionsAssigned ->
@@ -206,18 +201,13 @@ class VpnAppViewModel @Inject constructor(
             // The description is intentionally the same for servers and VPN user.
             data class RequestFailed(
                 val scope: CoroutineScope,
-                val isRedesignedBugReportFeatureFlagEnabled: IsRedesignedBugReportFeatureFlagEnabled,
                 override val retryAction: () -> Unit,
             ) : Error(
                 descriptionResId = R.string.no_connections_description_loading_error,
                 helpResId = R.string.no_connections_help_contact_us,
                 linkAnnotationAction = { context ->
                     scope.launch {
-                        if (isRedesignedBugReportFeatureFlagEnabled()) {
-                            context.startActivity(Intent(context, BugReportActivity::class.java))
-                        } else {
-                            context.startActivity(Intent(context, DynamicReportActivity::class.java))
-                        }
+                        context.startActivity(Intent(context, BugReportActivity::class.java))
                     }
                 },
             )

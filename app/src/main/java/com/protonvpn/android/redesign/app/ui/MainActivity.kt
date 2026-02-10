@@ -64,7 +64,6 @@ import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.tv.main.TvMainActivity
 import com.protonvpn.android.ui.deeplinks.DeepLinkHandler
 import com.protonvpn.android.ui.drawer.LogActivity
-import com.protonvpn.android.ui.drawer.bugreport.DynamicReportActivity
 import com.protonvpn.android.ui.main.AccountViewModel
 import com.protonvpn.android.ui.main.MainActivityHelper
 import com.protonvpn.android.ui.onboarding.OnboardingActivity
@@ -202,11 +201,7 @@ class MainActivity : VpnUiDelegateProvider, AppCompatActivity() {
                             state.e.message ?: stringResource(R.string.something_went_wrong),
                             onRetry = activityViewModel::retryAutoLogin,
                             onReportIssue = {
-                                if (state.showRedesignedBugReport) {
-                                    context.startActivity(Intent(context, BugReportActivity::class.java))
-                                } else {
-                                    context.startActivity(Intent(context, DynamicReportActivity::class.java))
-                                }
+                                context.startActivity(Intent(context, BugReportActivity::class.java))
                             },
                             onShowLog = {
                                 context.startActivity(Intent(context, LogActivity::class.java))

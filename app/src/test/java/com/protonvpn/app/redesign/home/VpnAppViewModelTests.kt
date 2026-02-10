@@ -25,7 +25,6 @@ import com.protonvpn.android.appconfig.periodicupdates.UpdateState
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.managed.ManagedConfig
 import com.protonvpn.android.redesign.app.ui.VpnAppViewModel
-import com.protonvpn.android.redesign.reports.FakeIsRedesignedBugReportFeatureFlagEnabled
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.servers.UpdateServerListFromApi
 import com.protonvpn.android.ui.home.ServerListUpdater
@@ -270,6 +269,5 @@ class VpnAppViewModelTests {
         currentUser = currentUser,
         userPlanManager = userPlanManager,
         guestHole = mockk(relaxed = true),
-        isRedesignedBugReportFeatureFlagEnabled = FakeIsRedesignedBugReportFeatureFlagEnabled(true),
     )
 }

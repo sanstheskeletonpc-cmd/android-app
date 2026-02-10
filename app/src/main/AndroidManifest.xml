@@ -418,18 +418,8 @@
             android:name=".ui.settings.SettingsTelemetryActivity"
             android:label="@string/settingsTelemetryScreenTitle"/>
         <activity
-            android:name=".ui.drawer.bugreport.DynamicReportActivity"
-            android:label="@string/drawerReportProblem"
-            android:windowSoftInputMode="adjustResize" />
-        <activity
             android:name=".redesign.reports.ui.BugReportActivity"
             android:windowSoftInputMode="adjustResize" />
-        <activity
-            android:name=".ui.drawer.bugreport.FullScreenDialog"
-            android:exported="false" />
-        <activity
-            android:name=".ui.drawer.bugreport.DropdownSelectionActivity"
-            android:exported="false" />
 
         <activity android:name=".ui.onboarding.WhatsNewActivity" />
         <activity android:name=".ui.planupgrade.PlusOnlyUpgradeDialogActivity" />
