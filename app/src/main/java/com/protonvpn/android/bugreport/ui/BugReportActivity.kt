@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui
+package com.protonvpn.android.bugreport.ui
 
 import android.os.Bundle
 import androidx.activity.compose.setContent

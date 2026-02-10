@@ -17,37 +17,25 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.form
+package com.protonvpn.android.bugreport.ui.steps.suggestions
 
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.steps.BugReportStepsNav
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.steps.BugReportStepsNav
 
-object BugReportFormScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepForm") {
+object BugReportSuggestionsScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepSuggestions") {
 
-    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportFormScreen(
+    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportSuggestionsScreen(
         viewState: BugReportViewModel.ViewState,
         onSetCurrentStep: (BugReportViewModel.BugReportSteps) -> Unit,
-        onFormEmailChanged: (String) -> Unit,
-        onFormFieldChanged: (InputField, String) -> Unit,
-        onFormSendLogsChanged: (Boolean) -> Unit,
+        onOpenLink: (String) -> Unit,
     ) = addToGraph(this) {
-        BugReportForm(
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 16.dp),
+        BugReportSuggestions(
             viewState = viewState,
             onSetCurrentStep = onSetCurrentStep,
-            onFormEmailChanged = onFormEmailChanged,
-            onFormFieldChanged = onFormFieldChanged,
-            onFormSendLogsChanged = onFormSendLogsChanged,
+            onSuggestionLinkClick = onOpenLink,
         )
     }
 

@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports
+package com.protonvpn.android.bugreport
 
 import com.protonvpn.android.models.config.bugreport.DynamicReportModel
 import kotlinx.serialization.json.Json

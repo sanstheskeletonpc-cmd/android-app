@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.navOptions
 import com.protonvpn.android.base.ui.nav.BaseNav
-import com.protonvpn.android.redesign.reports.ui.BugReportNav
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportNav
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.reports.completion.error.TvBugReportCompletionErrorScreen
 import com.protonvpn.android.tv.reports.completion.error.TvBugReportCompletionErrorScreen.tvBugReportCompletionErrorScreen
 import com.protonvpn.android.tv.reports.completion.success.TvBugReportCompletionSuccessScreen

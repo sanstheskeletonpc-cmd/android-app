@@ -71,7 +71,7 @@ import com.protonvpn.android.profiles.data.ProfileIcon
 import com.protonvpn.android.profiles.ui.nav.ProfileCreationStepTarget
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.base.ui.CollapsibleToolbarScaffold
-import com.protonvpn.android.redesign.reports.ui.BugReportActivity
+import com.protonvpn.android.bugreport.ui.BugReportActivity
 import com.protonvpn.android.redesign.settings.ui.nav.SubSettingsScreen
 import com.protonvpn.android.redesign.vpn.ui.ConnectIntentPrimaryLabel
 import com.protonvpn.android.redesign.vpn.ui.label

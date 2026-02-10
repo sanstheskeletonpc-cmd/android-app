@@ -1,4 +1,4 @@
-package com.protonvpn.android.redesign.reports.ui.steps
+package com.protonvpn.android.bugreport.ui.steps
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -8,13 +8,13 @@ import androidx.navigation.compose.rememberNavController
 import com.protonvpn.android.models.config.bugreport.Category
 import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.base.ui.nav.BaseNav
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.steps.form.BugReportFormScreen
-import com.protonvpn.android.redesign.reports.ui.steps.form.BugReportFormScreen.bugReportFormScreen
-import com.protonvpn.android.redesign.reports.ui.steps.menu.BugReportMenuScreen
-import com.protonvpn.android.redesign.reports.ui.steps.menu.BugReportMenuScreen.bugReportMenuScreen
-import com.protonvpn.android.redesign.reports.ui.steps.suggestions.BugReportSuggestionsScreen
-import com.protonvpn.android.redesign.reports.ui.steps.suggestions.BugReportSuggestionsScreen.bugReportSuggestionsScreen
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.steps.form.BugReportFormScreen
+import com.protonvpn.android.bugreport.ui.steps.form.BugReportFormScreen.bugReportFormScreen
+import com.protonvpn.android.bugreport.ui.steps.menu.BugReportMenuScreen
+import com.protonvpn.android.bugreport.ui.steps.menu.BugReportMenuScreen.bugReportMenuScreen
+import com.protonvpn.android.bugreport.ui.steps.suggestions.BugReportSuggestionsScreen
+import com.protonvpn.android.bugreport.ui.steps.suggestions.BugReportSuggestionsScreen.bugReportSuggestionsScreen
 import com.protonvpn.android.update.AppUpdateInfo
 
 class BugReportStepsNav(

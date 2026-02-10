@@ -29,7 +29,7 @@ import com.protonvpn.android.appconfig.periodicupdates.UpdateState
 import com.protonvpn.android.auth.LOGIN_GUEST_HOLE_ID
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.auth.usecase.PartialJointUserInfo
-import com.protonvpn.android.redesign.reports.ui.BugReportActivity
+import com.protonvpn.android.bugreport.ui.BugReportActivity
 import com.protonvpn.android.servers.ServerManager2
 import com.protonvpn.android.servers.UpdateServerListFromApi
 import com.protonvpn.android.ui.home.ServerListUpdater

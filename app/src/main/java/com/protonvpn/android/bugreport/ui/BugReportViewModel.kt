@@ -1,4 +1,4 @@
-package com.protonvpn.android.redesign.reports.ui
+package com.protonvpn.android.bugreport.ui
 
 import android.app.Activity
 import android.util.Patterns
@@ -8,13 +8,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.R
 import com.protonvpn.android.auth.usecase.CurrentUser
+import com.protonvpn.android.bugreport.BugReportConfigStore
 import com.protonvpn.android.models.config.bugreport.Category
 import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.models.config.bugreport.Suggestion
 import com.protonvpn.android.models.config.bugreport.TYPE_DROPDOWN
 import com.protonvpn.android.models.login.GenericResponse
-import com.protonvpn.android.redesign.reports.BugReportConfigStore
-import com.protonvpn.android.ui.drawer.bugreport.PrepareAndPostBugReport
+import com.protonvpn.android.bugreport.PrepareAndPostBugReport
 import com.protonvpn.android.update.AppUpdateBannerState
 import com.protonvpn.android.update.AppUpdateBannerStateFlow
 import com.protonvpn.android.update.AppUpdateInfo

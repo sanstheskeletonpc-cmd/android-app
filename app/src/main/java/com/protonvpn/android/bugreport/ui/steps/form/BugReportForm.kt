@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.form
+package com.protonvpn.android.bugreport.ui.steps.form
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -43,6 +43,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.models.config.bugreport.DropdownField
 import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.models.config.bugreport.TYPE_DROPDOWN
@@ -50,7 +51,6 @@ import com.protonvpn.android.models.config.bugreport.TYPE_MULTILINE
 import com.protonvpn.android.models.config.bugreport.TYPE_SINGLELINE
 import com.protonvpn.android.redesign.base.ui.ProtonDropdownMenu
 import com.protonvpn.android.redesign.base.ui.ProtonOutlinedTextField
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
 import me.proton.core.compose.theme.ProtonTheme
 
 @Composable

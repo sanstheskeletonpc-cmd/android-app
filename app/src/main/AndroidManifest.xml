@@ -418,7 +418,7 @@
             android:name=".ui.settings.SettingsTelemetryActivity"
             android:label="@string/settingsTelemetryScreenTitle"/>
         <activity
-            android:name=".redesign.reports.ui.BugReportActivity"
+            android:name=".bugreport.ui.BugReportActivity"
             android:windowSoftInputMode="adjustResize" />
 
         <activity android:name=".ui.onboarding.WhatsNewActivity" />

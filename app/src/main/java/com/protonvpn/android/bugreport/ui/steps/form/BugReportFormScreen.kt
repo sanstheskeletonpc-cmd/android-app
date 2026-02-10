@@ -17,29 +17,37 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.menu
+package com.protonvpn.android.bugreport.ui.steps.form
 
-import com.protonvpn.android.models.config.bugreport.Category
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.steps.BugReportStepsNav
-import com.protonvpn.android.update.AppUpdateInfo
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.steps.BugReportStepsNav
 
-object BugReportMenuScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepMenu") {
+object BugReportFormScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepForm") {
 
-    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportMenuScreen(
+    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportFormScreen(
         viewState: BugReportViewModel.ViewState,
-        onUpdateApp: (AppUpdateInfo) -> Unit,
-        onCategorySelected: (Category) -> Unit,
         onSetCurrentStep: (BugReportViewModel.BugReportSteps) -> Unit,
+        onFormEmailChanged: (String) -> Unit,
+        onFormFieldChanged: (InputField, String) -> Unit,
+        onFormSendLogsChanged: (Boolean) -> Unit,
     ) = addToGraph(this) {
-        BugReportMenu(
+        BugReportForm(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
             viewState = viewState,
-            onUpdateApp = onUpdateApp,
-            onCategoryClick = onCategorySelected,
             onSetCurrentStep = onSetCurrentStep,
+            onFormEmailChanged = onFormEmailChanged,
+            onFormFieldChanged = onFormFieldChanged,
+            onFormSendLogsChanged = onFormSendLogsChanged,
         )
     }
 

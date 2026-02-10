@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps
+package com.protonvpn.android.bugreport.ui.steps
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -50,9 +50,9 @@ import com.protonvpn.android.base.ui.largeScreenContentPadding
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportNav
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.steps.form.BugReportFormScreen
+import com.protonvpn.android.bugreport.ui.BugReportNav
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.steps.form.BugReportFormScreen
 import com.protonvpn.android.update.AppUpdateInfo
 import kotlinx.coroutines.flow.receiveAsFlow
 import me.proton.core.compose.theme.ProtonTheme

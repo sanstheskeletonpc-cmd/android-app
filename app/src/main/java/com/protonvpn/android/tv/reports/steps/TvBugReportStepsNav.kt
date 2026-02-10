@@ -27,7 +27,7 @@ import androidx.navigation.compose.rememberNavController
 import com.protonvpn.android.models.config.bugreport.Category
 import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.base.ui.nav.BaseNav
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.reports.steps.form.TvBugReportFormScreen
 import com.protonvpn.android.tv.reports.steps.form.TvBugReportFormScreen.tvBugReportFormScreen
 import com.protonvpn.android.tv.reports.steps.menu.TvBugReportMenuScreen

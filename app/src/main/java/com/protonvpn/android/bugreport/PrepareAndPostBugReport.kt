@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2024. Proton AG
+ * Copyright (c) 2026. Proton AG
  *
  * This file is part of ProtonVPN.
  *
@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.ui.drawer.bugreport
+package com.protonvpn.android.bugreport
 
 import android.os.Build
 import android.telephony.TelephonyManager
@@ -56,7 +56,7 @@ class PrepareAndPostBugReport @Inject constructor(
         val description =
             "$userGeneratedDescription\n\nSentry user ID: ${SentryIntegration.getInstallationId()}"
         val client = if (isTv()) "Android TV app" else "Android app"
-        val builder: MultipartBody.Builder = MultipartBody.Builder().setType(MultipartBody.FORM)
+        val builder: MultipartBody.Builder = MultipartBody.Builder().setType(MultipartBody.Companion.FORM)
             .addFormDataPart("Client", client)
             .addFormDataPart("ClientVersion", BuildConfig.VERSION_NAME)
             .addFormDataPart("Username", currentUser.user()?.name ?: "")

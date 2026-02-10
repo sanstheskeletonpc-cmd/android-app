@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.completion.success
+package com.protonvpn.android.bugreport.ui.completion.success
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.ui.Modifier
@@ -26,8 +26,8 @@ import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportNav
-import com.protonvpn.android.redesign.reports.ui.completion.BugReportCompletion
+import com.protonvpn.android.bugreport.ui.BugReportNav
+import com.protonvpn.android.bugreport.ui.completion.BugReportCompletion
 
 object BugReportCompletionSuccessScreen : ScreenNoArg<BugReportNav>("bugReportCompletionSuccess") {
 

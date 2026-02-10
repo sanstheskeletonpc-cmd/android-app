@@ -21,7 +21,7 @@ package com.protonvpn.android.ui.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import com.protonvpn.android.redesign.reports.ui.BugReportActivity
+import com.protonvpn.android.bugreport.ui.BugReportActivity
 import dagger.Reusable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch

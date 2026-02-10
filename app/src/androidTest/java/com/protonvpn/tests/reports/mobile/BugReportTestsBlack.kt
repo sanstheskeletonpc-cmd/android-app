@@ -21,14 +21,12 @@ package com.protonvpn.tests.reports.mobile
 
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import com.protonvpn.android.models.config.bugreport.Category
-import com.protonvpn.android.redesign.reports.BugReportConfigStore
-import com.protonvpn.android.redesign.reports.ui.BugReportActivity
+import com.protonvpn.android.bugreport.BugReportConfigStore
+import com.protonvpn.android.bugreport.ui.BugReportActivity
 import com.protonvpn.interfaces.verify
-import com.protonvpn.mocks.TestApiConfig
 import com.protonvpn.robots.mobile.RedesignBugReportRobot
 import com.protonvpn.testRules.AppConfigRefreshTestRule
 import com.protonvpn.testRules.CommonRuleChains.realBackendRule
-import com.protonvpn.testRules.ProtonHiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.runBlocking
 import me.proton.test.fusion.FusionConfig

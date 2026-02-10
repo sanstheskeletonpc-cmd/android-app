@@ -40,7 +40,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
 import com.protonvpn.android.models.config.bugreport.Category
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.reports.steps.TvBugReportStepHeader
 import com.protonvpn.android.tv.settings.ProtonTvFocusableSurface
 import me.proton.core.compose.theme.ProtonTheme

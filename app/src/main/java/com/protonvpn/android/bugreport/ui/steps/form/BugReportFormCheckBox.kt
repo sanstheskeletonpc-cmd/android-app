@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.form
+package com.protonvpn.android.bugreport.ui.steps.form
 
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Arrangement

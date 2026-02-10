@@ -58,7 +58,7 @@ import com.protonvpn.android.managed.ui.AutoLoginView
 import com.protonvpn.android.redesign.app.ui.MainActivityViewModel.Companion.AppUpdateCheckDelay
 import com.protonvpn.android.redesign.app.ui.nav.MainNavEvent
 import com.protonvpn.android.redesign.base.ui.ProtonAlert
-import com.protonvpn.android.redesign.reports.ui.BugReportActivity
+import com.protonvpn.android.bugreport.ui.BugReportActivity
 import com.protonvpn.android.redesign.vpn.AnyConnectIntent
 import com.protonvpn.android.tv.IsTvCheck
 import com.protonvpn.android.tv.main.TvMainActivity

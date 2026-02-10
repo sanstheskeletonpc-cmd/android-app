@@ -6,7 +6,7 @@ import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportNav
+import com.protonvpn.android.bugreport.ui.BugReportNav
 import com.protonvpn.android.tv.reports.completion.TvBugReportCompletion
 
 object TvBugReportCompletionSuccessScreen : ScreenNoArg<BugReportNav>("tvBugReportCompletionSuccess") {

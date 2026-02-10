@@ -23,7 +23,7 @@ import com.protonvpn.android.models.config.bugreport.Category
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.reports.steps.TvBugReportStepsNav
 
 object TvBugReportMenuScreen : ScreenNoArg<TvBugReportStepsNav>("tvBugReportStepMenu") {

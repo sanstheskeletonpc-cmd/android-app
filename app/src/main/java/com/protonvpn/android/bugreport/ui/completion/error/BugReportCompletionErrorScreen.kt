@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.completion.error
+package com.protonvpn.android.bugreport.ui.completion.error
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,9 +28,9 @@ import com.protonvpn.android.R
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.Screen
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportNav
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.completion.BugReportCompletion
+import com.protonvpn.android.bugreport.ui.BugReportNav
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.completion.BugReportCompletion
 
 object BugReportCompletionErrorScreen : Screen<BugReportViewModel.BugReportNetworkError, BugReportNav>("bugReportCompletionError") {
 

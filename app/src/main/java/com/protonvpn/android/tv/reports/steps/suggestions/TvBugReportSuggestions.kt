@@ -39,7 +39,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Icon
 import androidx.tv.material3.Text
 import com.protonvpn.android.R
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.buttons.TvProtonTextButton
 import com.protonvpn.android.tv.buttons.TvSolidButton
 import com.protonvpn.android.tv.reports.steps.TvBugReportStepHeader

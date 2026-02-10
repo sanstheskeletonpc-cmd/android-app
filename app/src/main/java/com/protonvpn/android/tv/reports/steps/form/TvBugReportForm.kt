@@ -46,7 +46,7 @@ import com.protonvpn.android.models.config.bugreport.InputField
 import com.protonvpn.android.models.config.bugreport.TYPE_DROPDOWN
 import com.protonvpn.android.models.config.bugreport.TYPE_MULTILINE
 import com.protonvpn.android.models.config.bugreport.TYPE_SINGLELINE
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.tv.buttons.TvSolidButton
 import com.protonvpn.android.tv.menus.TvDropdownMenu
 import com.protonvpn.android.tv.textfields.TvOutlinedTextField

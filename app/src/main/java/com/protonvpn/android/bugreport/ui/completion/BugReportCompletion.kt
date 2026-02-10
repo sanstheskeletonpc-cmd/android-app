@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.completion
+package com.protonvpn.android.bugreport.ui.completion
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image

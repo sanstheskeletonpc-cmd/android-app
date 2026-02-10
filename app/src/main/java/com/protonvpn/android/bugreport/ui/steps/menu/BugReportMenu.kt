@@ -17,7 +17,7 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.menu
+package com.protonvpn.android.bugreport.ui.steps.menu
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -36,9 +36,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.protonvpn.android.R
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
 import com.protonvpn.android.update.VpnUpdateBanner
 import com.protonvpn.android.models.config.bugreport.Category
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
 import com.protonvpn.android.update.AppUpdateInfo
 import me.proton.core.compose.theme.ProtonTheme
 import me.proton.core.presentation.R as CoreR

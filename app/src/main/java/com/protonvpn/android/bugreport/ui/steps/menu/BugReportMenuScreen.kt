@@ -17,25 +17,29 @@
  * along with ProtonVPN.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-package com.protonvpn.android.redesign.reports.ui.steps.suggestions
+package com.protonvpn.android.bugreport.ui.steps.menu
 
+import com.protonvpn.android.models.config.bugreport.Category
 import com.protonvpn.android.base.ui.nav.SafeNavGraphBuilder
 import com.protonvpn.android.base.ui.nav.ScreenNoArg
 import com.protonvpn.android.base.ui.nav.addToGraph
-import com.protonvpn.android.redesign.reports.ui.BugReportViewModel
-import com.protonvpn.android.redesign.reports.ui.steps.BugReportStepsNav
+import com.protonvpn.android.bugreport.ui.BugReportViewModel
+import com.protonvpn.android.bugreport.ui.steps.BugReportStepsNav
+import com.protonvpn.android.update.AppUpdateInfo
 
-object BugReportSuggestionsScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepSuggestions") {
+object BugReportMenuScreen : ScreenNoArg<BugReportStepsNav>("bugReportStepMenu") {
 
-    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportSuggestionsScreen(
+    fun SafeNavGraphBuilder<BugReportStepsNav>.bugReportMenuScreen(
         viewState: BugReportViewModel.ViewState,
+        onUpdateApp: (AppUpdateInfo) -> Unit,
+        onCategorySelected: (Category) -> Unit,
         onSetCurrentStep: (BugReportViewModel.BugReportSteps) -> Unit,
-        onOpenLink: (String) -> Unit,
     ) = addToGraph(this) {
-        BugReportSuggestions(
+        BugReportMenu(
             viewState = viewState,
+            onUpdateApp = onUpdateApp,
+            onCategoryClick = onCategorySelected,
             onSetCurrentStep = onSetCurrentStep,
-            onSuggestionLinkClick = onOpenLink,
         )
     }
 
