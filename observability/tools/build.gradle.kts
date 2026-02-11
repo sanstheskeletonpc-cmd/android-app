@@ -33,7 +33,7 @@ java {
 }
 
 dependencies {
-    implementation(project(":observability:domain"))
+    implementation(projects.observability.domain)
 
     implementation(libs.proton.core.observability.tools)
 }

@@ -49,7 +49,7 @@ baselineProfile {
 }
 
 dependencies {
-    implementation(project(":ui_automator_test_util"))
+    implementation(projects.uiAutomatorTestUtil)
 
     implementation(libs.androidx.test.junit)
     implementation(libs.androidx.test.espresso.core)

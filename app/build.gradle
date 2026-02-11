@@ -736,14 +736,14 @@ configurations.configureEach {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
     implementation(libs.androidx.profileinstaller)
-    baselineProfile project(':baselineprofile')
+    baselineProfile(projects.baselineprofile)
 
     debugImplementation(libs.squareup.leakcanary.object.watcher)
     debugImplementation(libs.squareup.leakcanary)
 
     detektPlugins(libs.detekt.formatting)
-    detektPlugins project(":detekt-gitlab-output-plugin")
-    detektPlugins project(":detekt-custom-rules")
+    detektPlugins(projects.detektGitlabOutputPlugin)
+    detektPlugins(projects.detektCustomRules)
 
     coreLibraryDesugaring(libs.android.tools.desugar.jdk.libs)
 
@@ -946,7 +946,7 @@ dependencies {
     }
 
     // Observability
-    implementation project(":observability:domain")
+    implementation(projects.observability.domain)
 
     // TV
     implementation(libs.androidx.leanback)
@@ -985,8 +985,8 @@ dependencies {
     // https://github.com/android/android-test/issues/940#issuecomment-934406022
     debugImplementation(libs.androidx.test.core)
 
-    testImplementation project(':shared-test-code')
-    androidTestImplementation project(':shared-test-code')
+    testImplementation(projects.sharedTestCode)
+    androidTestImplementation(projects.sharedTestCode)
 
     androidTestImplementation(libs.okhttp3.tls)
 
