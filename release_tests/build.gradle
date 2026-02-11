@@ -20,8 +20,8 @@ import groovy.json.StringEscapeUtils
  */
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 def debugKeystorePath = file(new File(rootDir, "app/${System.getenv("DEBUG_KEYSTORE_FILE")}"))

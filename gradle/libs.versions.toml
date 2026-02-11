@@ -1,6 +1,8 @@
 [versions]
 accompanist-version = "0.36.0"
+agp-version = "8.9.1"
 airbnb-lottie-version = "6.6.7"
+android-compose-screenshot-version = "0.0.1-alpha09"
 android-flexbox-version = "3.0.0"
 android-material-version = "1.12.0"
 android-tools-version = "2.0.4"
@@ -52,14 +54,19 @@ google-guava-version = "33.2.1-android"
 google-play-app-update-version = "2.1.0"
 google-play-review-version = "2.0.2"
 google-truth-version = "1.4.4"
+jacoco-tools-version = "0.8.8"
+jaredsburrows-gradle-license-version = "0.8.91"
 java-jna-version = "5.16.0"
 junit-version = "4.13.2"
 kotlin-version = "2.0.21"
 kotlinx-coroutines-version = "1.7.3"
 kotlinx-serialization-version = "1.7.3"
+ksp-version = "2.0.21-1.0.27"
 lisawray-groupie-version = "2.10.0"
 mockk-version = "1.13.13"
 okhttp3-version = "4.12.0"
+owasp-dependencycheck-version = "10.0.4"
+proton-core-env-config-version = "1.3.1"
 proton-core-version = "36.3.1"
 proton-test-fusion-version = "0.9.97"
 proton-vpn-govpnlib-version = "0.1.78"
@@ -70,10 +77,12 @@ retrofit-version = "2.11.0"
 robolectric-version = "4.14.1"
 scottyab-aes-crypto-version = "0.0.5"
 seancfoley-ipaddress-version = "5.5.1"
+sentry-plugin-version = "6.0.0"
 sentry-version = "7.22.5"
 slf4j-version = "1.7.36"
 squareup-leakcanary-version = "2.14"
 tony19-logback-version = "2.0.0"
+triplet-play-version = "3.10.1"
 turbine-version = "1.2.0"
 vico-version = "2.0.0-alpha.14"
 
@@ -286,3 +295,27 @@ tony19-logback = { group = "com.github.tony19", name = "logback-android", versio
 turbine = { group = "app.cash.turbine", name = "turbine", version.ref = "turbine-version" }
 vico-compose = { group = "com.patrykandpatrick.vico", name = "compose", version.ref = "vico-version" }
 vico-core = { group = "com.patrykandpatrick.vico", name = "core", version.ref = "vico-version" }
+
+[plugins]
+android-application = { id = "com.android.application" , version.ref = "agp-version" }
+android-compose-screenshot = { id = "com.android.compose.screenshot", version.ref = "android-compose-screenshot-version" }
+android-library = { id = "com.android.library" , version.ref = "agp-version" }
+android-test = { id = "com.android.test" , version.ref = "agp-version" }
+androidx-baselineprofile = { id = "androidx.baselineprofile", version.ref = "androidx-profileinstaller-version" }
+androidx-room = { id = "androidx.room", version.ref = "androidx-room-version" }
+application = { id = "application" }
+dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt-version" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt-version" }
+jacoco = { id = "jacoco" }
+jaredsburrows-gradle-license = { id = "com.jaredsburrows.license", version.ref = "jaredsburrows-gradle-license-version" }
+java = { id = "java" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin-version" }
+kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin-version" }
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin-version" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin-version" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin-version" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp-version" }
+owasp-dependencycheck = { id = "org.owasp.dependencycheck", version.ref = "owasp-dependencycheck-version" }
+proton-core-env-config = { id = "me.proton.core.gradle-plugins.environment-config", version.ref = "proton-core-env-config-version" }
+sentry = { id = "io.sentry.android.gradle", version.ref = "sentry-plugin-version" }
+triplet-play = { id = "com.github.triplet.play", version.ref = "triplet-play-version" }

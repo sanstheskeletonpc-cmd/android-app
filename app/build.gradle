@@ -37,33 +37,30 @@ buildscript {
 }
 
 plugins {
-    id 'com.android.application'
-    id 'com.github.triplet.play' version '3.10.1'
-    id 'io.sentry.android.gradle' version '4.14.1'
-    id 'org.jetbrains.kotlin.plugin.serialization'
-    id 'me.proton.core.gradle-plugins.environment-config' version '1.3.1'
-    id 'com.google.devtools.ksp'
-    id 'androidx.room'
-    id 'org.jetbrains.kotlin.plugin.compose'
-    id 'androidx.baselineprofile'
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.android.compose.screenshot)
+    alias(libs.plugins.androidx.baselineprofile)
+    alias(libs.plugins.androidx.room)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.detekt)
+    alias(libs.plugins.jacoco)
+    alias(libs.plugins.jaredsburrows.gradle.license)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.proton.core.env.config)
+    alias(libs.plugins.sentry)
+    alias(libs.plugins.triplet.play)
 }
-
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-parcelize'
-apply plugin: 'jacoco'
-apply plugin: 'com.jaredsburrows.license'
-apply plugin: 'dagger.hilt.android.plugin'
-apply plugin: 'io.gitlab.arturbosch.detekt'
-apply plugin: 'me.proton.core.gradle-plugins.environment-config'
-apply plugin: 'com.android.compose.screenshot'
 
 dependencyCheck {
     formats = ["SARIF", "HTML", "JUNIT"]
 }
 
 jacoco {
-    toolVersion = '0.8.8'
+    toolVersion = libs.versions.jacoco.tools.version.get()
 }
 
 // There is no dependency on unit tests because coverage is run in a separate CI job and we want to

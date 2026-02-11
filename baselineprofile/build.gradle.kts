@@ -1,9 +1,9 @@
 import groovy.json.StringEscapeUtils
 
 plugins {
-    id("com.android.test")
-    id("org.jetbrains.kotlin.android")
-    id("androidx.baselineprofile")
+    alias(libs.plugins.android.test)
+    alias(libs.plugins.androidx.baselineprofile)
+    alias(libs.plugins.kotlin.android)
 }
 
 val testAccountPass = System.getenv("TEST_ACCOUNT_PASS") ?: project.properties["testAccountPassword"] as? String ?: "Pass"

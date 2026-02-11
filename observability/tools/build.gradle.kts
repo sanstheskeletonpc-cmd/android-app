@@ -18,9 +18,9 @@
  */
 
 plugins {
-    id("application")
-    id("java")
-    kotlin("jvm")
+    alias(libs.plugins.application)
+    alias(libs.plugins.java)
+    alias(libs.plugins.kotlin.jvm)
 }
 
 application {
