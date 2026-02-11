@@ -21,6 +21,7 @@ package com.protonvpn.android.servers
 
 import androidx.annotation.WorkerThread
 import com.protonvpn.android.appconfig.UserCountryIpBased
+import com.protonvpn.android.logging.InitializeRustLogging
 import com.protonvpn.android.logging.LogCategory
 import com.protonvpn.android.logging.LogLevel
 import com.protonvpn.android.logging.ProtonLogger
@@ -46,10 +47,12 @@ private class BinaryStatusProcessingError(message: String) : Exception(message)
 class UpdateServersWithBinaryStatusImpl @Inject constructor(
     private val prefs: ServerListUpdaterPrefs,
     private val userCountryIpBased: UserCountryIpBased,
+    private val initializeRustLogging: InitializeRustLogging,
 ) : UpdateServersWithBinaryStatus {
 
     @WorkerThread
     override operator fun invoke(serversToUpdate: List<Server>, statusData: ByteArray): List<Server>? {
+        initializeRustLogging.ensureInitialized()
         val validServers = ArrayList<Server>(serversToUpdate.size)
         val invalidServers = ArrayList<Server>()
         val uniffiLogicals = ArrayList<UniffiLogical>(serversToUpdate.size)
