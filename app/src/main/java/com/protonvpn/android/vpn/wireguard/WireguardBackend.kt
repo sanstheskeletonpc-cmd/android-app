@@ -20,6 +20,7 @@ package com.protonvpn.android.vpn.wireguard
  */
 
 import android.content.Context
+import android.os.Build
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.concurrency.VpnDispatcherProvider
 import com.protonvpn.android.logging.ConnError
@@ -153,6 +154,9 @@ class WireguardBackend @Inject constructor(
             withContext(wireGuardIo) {
                 try {
                     backend.setState(testTunnel, Tunnel.State.UP, config, transmissionStr, serverNameStrategy.value)
+                    if (Build.VERSION.SDK_INT >= 29) {
+                        ProtonLogger.logCustom(LogCategory.CONN_WIREGUARD, "Wireguard always-on=${service?.isAlwaysOn} kill-switch=${service?.isLockdownEnabled}")
+                    }
                 } catch (e: BackendException) {
                     if (e.reason == BackendException.Reason.UNABLE_TO_START_VPN && e.cause is TimeoutException) {
                         // GoBackend waits only 2s for the VPN service to start. Sometimes this is not enough, retry.
