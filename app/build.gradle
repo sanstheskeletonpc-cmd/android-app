@@ -716,6 +716,14 @@ tasks.register("getReleaseNotes"){
     }
 }
 
+tasks.register("getExportArchiveNameProperties") {
+    doLast {
+        println archivesBaseName
+        println helpers.fullVersionName
+        println helpers.getVersionCode()
+    }
+}
+
 repositories {
     if (System.getenv("MAVEN_CACHE_PKG_URL")) {
         maven { url System.getenv("MAVEN_CACHE_PKG_URL") }
