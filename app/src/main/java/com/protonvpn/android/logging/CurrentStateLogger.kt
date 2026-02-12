@@ -21,6 +21,7 @@ package com.protonvpn.android.logging
 
 import android.content.Context
 import android.icu.util.TimeZone
+import android.os.Build
 import com.protonvpn.android.auth.usecase.CurrentUser
 import com.protonvpn.android.settings.data.EffectiveCurrentUserSettings
 import com.protonvpn.android.utils.SentryIntegration
@@ -79,6 +80,8 @@ class CurrentStateLogger @Inject constructor(
             ProtonLogger.log(SettingsCurrent, "\n$settingsText")
             ProtonLogger.logCustom(LogCategory.APP, timezoneInfo())
             ProtonLogger.logCustom(LogCategory.APP, "Sentry ID: ${SentryIntegration.getInstallationId()}")
+            ProtonLogger.logCustom(LogCategory.APP,
+                "Device: ${Build.MANUFACTURER} ${Build.MODEL} ${Build.DISPLAY} (API ${Build.VERSION.SDK_INT})")
         }
     }
 

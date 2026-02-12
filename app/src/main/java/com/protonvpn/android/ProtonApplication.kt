@@ -21,6 +21,8 @@ package com.protonvpn.android
 import android.app.Application
 import android.app.ApplicationExitInfo
 import android.content.Context
+import android.os.Build
+import android.os.SystemClock
 import com.protonvpn.android.api.DohEnabled
 import com.protonvpn.android.app.AppExitObservability
 import com.protonvpn.android.app.AppStartExitLogger
@@ -163,7 +165,11 @@ open class ProtonApplication : Application() {
         if (isMainProcess()) {
             VpnLeakCanary.init(this)
             initLogger()
-            ProtonLogger.log(AppProcessStart, "version: " + BuildConfig.VERSION_NAME)
+
+            ProtonLogger.log(AppProcessStart, "==============================")
+            val uptimeS = SystemClock.elapsedRealtime() / 1000
+            ProtonLogger.log(AppProcessStart, "version: ${BuildConfig.VERSION_NAME}")
+            ProtonLogger.log(AppProcessStart,"system: build ${Build.DISPLAY} uptime ${uptimeS}s")
 
             initNotificationChannel(this)
 
