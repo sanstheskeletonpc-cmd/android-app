@@ -229,7 +229,7 @@
     <string name="settingsSendCrashReportsDescription">Справаздачы аб збоях дапамагаюць нам выпраўляць памылкі, вызначаць міжсеткавыя экраны, а таксама пазбягаць блакіровак VPN.</string>
     <string name="settingsTelemetryScreenTitle">Статыстыка выкарыстання</string>
     <string name="settingsTelemetryScreenInfo"><![CDATA[Гэта статыстыка не змяшчае ваш IP-адрас і яна не будзе выкарыстана, каб ідэнтыфікаваць вас. Мы ніколі не перадаём яе староннім асобам. <a href="%1$s">Даведацца больш</a>]]></string>
-    <string name="netshield_settings_description_not_html">Абараніце сябе ад рэкламы, шкодных праграм, праграм сачэння ў інтэрнэце і на камп\'ютары. %1$s</string>
+    <string name="netshield_settings_description_not_html">Абараніце сябе ад рэкламы, шкодных праграм і праграм адсочвання на вэб-сайтах і ў праграмах. %1$s</string>
     <string name="netshield_settings_description_tv">Абараняе вас ад старонняй рэкламы, праграм сачэння і шкодных праграм. NetShield не блакіруе рэкламу, якая ўбудавана ў такія сэрвісы прагляду, як YouTube і Netflix.</string>
     <string name="netshield_settings_more_info_title_tv">Як працуе NetShield</string>
     <string-array name="netshield_settings_more_info_paragraphs_tv">
@@ -342,7 +342,7 @@
     <string name="notification_subscription_expired_content">Нам давялося панізіць ваш тарыфны план, але мы зноў падключаем вас да самага хуткага сервера, даступнага на гэтым тарыфным плане.</string>
     <string name="notification_subscription_expired_no_reconnection_content">Ваша падпіска была паніжана.</string>
     <string name="notification_delinquent_title">У вашым уліковым запісе Proton VPN ёсць неаплачаныя рахункі</string>
-    <string name="notification_delinquent_content">Знайдзіце крыху часу, каб абнавіць вашу плацежную інфармацыю, каб падпіска засталася актыўнай.</string>
+    <string name="notification_delinquent_content">Знайдзіце крыху часу, каб абнавіць сваю плацежную інфармацыю. Гэта дзеянне дазволіць вашай падпісцы заставацца ў актыўным стане.</string>
     <string name="notification_max_sessions_title">Вы дасягнулі максімальнай колькасці прылад</string>
     <!-- The number of devices will always be greater than 1. -->
     <plurals name="notification_max_sessions_upsell_content">
@@ -767,7 +767,7 @@
     <string name="not_wanted_country_title">Не тая краіна, якую хацелі?</string>
     <string name="not_wanted_country_description">Палепшыць свой тарыфны план, каб выбіраць любы сервер</string>
     <string name="whats_new_title">Што новага</string>
-    <string name="whats_new_profiles_title">Профілі вярнуліся</string>
+    <string name="whats_new_profiles_title">Профілі зноў сталі даступны</string>
     <string name="whats_new_profiles_description">Стварайце і захоўвайце карыстальніцкія падключэнні з выбраным месцазнаходжаннем, серверам і пратаколам.</string>
     <string name="whats_new_widget_title">Уводзіны ў раздзел \"Віджэты\"</string>
     <string name="whats_new_widget_description">Цяпер вы можаце праглядаць і кіраваць сваім VPN не пакідаючы галоўны экран.</string>
@@ -1292,7 +1292,7 @@
     <string name="info_dialog_profiles_title">Профілі</string>
     <string name="info_dialog_ipaddress_title">IP-адрас</string>
     <string name="info_dialog_ipv6_traffic_title">Трафік IPv6</string>
-    <string name="info_dialog_profiles_description">Профілі - гэта карыстальніцкія падключэнні па VPN, якія вы можаце наладзіць пад свае патрэбы і захаваць для хуткага доступу.\n\nЗадайце пажаданае месцазнаходжанне і аптымізуйце свае налады бяспекі, прадукцыйнасці, сеткавых гульняў або любых іншых сцэнарыяў.</string>
+    <string name="info_dialog_profiles_description">Профілі - гэта карыстальніцкія падключэнні па VPN, якія вы можаце адаптаваць пад свае патрабаванні для хуткага доступу.\n\nЗадайце пажаданае месцазнаходжанне і аптымізуйце свае налады бяспекі, прадукцыйнасці, сеткавых гульняў або любых іншых сцэнарыяў.</string>
     <string name="info_dialog_ipaddress_description">Ваш IP-адрас у VPN маскіруе ваш рэальны IP-адрас. Гэта выглядае так, быццам вы праглядаеце старонкі з месцазнаходжання да якога падключыліся праз VPN. Дзякуючы гэтаму вашу актыўнасць у інтэрнэце нельга звязаць з вашай прыладай.</string>
     <string name="info_dialog_ipv6_traffic_description">Пратакол інтэрнэту (IP) прызначае адрасы прыладам і накіроўвае трафік інтэрнэту. IPv6 - гэта апошняя версія, якая прапануе больш адрасоў і лепшую сувязь, але яна яшчэ адносна рэдка выкарыстоўваецца.</string>
     <string name="connection_feature_p2p_title">P2P</string>

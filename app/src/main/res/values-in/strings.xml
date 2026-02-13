@@ -40,7 +40,7 @@
     <string name="loaderConnectingTo">Menghubungkan ke %1$s</string>
     <string name="loaderNotConnected">Tidak terhubung (Tanpa perlindungan)</string>
     <string name="loaderConnectedTo">Terhubung ke %1$s</string>
-    <string name="loaderDisconnecting">Memutuskan</string>
+    <string name="loaderDisconnecting">Memutuskan koneksi</string>
     <string name="loaderReconnecting">Menyambungkan ulang</string>
     <string name="loaderReconnectNoNetwork">Menunggu jaringan yang dapat digunakan</string>
     <string name="loaderCheckingAvailability">Memeriksa ketersediaan server</string>
@@ -65,7 +65,7 @@
     <string name="insufficientPermissionsTitle">Tindakan pengguna dibutuhkan</string>
     <string name="insufficientPermissionsDetails">Koneksi VPN tidak dapat dibuat secara otomatis. Silakan hubungkan VPN secara manual satu kali untuk memberikan izin.</string>
     <string name="log_title">Log</string>
-    <string name="disconnect">Putuskan</string>
+    <string name="disconnect">Putuskan koneksi</string>
     <string name="state_connecting">Menghubungkan…</string>
     <string name="state_connected">Terhubung</string>
     <string name="state_disconnecting">Memutuskan koneksi…</string>
@@ -89,7 +89,7 @@
     <string name="send_report">Kirim laporan</string>
     <string name="report_sent">Laporan terkirim</string>
     <string name="discardChanges">Buang perubahan yang belum disimpan?</string>
-    <string name="discard">Buang</string>
+    <string name="discard">Hapus</string>
     <string name="done">SELESAI</string>
     <string name="add">TAMBAH</string>
     <string name="copy_to_clipboard">Salin</string>
@@ -188,7 +188,7 @@
     <string name="accessibility_action_item_move_up">Naikkan</string>
     <string name="accessibility_action_item_move_down">Turunkan</string>
     <string name="tileConnected">Terhubung: %1$s</string>
-    <string name="openUrlError">%1$s tidak dapat dibuka. Aplikasi browser tidak terdeteksi pada perangkat Anda.</string>
+    <string name="openUrlError">%1$s tidak dapat dibuka. Peramban web tidak terdeteksi pada perangkat Anda.</string>
     <string name="loaderErrorTimeout">Waktu sambungan habis. Mohon coba lagi.</string>
     <string name="troubleshootButton">Penyelesaian Masalah</string>
     <string name="activityTroubleshootTitle">Penyelesaian Masalah</string>
@@ -204,7 +204,7 @@
     <string name="troubleshootProtonDownTitle">Proton sedang bermasalah</string>
     <string name="troubleshootProtonDownDescription"><![CDATA[Periksa <a href=\"%1$s\">Proton Status</a> untuk status sistem kami.]]></string>
     <string name="troubleshootContactUsSectionTitle">Masih butuh bantuan? Hubungi kami secara langsung</string>
-    <string name="troubleshootCustomerSupport">Layanan dukungan</string>
+    <string name="troubleshootCustomerSupport">Dukungan pelanggan</string>
     <string name="settingsAllowAlternativeRoutingTitle">Perutean alternatif</string>
     <string name="settingsAllowAlternativeRoutingDescription"><![CDATA[Apabila layanan Proton diblokir, izinkan aplikasi untuk mencoba terhubung ke server Proton melalui jalur alternatif. <a href="%1$s">Pelajari lebih lanjut</a>.]]></string>
     <string name="troubleshootGovernmentBlockTitle">Pemblokiran pemerintah</string>
@@ -219,7 +219,7 @@
          the same as in Android VPN settings. -->
     <string name="settingsKillSwitchEnableStep3"><![CDATA[3. Aktifkan \"<b>VPN selalu aktif</b>\" dan \"<b>Blokir koneksi tanpa VPN</b>\"]]></string>
     <string name="settingsKillSwitchAndroidSettingsButton">Pengaturan</string>
-    <string name="settingsKillSwitchLearnMoreButton">Apa itu kill switch?</string>
+    <string name="settingsKillSwitchLearnMoreButton">Apa itu sakelar pemutus?</string>
     <string name="settingsKillSwitchWarningMain">Pada saat kill switch sedang aktif, Anda tidak akan dapat terhubung ke:</string>
     <string name="settingsKillSwitchWarningPoint1">Situs web dan aplikasi yang dikecualikan dari koneksi VPN Anda melalui split tunnelling</string>
     <string name="settingsKillSwitchWarningPoint2">Perangkat yang terdapat pada jaringan LAN Anda</string>
@@ -290,7 +290,7 @@
     <string name="tv_card_protocol_label">Protokol</string>
     <string name="tv_dialog_delete_server_title">Hapus server %1$s?</string>
     <string name="tv_detail_default_connection_checkbox_short">Favorit</string>
-    <string name="tv_detail_connect_streaming">Tonton dengan Plus</string>
+    <string name="tv_detail_connect_streaming">Stream dengan Plus</string>
     <string name="tv_detail_connect">Hubungkan</string>
     <string name="tv_detail_description_streaming_country">Tonton konten streaming favorit Anda. Akses lebih banyak aplikasi dengan paket Proton VPN Plus.</string>
     <string name="tv_detail_description_no_streaming_country">Tonton lebih banyak konten favorit Anda dengan paket Proton VPN Plus.</string>
@@ -1037,7 +1037,7 @@
     <!-- tag(Redesign_2023) -->
     <string name="settings_split_tunneling_title">Split tunneling</string>
     <!-- tag(Redesign_2023) -->
-    <string name="settings_kill_switch_title">Kill switch</string>
+    <string name="settings_kill_switch_title">Sakelar pemutus</string>
     <!-- tag(Redesign_2023) -->
     <string name="settings_connection_category">Koneksi</string>
     <!-- tag(Redesign_2023) -->

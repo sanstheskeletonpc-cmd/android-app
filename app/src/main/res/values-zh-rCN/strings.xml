@@ -1362,7 +1362,7 @@
     <string name="settings_changes_apply_on_reconnect_toast">更改将在您重新连接后生效</string>
     <string name="settings_custom_dns_netshield_conflict_dialog_title">NetShield防护功能即将暂停</string>
     <string name="settings_custom_dns_netshield_conflict_dialog_message">当您使用自定义DNS时，NetShield将无法拦截广告、跟踪器和恶意软件。了解详情</string>
-    <string name="settings_custom_dns_netshield_conflict_dialog_message_tv">当您使用自定义 DNS 时，NetShield 将无法拦截广告，跟踪器与恶意软件。</string>
+    <string name="settings_custom_dns_netshield_conflict_dialog_message_tv">使用自定义 DNS 时，NetShield 将无法过滤广告、跟踪器和恶意软件。</string>
     <string name="settings_advanced_alternative_routing_title">备用线路</string>
     <string name="settings_advanced_alternative_routing_description">倘若网络限制拦截了 Proton 服务，我们将用备用网络路线把你连到你要去的地方。</string>
     <string name="settings_advanced_allow_lan_title">LAN 连接</string>
