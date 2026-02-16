@@ -323,6 +323,11 @@
             android:name=".ui.settings.AppInfoService"
             android:exported="false"
             android:process=":app_info_service" />
+        <service
+            android:name="androidx.work.impl.foreground.SystemForegroundService"
+            android:foregroundServiceType="systemExempted"
+            tools:ignore="ForegroundServicePermission"
+            tools:node="merge" />
 
         <receiver
             android:name=".OnUpdateReceiver"

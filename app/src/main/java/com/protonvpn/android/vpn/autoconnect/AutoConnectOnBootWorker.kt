@@ -20,6 +20,8 @@
 package com.protonvpn.android.vpn.autoconnect
 
 import android.content.Context
+import android.content.pm.ServiceInfo
+import android.net.VpnService
 import androidx.hilt.work.HiltWorker
 import androidx.work.CoroutineWorker
 import androidx.work.ExistingWorkPolicy
@@ -64,20 +66,26 @@ class AutoConnectOnBootWorker  @AssistedInject constructor(
         ProtonLogger.logCustom(LogCategory.CONN, "AutoConnectOnBootWorker start")
         val settings = effectiveUserSettings.effectiveSettings.first()
         if (settings.tvAutoConnectOnBoot && !vpnUiStatus.isEstablishingOrConnected) {
-            ProtonLogger.logCustom(LogCategory.CONN, "AutoConnectOnBootWorker connecting...")
+            val haveVpnPermission = VpnService.prepare(context) == null
+            if (!haveVpnPermission) {
+                ProtonLogger.logCustom(LogCategory.CONN, "AutoConnectOnBootWorker: no VPN permission, aborting")
+            } else {
+                ProtonLogger.logCustom(LogCategory.CONN, "AutoConnectOnBootWorker connecting...")
 
-            // Promote to foreground ASAP - it gives a higher chance for the work to complete before
-            // being killed by the system, especially on firestick.
-            setForeground(createForegroundInfo())
+                // Promote to foreground ASAP - it gives a higher chance for the work to complete before
+                // being killed by the system, especially on firestick.
+                setForeground(createForegroundInfo())
 
-            connect(settings)
+                connect(settings)
+            }
         }
         return Result.success()
     }
 
     private fun createForegroundInfo() = ForegroundInfo(
         Constants.NOTIFICATION_ID,
-        notificationHelper.get().buildNotification()
+        notificationHelper.get().buildNotification(),
+        ServiceInfo.FOREGROUND_SERVICE_TYPE_SYSTEM_EXEMPTED
     )
 
     private suspend fun connect(settings: LocalUserSettings) {
