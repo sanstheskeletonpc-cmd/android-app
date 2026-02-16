@@ -348,7 +348,7 @@ class UpgradeNetShieldHighlightsFragment : UpgradeHighlightsFragmentWithSource(U
         super.onViewCreated(view, savedInstanceState)
 
         binding.set(
-            imageResource = R.drawable.upgrade_netshield,
+            imageResource = R.drawable.upgrade_netshield_mirrored,
             title = getString(R.string.upgrade_netshield_title),
             message = HtmlTools.fromHtml(getString(R.string.upgrade_netshield_message)),
         )
@@ -429,7 +429,7 @@ class UpgradeP2PHighlightsFragment : UpgradeHighlightsFragmentWithSource(Upgrade
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.set(
-            imageResource = R.drawable.upgrade_p2p,
+            imageResource = R.drawable.upgrade_p2p_mirrored,
             title = getString(R.string.upgrade_p2p_title),
             message = getString(R.string.upgrade_p2p_text)
         )
@@ -440,14 +440,13 @@ class UpgradeP2PHighlightsFragment : UpgradeHighlightsFragmentWithSource(Upgrade
 class UpgradeAdvancedCustomizationHighlightsFragment : UpgradeHighlightsFragmentWithSource(
     UpgradeSource.ADVANCED_CUSTOMIZATION
 ) {
-    protected val messageRes: Int = R.string.upgrade_customization_message
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.set(
-            imageResource = R.drawable.upgrade_customization,
+            imageResource = R.drawable.upgrade_customization_mirrored,
             title = getString(R.string.upgrade_customization_title),
-            message = HtmlTools.fromHtml(getString(messageRes))
+            message = HtmlTools.fromHtml(getString(R.string.upgrade_customization_message))
         )
     }
 }
