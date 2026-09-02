@@ -64,6 +64,7 @@ import com.protonvpn.android.telemetry.UpgradeTelemetry
 import com.protonvpn.android.telemetry.VpnConnectionTelemetry
 import com.protonvpn.android.theme.UpdateAndroidAppTheme
 import com.protonvpn.android.tv.IsTvCheck
+import com.protonvpn.android.ui.GlideBitmapMemoryCleaner
 import com.protonvpn.android.ui.home.ServerListUpdater
 import com.protonvpn.android.ui.onboarding.ReviewTracker
 import com.protonvpn.android.ui.planupgrade.PaymentsHttpCapability
@@ -133,6 +134,7 @@ open class ProtonApplication : Application() {
         val deviceRecoveryHandler: DeviceRecoveryHandler
         val deviceRecoveryNotificationSetup: DeviceRecoveryNotificationSetup
         val dohEnabledProvider: DohEnabled.Provider?
+        val glideBitmapMemoryCleaner: GlideBitmapMemoryCleaner
         val humanVerificationStateHandler: HumanVerificationStateHandler
         val isTv: IsTvCheck
         val logcatLogCapture: LogcatLogCapture?
@@ -235,6 +237,7 @@ open class ProtonApplication : Application() {
         dependencies.deviceRecoveryHandler.start()
         dependencies.deviceRecoveryNotificationSetup.init()
         dependencies.dohEnabledProvider
+        dependencies.glideBitmapMemoryCleaner.start()
         dependencies.humanVerificationStateHandler.observe()
         dependencies.logoutOnForceUpdate
         dependencies.maintenanceTracker
