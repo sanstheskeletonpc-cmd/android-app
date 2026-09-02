@@ -41,19 +41,6 @@ pluginManagement {
         mavenCentral()
         google()
     }
-
-    // Override R8 with a newer version that is compatible with Kotlin 2.2.
-    // Remove when updating AGP to 8.10 or newer.
-    buildscript {
-        repositories {
-            maven {
-                url = uri("https://storage.googleapis.com/r8-releases")
-            }
-        }
-        dependencies {
-            classpath("com.android.tools:r8:8.10.21")
-        }
-    }
 }
 
 plugins {

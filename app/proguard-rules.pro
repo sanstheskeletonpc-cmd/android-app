@@ -25,9 +25,26 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontobfuscate
 -verbose
 -keepattributes SourceFile,LineNumberTable,Exceptions,InnerClasses,Signature,Deprecated,*Annotation*,EnclosingMethod
+
+# Legacy Storage
+# Keep names of classes used in legacy Storage - class names are used as keys.
+-keepnames class com.protonvpn.android.appconfig.AppConfigResponse
+-keepnames class com.protonvpn.android.models.vpn.ConnectionParams
+-keepnames class com.protonvpn.android.models.profiles.SavedProfilesV3
+-keepnames class com.protonvpn.android.utils.ServerManager
+-keepnames class com.protonvpn.android.vpn.RecentsManager
+-keepnames class com.protonvpn.android.vpn.VpnState$*
+
+# ProcessLifecycleOwner
+# release_tests crash when ProcessLifecycleOwner is not excluded from obfuscation.
+# Perhaps it's because we have some dependencies that were built with old lifecycle library (esp. Sentry).
+# Can be re-evaluated later.
+-keep class androidx.lifecycle.ProcessLifecycleOwner {
+    *;
+}
+-keep class androidx.lifecycle.ProcessLifecycleOwner$*
 
 # Keep kotlinx serializable classes.
 -keep @kotlinx.serialization.Serializable public class * {

@@ -25,7 +25,6 @@ import com.protonvpn.android.logging.AppUpdateUpdated
 import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.mmp.events.MmpEventType
 import com.protonvpn.android.mmp.events.usecases.SaveMmpEvent
-import com.protonvpn.android.models.vpn.CertificateData
 import com.protonvpn.android.notifications.NotificationChannels
 import com.protonvpn.android.promooffers.data.ApiNotificationManager
 import com.protonvpn.android.servers.StreamingServicesUpdater
@@ -87,7 +86,7 @@ class UpdateMigration @Inject constructor(
     @SuppressWarnings("MagicNumber")
     private fun clearCertificateData(oldVersionCode: Int) {
         if (oldVersionCode <= 5_03_50_00) {
-            Storage.delete(CertificateData::class.java)
+            Storage.delete("com.protonvpn.android.models.vpn.CertificateData")
         }
     }
 
@@ -106,7 +105,7 @@ class UpdateMigration @Inject constructor(
         }
     }
 
-    @SuppressWarnings("MagicNumver")
+    @SuppressWarnings("MagicNumber")
     private fun whatsNewWidget(oldVersionCode: Int) {
         if (oldVersionCode <= 5_08_85_00) {
             appPrefs.get().showWhatsNew = true

@@ -23,11 +23,11 @@ import androidx.annotation.StringRes
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.protonvpn.android.R
+import com.protonvpn.android.excludedlocations.usecases.AddExcludedLocation
 import com.protonvpn.android.redesign.CountryId
 import com.protonvpn.android.redesign.countries.ui.ServerFilterType
 import com.protonvpn.android.redesign.countries.ui.ServerGroupItemData
 import com.protonvpn.android.redesign.countries.ui.sortedForUi
-import com.protonvpn.android.excludedlocations.usecases.AddExcludedLocation
 import com.protonvpn.android.redesign.search.TextMatch
 import com.protonvpn.android.redesign.search.ui.SearchResults
 import com.protonvpn.android.redesign.search.ui.SearchViewModelDataAdapter
@@ -62,6 +62,7 @@ class ExcludedLocationsViewModel @Inject constructor(
 
     sealed interface ExcludedLocationUiItem {
 
+        /// ID is based on values that can change with each build, like res ID - don't persist them.
         val id: String
 
         data class Header(
@@ -76,7 +77,7 @@ class ExcludedLocationsViewModel @Inject constructor(
 
             override val id: String
                 get() = run {
-                    // This will provide the following possible values: Country/State/City
+                    // These class names can be obfuscated by R8.
                     val locationType = this.javaClass.simpleName
                     val countryCode = countryId.countryCode
                     // This will provide the Country/State/City name. TextMatch should not be null,
@@ -84,7 +85,7 @@ class ExcludedLocationsViewModel @Inject constructor(
                     // that could make the app crash when displaying the locations list
                     val locationIdentifier = textMatch?.fullText ?: UUID.randomUUID().toString()
 
-                    // Generated ID example: Country-CH-Switzerland
+                    // Generated ID example: a-CH-Switzerland
                     "$locationType-$countryCode-$locationIdentifier"
                 }
 
