@@ -133,6 +133,7 @@ object CountryTools {
         "CI" to CountryData(-1.0, -1.0, Continent.AfricaAndMiddleEast),
         "CL" to CountryData(1170.0, 1951.0, Continent.America),
         "CM" to CountryData(-1.0, -1.0, Continent.AfricaAndMiddleEast),
+        "CN" to CountryData(-1.0, -1.0, Continent.Asia),
         "CO" to CountryData(1100.0, 1339.0, Continent.America),
         "CR" to CountryData(925.0, 1231.0, Continent.America),
         "CU" to CountryData(-1.0, -1.0, Continent.America),
