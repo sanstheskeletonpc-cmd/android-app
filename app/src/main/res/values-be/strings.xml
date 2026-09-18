@@ -605,7 +605,7 @@
     <string name="upsell_panel_split_tunneling_description">Ваш браўзер праз VPN, а ваша банкаўская праграма ў абыход яго. Вы можаце размеркаваць усе свае праграмы.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split Tunneling</string>
     <string name="upsell_panel_streaming_title">Глядзіце свае абраныя сэрвісы з трансляцыямі</string>
-    <string name="upsell_panel_streaming_benefit_shows">Глядзіце свае шоу з любой краіны</string>
+    <string name="upsell_panel_streaming_benefit_shows">Глядзіце шоу з любой краіны</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Усе асноўныя платформы трансляцый падтрымліваюць *</string>
     <string name="upsell_panel_streaming_benefit_hd">Трансляцыі ў высокай якасці без буферызацыі</string>

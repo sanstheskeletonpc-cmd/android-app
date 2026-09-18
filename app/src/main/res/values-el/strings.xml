@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">Το πρόγραμμα περιήγησής σας μέσω του VPN, η τραπεζική σας εφαρμογή γύρω από αυτό. Εσείς επιλέγετε, εφαρμογή ανά εφαρμογή.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Διαίρεση σήραγγας</string>
     <string name="upsell_panel_streaming_title">Παρακολουθήστε τις αγαπημένες σας υπηρεσίες ροής</string>
-    <string name="upsell_panel_streaming_benefit_shows">Παρακολουθήστε τις εκπομπές σας από οποιαδήποτε χώρα</string>
+    <string name="upsell_panel_streaming_benefit_shows">Παρακολουθήστε εκπομπές από οποιαδήποτε χώρα</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Υποστηρίζονται όλες οι μεγάλες πλατφόρμες ροής *</string>
     <string name="upsell_panel_streaming_benefit_hd">Μεταδώστε ροή σε HD χωρίς προσωρινή αποθήκευση</string>

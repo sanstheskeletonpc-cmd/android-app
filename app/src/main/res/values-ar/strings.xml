@@ -592,10 +592,10 @@
     <string name="upsell_panel_general_benefit_speed_standard">القياسي</string>
     <string name="upsell_panel_general_benefit_speed_highest">فائقة</string>
     <string name="upsell_panel_adv_customization_title">خصص إعدادات اتصالك</string>
-    <string name="upsell_panel_adv_customization_description">Allow LAN connections, set a custom DNS, and choose your NAT type. The advanced controls, all on Plus.</string>
-    <string name="upsell_panel_adv_customization_benefit_lan">Reach your printer and home devices</string>
-    <string name="upsell_panel_adv_customization_benefit_dns">Use your own DNS service</string>
-    <string name="upsell_panel_adv_customization_benefit_gaming">Better connections for gaming</string>
+    <string name="upsell_panel_adv_customization_description">من السماح باتصالات LAN وتخصيص الـ DNS، إلى تحديد نوع NAT. جميع أدوات التحكم المتقدمة بانتظارك في باقة Plus.</string>
+    <string name="upsell_panel_adv_customization_benefit_lan">اتصل بطابعتك وأجهزتك المنزلية بسهولة</string>
+    <string name="upsell_panel_adv_customization_benefit_dns">اختر خدمة DNS التي تثق بها</string>
+    <string name="upsell_panel_adv_customization_benefit_gaming">استقرار أعلى واتصال أفضل للألعاب</string>
     <!--
         %1$s - country name in nominative
 
@@ -607,21 +607,21 @@
     <string name="upsell_panel_countries_title">وصول غير محدود لجميع خوادمنا مع باقة VPN Plus</string>
     <string name="upsell_panel_country_benefit_speed">خوادم بسرعات استثنائية</string>
     <string name="upsell_panel_country_benefit_shows">شاهد محتواك المفضل أينما كنت</string>
-    <string name="upsell_panel_devices_title">Protect every device you own</string>
-    <string name="upsell_panel_devices_description">Your phone, laptop, TV, and everything in between.</string>
+    <string name="upsell_panel_devices_title">حماية شاملة لجميع أجهزتك</string>
+    <string name="upsell_panel_devices_description">سواء كان هاتفك، أو حاسوبك المحمول، أو تلفازك، أو أي جهاز آخر بين يديك.</string>
     <string name="upsell_panel_netshield_title">تصفح بسلاسة وبلا تشتت</string>
     <string name="upsell_panel_netshield_benefit_ads">تجربة خالية تماماً من الإعلانات</string>
     <string name="upsell_panel_netshield_benefit_trackers">حماية خصوصيتك من أدوات التتبع</string>
     <string name="upsell_panel_netshield_benefit_malware">أمان معزز ضد البرامج الضارة والتصيد الاحتيالي</string>
     <string name="upsell_panel_netshield_benefit_load_speed">تحميل أسرع للمواقع </string>
     <string name="upsell_panel_onboarding_title">احصل على المزيد مع VPN Plus</string>
-    <string name="upsell_panel_p2p_title">Downloads at full speed</string>
-    <string name="upsell_panel_p2p_description">Servers built for file sharing, with your usual torrent client.</string>
-    <string name="upsell_panel_p2p_benefit_p2p">P2P file sharing</string>
-    <string name="upsell_panel_profiles_title">Streaming, gaming, work: a profile for each</string>
-    <string name="upsell_panel_profiles_description">Set up your connections your way, then reconnect to any of them in one tap.</string>
-    <string name="upsell_panel_profiles_benefit_profiles">Saved profiles</string>
-    <string name="upsell_panel_profiles_benefit_profiles_unlimited">Unlimited</string>
+    <string name="upsell_panel_p2p_title">تنزيلات بأقصى سرعة</string>
+    <string name="upsell_panel_p2p_description">خوادم مصممة خصيصاً لمشاركة الملفات، ومتوافقة بسلاسة مع برنامج Torrent المفضل لديك.</string>
+    <string name="upsell_panel_p2p_benefit_p2p">مشاركة ملفات P2P</string>
+    <string name="upsell_panel_profiles_title">مشاهدة، ألعاب، عمل: ملف اتصال مخصص لكل احتياج</string>
+    <string name="upsell_panel_profiles_description">اضبط اتصالاتك بالطريقة التي تفضلها، وبدل بينها بضغطة واحدة.</string>
+    <string name="upsell_panel_profiles_benefit_profiles">ملفات اتصال محفوظة</string>
+    <string name="upsell_panel_profiles_benefit_profiles_unlimited">غير محدود</string>
     <string name="upsell_panel_secure_core_title">Two layers of encryption between you and the web</string>
     <string name="upsell_panel_secure_core_description">Routed through a Proton server in Switzerland, Iceland, or Sweden before your chosen country.</string>
     <string name="upsell_panel_secure_core_benefit_secure_core">Secure Core</string>
@@ -636,7 +636,7 @@
     <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">مشاهدة منصاتك المفضلة بلا قيود</string>
-    <string name="upsell_panel_streaming_benefit_shows">متابعة محتواك من أي مكان حول العالم</string>
+    <string name="upsell_panel_streaming_benefit_shows">مشاهدة برامج من أي دولة</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">دعم لكافة منصات المشاهدة العالمية *</string>
     <string name="upsell_panel_streaming_benefit_hd">بث بدقة عالية دون تقطيع</string>

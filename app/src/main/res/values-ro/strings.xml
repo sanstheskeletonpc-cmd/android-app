@@ -590,7 +590,7 @@
     <string name="upsell_panel_split_tunneling_description">Navigatorul web prin VPN, aplicația bancară în afara sa. Puteți alege, aplicație cu aplicație.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Divizare trafic</string>
     <string name="upsell_panel_streaming_title">Vizionați serviciile de transmisie în flux favorite</string>
-    <string name="upsell_panel_streaming_benefit_shows">Vizionați emisiunile favorite din orice țară</string>
+    <string name="upsell_panel_streaming_benefit_shows">Vizionați emisiuni din orice țară</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Sunt suportate toate platformele majore de transmisie în flux *</string>
     <string name="upsell_panel_streaming_benefit_hd">Vizionați în HD fără sacadare</string>

@@ -740,28 +740,28 @@
      Parameters:
      %1$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_for_days">
-        <item quantity="other">for the first %1$d days</item>
+        <item quantity="other">첫 %1$d일간</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_discount_for_weeks">
-        <item quantity="other">for the first %1$d weeks</item>
+        <item quantity="other">첫 %1$d주간</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_discount_for_months">
-        <item quantity="other">for the first %1$d months</item>
+        <item quantity="other">첫 %1$d개월간</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of years -->
     <plurals name="payment_multi_renewal_discount_for_years">
-        <item quantity="other">for the first %1$d years</item>
+        <item quantity="other">첫 %1$d년간</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -971,7 +971,7 @@
      -->
     <string name="accessibility_external_link_suffix">외부 링크</string>
     <string name="no_logs_banner_title">노-로그 인증을 받은 VPN</string>
-    <string name="no_logs_banner_description">사용자의 VPN 활동은 스위스의 개인정보 보호법대로 보호됩니다. 저희는 당신을 온라인 상에서 추적하거나 정보를 제 3자와 공유하지 않습니다.</string>
+    <string name="no_logs_banner_description">사용자의 VPN 활동은 스위스의 개인정보 보호법대로 보호됩니다. 당사는 사용자의 온라인 상에서 추적하거나 정보를 제 3자와 공유하지 않습니다.</string>
     <!-- tag(Redesign_2023) Bottom bar label for home screen -->
     <string name="bottom_nav_home">홈</string>
     <string name="bottom_nav_gateways">게이트웨이</string>
@@ -1738,7 +1738,7 @@ Stealth는 Proton VPN만의 기능입니다.</string>
     <string name="create_profile_fastest_server">가장 빠른 서버</string>
     <string name="create_profile_pick_middle_country_title">중간 지점 국가</string>
     <string name="profiles_zero_state_title">첫 프로필 생성하기</string>
-    <string name="profiles_zero_state_description">프로필은 당신이 선택한 지역, 서버 그리고 프로토콜로 구성된 연결입니다.</string>
+    <string name="profiles_zero_state_description">프로필은 사용자가 선택한 지역, 서버 그리고 프로토콜로 구성된 연결입니다.</string>
     <string name="profiles_button_create_profile">프로필 생성</string>
     <string name="profile_deleted_snackbar_message">프로필 삭제됨</string>
     <string name="profile_connected_edit_setting">이 설정값은 활성 프로필에 연결됩니다. \n\n설정값을 변경하려면 프로필을 편집하거나 일반 VPN 설정을 수정하려면 연결 해제하세요.</string>

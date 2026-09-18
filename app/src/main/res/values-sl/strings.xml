@@ -606,7 +606,7 @@
     <string name="upsell_panel_split_tunneling_description">Vaš brskalnik upirabi VPN, vaša bančna aplikacija za zaobide. Vi določite, za vsako aplikacijo posebej.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Razdeljeno tuneliranje</string>
     <string name="upsell_panel_streaming_title">Glejte svoje priljubljene storitve za pretočno predvajanje</string>
-    <string name="upsell_panel_streaming_benefit_shows">Glejte svoje serije iz katere koli države</string>
+    <string name="upsell_panel_streaming_benefit_shows">Watch shows from any country</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Podprte so vse popularne platforme za pretočno predvajanje *</string>
     <string name="upsell_panel_streaming_benefit_hd">Glejte v HD ločljivosti brez čakanja na nalaganje</string>

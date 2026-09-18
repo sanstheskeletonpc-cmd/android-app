@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">ბრაუზერი VPN-ით, ბანკის აპლიკაცია კი პირდაპირ. თქვენი არჩევანი.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">უყურეთ თქვენს რჩეულ სტრიმინგის სერვისებს</string>
-    <string name="upsell_panel_streaming_benefit_shows">უყურეთ თქვენს სერიალებს ნებისმიერი ქვეყნიდან</string>
+    <string name="upsell_panel_streaming_benefit_shows">უყურეთ სერიალებს ნებისმიერი ქვეყნიდან</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">მხარდაჭერილია ყველა დიდი სტრიმინგის პლატფორმა *</string>
     <string name="upsell_panel_streaming_benefit_hd">სტრიმინგი HD-ში ბუფერიზაციის გარეშე</string>

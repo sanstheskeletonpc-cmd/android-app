@@ -605,7 +605,7 @@
     <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">Sledujte své oblíbené streamovací služby</string>
-    <string name="upsell_panel_streaming_benefit_shows">Sledujte své pořady z jakékoli země</string>
+    <string name="upsell_panel_streaming_benefit_shows">Watch shows from any country</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Podpora všech hlavních streamovacích platforem *</string>
     <string name="upsell_panel_streaming_benefit_hd">Streamujte v HD bez prodlev načítání</string>

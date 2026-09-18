@@ -605,7 +605,7 @@
     <string name="upsell_panel_split_tunneling_description">Prehliadač cez VPN, vaša banková aplikácia mimo nej. Rozhodnete sa sami, aplikáciu po aplikácii.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Delené tunelovanie</string>
     <string name="upsell_panel_streaming_title">Sledujte svoje obľúbené streamovacie služby</string>
-    <string name="upsell_panel_streaming_benefit_shows">Sledujte svoje seriály z akejkoľvek krajiny</string>
+    <string name="upsell_panel_streaming_benefit_shows">Sledujte seriály z akejkoľvek krajiny</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Podporované sú všetky hlavné streamovacie platformy *</string>
     <string name="upsell_panel_streaming_benefit_hd">Streaming v HD bez bufferingu</string>

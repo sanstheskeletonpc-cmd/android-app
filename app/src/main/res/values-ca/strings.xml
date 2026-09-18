@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">El navegador a través de la VPN, l\'aplicació bancària per fora. Vosaltres trieu, aplicació per aplicació.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Tunelització dividida</string>
     <string name="upsell_panel_streaming_title">Mireu els vostres serveis de reproducció en línia preferits</string>
-    <string name="upsell_panel_streaming_benefit_shows">Mireu els vostres programes des de qualsevol país</string>
+    <string name="upsell_panel_streaming_benefit_shows">Mireu programes de qualsevol país</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Permet la reproducció en línia des de les principals plataformes *</string>
     <string name="upsell_panel_streaming_benefit_hd">Reproduïu en HD sense esperes</string>

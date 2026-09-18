@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">Votre navigateur passe par le VPN, mais pas votre application bancaire. C\'est vous qui décidez, application par application.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">Regardez vos services de streaming favoris</string>
-    <string name="upsell_panel_streaming_benefit_shows">Regardez vos émissions préférées depuis n\'importe quel pays</string>
+    <string name="upsell_panel_streaming_benefit_shows">Regardez des émissions depuis n\'importe quel pays</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Toutes les plateformes de streaming classiques sont prises en charge *</string>
     <string name="upsell_panel_streaming_benefit_hd">Regardez en HD sans temps de chargement</string>

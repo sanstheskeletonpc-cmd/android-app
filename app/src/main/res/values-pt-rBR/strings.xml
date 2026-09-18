@@ -530,11 +530,11 @@
     <string name="upsell_panel_general_benefit_speed">Velocidade do servidor</string>
     <string name="upsell_panel_general_benefit_speed_standard">Padrão</string>
     <string name="upsell_panel_general_benefit_speed_highest">Máxima</string>
-    <string name="upsell_panel_adv_customization_title">Fine-tune your connection</string>
-    <string name="upsell_panel_adv_customization_description">Allow LAN connections, set a custom DNS, and choose your NAT type. The advanced controls, all on Plus.</string>
-    <string name="upsell_panel_adv_customization_benefit_lan">Reach your printer and home devices</string>
-    <string name="upsell_panel_adv_customization_benefit_dns">Use your own DNS service</string>
-    <string name="upsell_panel_adv_customization_benefit_gaming">Better connections for gaming</string>
+    <string name="upsell_panel_adv_customization_title">Ajuste sua conexão</string>
+    <string name="upsell_panel_adv_customization_description">Permita conexões de LAN, configure um DNS personalizado e escolha o tipo de NAT. Os controles avançados estão todos disponíveis no Plus.</string>
+    <string name="upsell_panel_adv_customization_benefit_lan">Acesse sua impressora e seus dispositivos domésticos</string>
+    <string name="upsell_panel_adv_customization_benefit_dns">Use seu próprio serviço de DNS</string>
+    <string name="upsell_panel_adv_customization_benefit_gaming">Melhores conexões para jogos</string>
     <!--
         %1$s - country name in nominative
 
@@ -546,23 +546,23 @@
     <string name="upsell_panel_countries_title">Desbloqueie todos os países com o  VPN  Plus</string>
     <string name="upsell_panel_country_benefit_speed">Servidores de alta velocidade</string>
     <string name="upsell_panel_country_benefit_shows">Assista a séries disponíveis apenas no exterior</string>
-    <string name="upsell_panel_devices_title">Protect every device you own</string>
-    <string name="upsell_panel_devices_description">Your phone, laptop, TV, and everything in between.</string>
+    <string name="upsell_panel_devices_title">Proteja todos os seus dispositivos</string>
+    <string name="upsell_panel_devices_description">Seu celular, notebook, TV e tudo mais.</string>
     <string name="upsell_panel_netshield_title">Navegue sem interrupções</string>
     <string name="upsell_panel_netshield_benefit_ads">Anúncios bloqueados enquanto você navega</string>
     <string name="upsell_panel_netshield_benefit_trackers">Impeça que os rastreadores sigam você</string>
     <string name="upsell_panel_netshield_benefit_malware">Proteção de malware e phishing</string>
     <string name="upsell_panel_netshield_benefit_load_speed">Carregamento de página mais rápido </string>
-    <string name="upsell_panel_onboarding_title">Get more with VPN Plus</string>
-    <string name="upsell_panel_p2p_title">Downloads at full speed</string>
+    <string name="upsell_panel_onboarding_title">Obtenha mais com o VPN Plus</string>
+    <string name="upsell_panel_p2p_title">Downloads em velocidade máxima</string>
     <string name="upsell_panel_p2p_description">Servers built for file sharing, with your usual torrent client.</string>
-    <string name="upsell_panel_p2p_benefit_p2p">P2P file sharing</string>
-    <string name="upsell_panel_profiles_title">Streaming, gaming, work: a profile for each</string>
-    <string name="upsell_panel_profiles_description">Set up your connections your way, then reconnect to any of them in one tap.</string>
-    <string name="upsell_panel_profiles_benefit_profiles">Saved profiles</string>
+    <string name="upsell_panel_p2p_benefit_p2p">Compartilhamento de arquivos P2P</string>
+    <string name="upsell_panel_profiles_title">Streaming, jogos, trabalho: um perfil para cada um</string>
+    <string name="upsell_panel_profiles_description">Configure suas conexões do jeito que você quiser e, depois, reconecte-se a qualquer uma delas com um único toque.</string>
+    <string name="upsell_panel_profiles_benefit_profiles">Perfis salvos</string>
     <string name="upsell_panel_profiles_benefit_profiles_unlimited">Unlimited</string>
-    <string name="upsell_panel_secure_core_title">Two layers of encryption between you and the web</string>
-    <string name="upsell_panel_secure_core_description">Routed through a Proton server in Switzerland, Iceland, or Sweden before your chosen country.</string>
+    <string name="upsell_panel_secure_core_title">Duas camadas de criptografia entre você e a internet</string>
+    <string name="upsell_panel_secure_core_description">Encaminhado através de um servidor da Proton na Suíça, na Islândia ou na Suécia antes de chegar ao país escolhido.</string>
     <string name="upsell_panel_secure_core_benefit_secure_core">Secure Core</string>
     <string name="upsell_panel_speed_title">Faça streaming, jogue e baixe mais rápido</string>
     <string name="upsell_panel_speed_benefit_servers">Servidores de alta velocidade</string>
@@ -570,12 +570,12 @@
     <string name="upsell_panel_speed_benefit_gaming_slow">Lenta</string>
     <string name="upsell_panel_speed_benefit_gaming_fast">Rápida</string>
     <string name="upsell_panel_speed_benefit_video">Reproduza vídeos sem buffering</string>
-    <string name="upsell_panel_speed_benefit_p2p">P2P downloads supported</string>
-    <string name="upsell_panel_split_tunneling_title">Choose which apps use the VPN</string>
-    <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
+    <string name="upsell_panel_speed_benefit_p2p">Downloads P2P suportados</string>
+    <string name="upsell_panel_split_tunneling_title">Escolha quais aplicativos usam a VPN</string>
+    <string name="upsell_panel_split_tunneling_description">Seu navegador passa pela VPN, seu aplicativo bancário contorna-a. Você escolhe, aplicativo por aplicativo.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Tunelamento dividido</string>
     <string name="upsell_panel_streaming_title">Assista seus serviços favoritos de streaming</string>
-    <string name="upsell_panel_streaming_benefit_shows">Assista suas séries de qualquer país</string>
+    <string name="upsell_panel_streaming_benefit_shows">Assista séries de qualquer país</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Todas as plataformas de streaming suportada  *</string>
     <string name="upsell_panel_streaming_benefit_hd">Faça streaming em HD sem buffering</string>
@@ -583,7 +583,7 @@
     <string name="upsell_panel_streaming_footer">* É necessária uma assinatura da plataforma de streaming.</string>
     <string name="upsell_panel_streaming_block_title">Fazer upgrade para contornar bloqueios de VPN</string>
     <string name="upsell_panel_streaming_block_description">Os servidores VPN Plus permitem que você assista aos seus filmes e programas de TV favoritos de todo o mundo.</string>
-    <string name="upsell_panel_tor_title">Onion sites, no Tor Browser needed</string>
+    <string name="upsell_panel_tor_title">Sites Onion, sem necessidade do Navegador Tor</string>
     <string name="upsell_panel_tor_description">Reach .onion sites in the browser you already use.</string>
     <string name="upsell_panel_tor_benefit_tor">Tor sobre VPN</string>
     <string name="upsell_card_countries_title">Cobertura global</string>
@@ -678,57 +678,57 @@
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of days -->
     <plurals name="payment_discount_renewal_price_message_daily">
-        <item quantity="one">Special offer. Auto renews at %1$s/day</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d days</item>
+        <item quantity="one">Oferta especial. Renovação automática por %1$s/dia</item>
+        <item quantity="other">Oferta especial. Renovação automática por %1$s a cada %2$d dias</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_discount_renewal_price_message_weekly">
-        <item quantity="one">Special offer. Auto renews at %1$s/week</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">Oferta especial. Renovação automática por %1$s/semana</item>
+        <item quantity="other">Oferta especial. Renovação automática por %1$s a cada %2$d semanas</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of months -->
     <plurals name="payment_discount_renewal_price_message_monthly">
-        <item quantity="one">Special offer. Auto renews at %1$s/month</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d months</item>
+        <item quantity="one">Oferta especial. Renovação automática por %1$s/mês</item>
+        <item quantity="other">Oferta especial. Renovação automática por %1$s a cada %2$d meses</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_discount_renewal_price_message_yearly">
-        <item quantity="one">Special offer. Auto renews at %1$s/year</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d years</item>
+        <item quantity="one">Oferta especial. Renovação automática por %1$s/ano</item>
+        <item quantity="other">Oferta especial. Renovação automática por %1$s a cada %2$d anos</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of days -->
     <plurals name="payment_renewal_price_message_daily">
-        <item quantity="one">Subscription auto renews at %1$s/day</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d days</item>
+        <item quantity="one">A assinatura é renovada automaticamente por %1$s/dia</item>
+        <item quantity="other">A assinatura é renovada automaticamente no valor de %1$s a cada %2$d dias</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_renewal_price_message_weekly">
-        <item quantity="one">Subscription auto renews at %1$s/week</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">A assinatura é renovada automaticamente por %1$s/semana</item>
+        <item quantity="other">A assinatura é renovada automaticamente no valor de %1$s a cada %2$d semanas</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of months -->
     <plurals name="payment_renewal_price_message_monthly">
-        <item quantity="one">Subscription auto renews at %1$s/month</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d months</item>
+        <item quantity="one">A assinatura é renovada automaticamente por %1$s/mês</item>
+        <item quantity="other">A assinatura é renovada automaticamente no valor de %1$s a cada %2$d meses</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_renewal_price_message_yearly">
-        <item quantity="one">Subscription auto renews at %1$s/year</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d years</item>
+        <item quantity="one">A assinatura é renovada automaticamente por %1$s/ano</item>
+        <item quantity="other">A assinatura é renovada automaticamente no valor de %1$s a cada %2$d anos</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -736,8 +736,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_daily">
-        <item quantity="one">%1$s/day</item>
-        <item quantity="other">%1$s every %2$d days</item>
+        <item quantity="one">%1$s/dia</item>
+        <item quantity="other">%1$s a cada %2$d dias</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -745,8 +745,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_discount_weekly">
-        <item quantity="one">%1$s/week</item>
-        <item quantity="other">%1$s every %2$d weeks</item>
+        <item quantity="one">%1$s/semana</item>
+        <item quantity="other">%1$s a cada %2$d semanas</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -754,8 +754,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_discount_monthly">
-        <item quantity="one">%1$s/month</item>
-        <item quantity="other">%1$s every %2$d months</item>
+        <item quantity="one">%1$s/mês</item>
+        <item quantity="other">%1$s a cada %2$d meses</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -763,40 +763,40 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_yearly">
-        <item quantity="one">%1$s/year</item>
-        <item quantity="other">%1$s every %2$d years</item>
+        <item quantity="one">%1$s/ano</item>
+        <item quantity="other">%1$s a cada %2$d anos</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_for_days">
-        <item quantity="one">for the first day</item>
-        <item quantity="other">for the first %1$d days</item>
+        <item quantity="one">no primeiro dia</item>
+        <item quantity="other">nos primeiros %1$d dias</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_discount_for_weeks">
-        <item quantity="one">for the first week</item>
-        <item quantity="other">for the first %1$d weeks</item>
+        <item quantity="one">na primeira semana</item>
+        <item quantity="other">nos primeiros %1$d semanas</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_discount_for_months">
-        <item quantity="one">for the first month</item>
-        <item quantity="other">for the first %1$d months</item>
+        <item quantity="one">no primeiro mês</item>
+        <item quantity="other">nos primeiros %1$d meses</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of years -->
     <plurals name="payment_multi_renewal_discount_for_years">
-        <item quantity="one">for the first year</item>
-        <item quantity="other">for the first %1$d years</item>
+        <item quantity="one">no primeiro ano</item>
+        <item quantity="other">nos primeiros %1$d anos</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -804,8 +804,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_rest_daily">
-        <item quantity="one">then auto renews at %1$s/day</item>
-        <item quantity="other">then auto renews at %1$s every %2$d days</item>
+        <item quantity="one">e, em seguida, é renovado automaticamente por %1$s por dia</item>
+        <item quantity="other">e, em seguida, é renovado automaticamente em %1$s a cada %2$d dias</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -813,8 +813,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_rest_weekly">
-        <item quantity="one">then auto renews at %1$s/week</item>
-        <item quantity="other">then auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">e, em seguida, é renovado automaticamente por %1$s por semana</item>
+        <item quantity="other">e, em seguida, é renovado automaticamente em %1$s a cada %2$d semanas</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -822,8 +822,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_rest_monthly">
-        <item quantity="one">then auto renews at %1$s/month</item>
-        <item quantity="other">then auto renews at %1$s every %2$d months</item>
+        <item quantity="one">e, em seguida, é renovado automaticamente por %1$s por mês</item>
+        <item quantity="other">e, em seguida, é renovado automaticamente em %1$s a cada %2$d messes</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -831,8 +831,8 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_multi_renewal_rest_yearly">
-        <item quantity="one">then auto renews at %1$s/year</item>
-        <item quantity="other">then auto renews at %1$s every %2$d years</item>
+        <item quantity="one">e, em seguida, é renovado automaticamente por %1$s por ano</item>
+        <item quantity="other">e, em seguida, é renovado automaticamente em %1$s a cada %2$d anos</item>
     </plurals>
     <!-- Explains renewal cycle when first there's a discount price for several periods
      (e.g. 2 months) and then the subscription renews at full price.
@@ -1004,7 +1004,7 @@
     <string name="welcome_plus_title">Boas-vindas ao VPN Plus</string>
     <string name="welcome_plus_description">Aproveite recursos extras de privacidade, desempenho aprimorado e customização de VPN de próximo nível.</string>
     <string name="welcome_unlimited_title">Boas-vindas ao Proton Unlimited</string>
-    <string name="welcome_unlimited_description">You unlocked all premium Proton VPN, Mail, Calendar, Drive, Pass, and Wallet features.</string>
+    <string name="welcome_unlimited_description">Você desbloqueou todos os recursos premium do Proton VPN, Mail, Calendar, Drive, Pass e Wallet</string>
     <string name="welcome_generic_title">Parabéns</string>
     <string name="welcome_generic_description">Você fez o upgrade da sua assinatura. Desfrute dos recursos avançados de privacidade e do desempenho de próximo nível.</string>
     <!-- Text added to button labels that open links in a browser (as opposed to performing actions
@@ -1437,7 +1437,7 @@
     <!-- Label for server location "state", as a state of the USA. -->
     <string name="connection_details_state">Estado</string>
     <!-- Label for server smart routing, a country which is routed through. -->
-    <string name="connection_details_smart_routing">Routed through</string>
+    <string name="connection_details_smart_routing">Encaminhado por meio de</string>
     <!-- tag(Redesign_2023)
          Will be shown in a UI row which indicates Server load, on the left side will be Server load, and on the right actual load values.
     -->
@@ -1511,7 +1511,7 @@
     <string name="connection_feature_smart_routing_title">Smart Routing</string>
     <string name="connection_feature_smart_routing_description">Conecta você ao país destinatário através de servidores localizados fisicamente em outro lugar.</string>
     <!-- Placeholder will be replaced by a list of country names separated by commas, e.g, Connects you to your destination country through servers physically located elsewhere: Canada, Mexico, United States.  -->
-    <string name="connection_feature_smart_routing_description_with_countries">Connects you to your destination country through servers physically located elsewhere: %1$s.</string>
+    <string name="connection_feature_smart_routing_description_with_countries">Conecta você ao país destinatário através de servidores fisicamente localizados em outro lugar: %1$s.</string>
     <!--
         %1$s - physical server location country
         %2$s - destination country

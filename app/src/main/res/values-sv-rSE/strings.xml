@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">Watch your favorite streaming services</string>
-    <string name="upsell_panel_streaming_benefit_shows">Titta på dina program från vilket land som helst</string>
+    <string name="upsell_panel_streaming_benefit_shows">Watch shows from any country</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Alla större streamingplattformar stöds *</string>
     <string name="upsell_panel_streaming_benefit_hd">Streama i HD utan buffring</string>

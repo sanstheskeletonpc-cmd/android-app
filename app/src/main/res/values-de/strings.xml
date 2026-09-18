@@ -575,7 +575,7 @@
     <string name="upsell_panel_split_tunneling_description">Dein Browser läuft über das VPN, deine Banking-App umgeht es. Du entscheidest – App für App.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split‐Tunneling</string>
     <string name="upsell_panel_streaming_title">Schau dir deine Lieblings-Streamingdienste an</string>
-    <string name="upsell_panel_streaming_benefit_shows">Schau dir deine Serien aus jedem Land an</string>
+    <string name="upsell_panel_streaming_benefit_shows">Schau dir deine Serien von jedem Land aus an</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Alle gängigen Streaming-Plattformen werden unterstützt *</string>
     <string name="upsell_panel_streaming_benefit_hd">In HD streamen, ohne dass zwischengespeichert werden muss</string>

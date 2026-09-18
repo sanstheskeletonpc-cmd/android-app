@@ -560,7 +560,7 @@
     <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
     <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
     <string name="upsell_panel_streaming_title">观看您喜爱的流媒体服务</string>
-    <string name="upsell_panel_streaming_benefit_shows">从任意国家/地区观看您的节目</string>
+    <string name="upsell_panel_streaming_benefit_shows">从任意国家/地区观看节目</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">支持所有主流流媒体平台 *</string>
     <string name="upsell_panel_streaming_benefit_hd">无缓冲高清播放</string>
