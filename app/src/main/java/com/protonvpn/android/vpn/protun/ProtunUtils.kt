@@ -70,6 +70,10 @@ fun VpnDisconnectError.toLegacyErrorType(): VpnState = when (this) {
     is VpnDisconnectError.AppError.UnrecoverableJail ->
         VpnState.Error(ErrorType.GENERIC_ERROR, reason.name, isFinal = true)
 
+    // Local agent - won't happen on v1
+    VpnDisconnectError.AppError.FailedToRefreshCertificate ->
+        VpnState.Error(ErrorType.GENERIC_ERROR, "Failed to refresh certificate", isFinal = true)
+
     is VpnDisconnectError.AppError.Other ->
         VpnState.Error(ErrorType.GENERIC_ERROR, e.message, isFinal = true)
 

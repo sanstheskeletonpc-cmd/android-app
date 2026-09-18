@@ -40,6 +40,7 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 import kotlin.test.assertEquals
+import kotlin.time.Duration.Companion.seconds
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CurrentUserLocalSettingsManagerTests {
@@ -61,7 +62,7 @@ class CurrentUserLocalSettingsManagerTests {
     }
 
     @Test
-    fun `with multiple observers they all get value on subscription`() = testScope.runTest(5_000) {
+    fun `with multiple observers they all get value on subscription`() = testScope.runTest(5.seconds) {
         val subscription1 = currentUserSettings.rawCurrentUserSettingsFlow.first()
         val subscription2 = currentUserSettings.rawCurrentUserSettingsFlow.first()
 

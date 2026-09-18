@@ -39,6 +39,7 @@ import me.proton.vpn.core.api.InterfaceConfig
 import me.proton.vpn.core.api.IpNetworkPrefix
 import me.proton.vpn.core.api.PacketCaptureInfo
 import me.proton.vpn.core.api.Peer
+import me.proton.vpn.core.api.SniStrategy
 import me.proton.vpn.core.api.SplitTunnelAppsConfig
 import me.proton.vpn.core.api.SplitTunnelMode
 
@@ -88,7 +89,13 @@ class ConnectionParamsProTun(
         )
 
         val privateKey = certificateRepository.getX25519Key(sessionId)
-        return InitialConfig(iface, peers, pcapFile, mode = ConnectionMode.NoLocalAgent(privateKey))
+        return InitialConfig(
+            iface,
+            peers,
+            pcapFile,
+            sniStrategy = SniStrategy.Random,
+            mode = ConnectionMode.NoLocalAgent(privateKey)
+        )
     }
 
     fun splitTunnelAppsConfig(
