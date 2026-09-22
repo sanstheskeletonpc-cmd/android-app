@@ -76,7 +76,6 @@ import com.protonvpn.android.utils.Storage
 import com.protonvpn.android.utils.UserPlanManager
 import com.protonvpn.android.utils.VpnCoreLogger
 import com.protonvpn.android.utils.isMainProcess
-import com.protonvpn.android.utils.migrateProtonPreferences
 import com.protonvpn.android.vpn.CertificateRepository
 import com.protonvpn.android.vpn.LogcatLogCapture
 import com.protonvpn.android.vpn.MaintenanceTracker
@@ -291,9 +290,7 @@ open class ProtonApplication : Application() {
     }
 
     private fun initPreferences() {
-        val storagePrefsName = "Storage"
-        migrateProtonPreferences(this, "Proton-Secured", storagePrefsName)
-        val preferences = getSharedPreferences(storagePrefsName, MODE_PRIVATE)
+        val preferences = getSharedPreferences("Storage", MODE_PRIVATE)
         Storage.setPreferences(preferences)
     }
 
