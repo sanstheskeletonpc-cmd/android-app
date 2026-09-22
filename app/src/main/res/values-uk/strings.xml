@@ -549,22 +549,22 @@
     <string name="upsell_panel_content_description_yes">Так</string>
     <string name="upsell_panel_content_description_no">Ні</string>
     <string name="upsell_panel_table_header_plan_free">Free</string>
-    <string name="upsell_panel_general_benefit_block_ads">Block ads and trackers</string>
-    <string name="upsell_panel_general_benefit_countries">Available countries</string>
+    <string name="upsell_panel_general_benefit_block_ads">Блокування реклами та стеження</string>
+    <string name="upsell_panel_general_benefit_countries">Доступні країни</string>
     <!-- %1$s - number of countries rounded to full tens. Example: 120+, 130+, 140+ -->
     <string name="upsell_panel_general_benefit_countries_rounded">%1$d+</string>
-    <string name="upsell_panel_general_benefit_devices">Protected devices</string>
-    <string name="upsell_panel_general_benefit_location">Choose your location</string>
-    <string name="upsell_panel_general_benefit_server">Choose your server</string>
-    <string name="upsell_panel_general_benefit_shows">Watch your shows from any country</string>
-    <string name="upsell_panel_general_benefit_speed">Server speed</string>
-    <string name="upsell_panel_general_benefit_speed_standard">Standard</string>
-    <string name="upsell_panel_general_benefit_speed_highest">Highest</string>
-    <string name="upsell_panel_adv_customization_title">Fine-tune your connection</string>
-    <string name="upsell_panel_adv_customization_description">Allow LAN connections, set a custom DNS, and choose your NAT type. The advanced controls, all on Plus.</string>
-    <string name="upsell_panel_adv_customization_benefit_lan">Reach your printer and home devices</string>
-    <string name="upsell_panel_adv_customization_benefit_dns">Use your own DNS service</string>
-    <string name="upsell_panel_adv_customization_benefit_gaming">Better connections for gaming</string>
+    <string name="upsell_panel_general_benefit_devices">Захищені пристрої</string>
+    <string name="upsell_panel_general_benefit_location">Вибір розташування</string>
+    <string name="upsell_panel_general_benefit_server">Вибір сервера</string>
+    <string name="upsell_panel_general_benefit_shows">Перегляд трансляцій з будь-якої країни</string>
+    <string name="upsell_panel_general_benefit_speed">Швидкість сервера</string>
+    <string name="upsell_panel_general_benefit_speed_standard">Стандартна</string>
+    <string name="upsell_panel_general_benefit_speed_highest">Найвища</string>
+    <string name="upsell_panel_adv_customization_title">Налаштування з\'єднання</string>
+    <string name="upsell_panel_adv_customization_description">Дозвіл LAN-з\'єднань, налаштування власної DNS, вибір типу NAT. Розширене керування з\'єднанням з планом Plus.</string>
+    <string name="upsell_panel_adv_customization_benefit_lan">Доступ до принтера та локальних пристроїв</string>
+    <string name="upsell_panel_adv_customization_benefit_dns">Використання власної служби DNS</string>
+    <string name="upsell_panel_adv_customization_benefit_gaming">Краще з\'єднання для ігор</string>
     <!--
         %1$s - country name in nominative
 
@@ -576,23 +576,23 @@
     <string name="upsell_panel_countries_title">Розблокуйте всі країни з VPN Plus</string>
     <string name="upsell_panel_country_benefit_speed">Високошвидкісні сервери</string>
     <string name="upsell_panel_country_benefit_shows">Переглядайте медіа, доступне тільки за кордоном</string>
-    <string name="upsell_panel_devices_title">Protect every device you own</string>
-    <string name="upsell_panel_devices_description">Your phone, laptop, TV, and everything in between.</string>
+    <string name="upsell_panel_devices_title">Захист кожного пристрою</string>
+    <string name="upsell_panel_devices_description">Ваш телефон, ноутбук, телевізор тощо.</string>
     <string name="upsell_panel_netshield_title">Переглядайте безперебійно</string>
     <string name="upsell_panel_netshield_benefit_ads">Реклама блокується під час перегляду</string>
     <string name="upsell_panel_netshield_benefit_trackers">Не дозволяйте вистежувачам переслідувати вас</string>
     <string name="upsell_panel_netshield_benefit_malware">Захист від зловмисних програм і шахрайства</string>
     <string name="upsell_panel_netshield_benefit_load_speed">Швидше завантаження сторінок </string>
-    <string name="upsell_panel_onboarding_title">Get more with VPN Plus</string>
-    <string name="upsell_panel_p2p_title">Downloads at full speed</string>
-    <string name="upsell_panel_p2p_description">Servers built for file sharing, with your usual torrent client.</string>
-    <string name="upsell_panel_p2p_benefit_p2p">P2P file sharing</string>
-    <string name="upsell_panel_profiles_title">Streaming, gaming, work: a profile for each</string>
-    <string name="upsell_panel_profiles_description">Set up your connections your way, then reconnect to any of them in one tap.</string>
-    <string name="upsell_panel_profiles_benefit_profiles">Saved profiles</string>
-    <string name="upsell_panel_profiles_benefit_profiles_unlimited">Unlimited</string>
-    <string name="upsell_panel_secure_core_title">Two layers of encryption between you and the web</string>
-    <string name="upsell_panel_secure_core_description">Routed through a Proton server in Switzerland, Iceland, or Sweden before your chosen country.</string>
+    <string name="upsell_panel_onboarding_title">Отримайте більше з VPN Plus</string>
+    <string name="upsell_panel_p2p_title">Завантаження на повній швидкості</string>
+    <string name="upsell_panel_p2p_description">Сервери, адаптовані для обміну файлами, з можливістю використання звичайних торент-клієнтів.</string>
+    <string name="upsell_panel_p2p_benefit_p2p">Обмін файлами P2P</string>
+    <string name="upsell_panel_profiles_title">Потокова трансляція, ігри, робота: окремі профілі для кожного виду діяльності</string>
+    <string name="upsell_panel_profiles_description">Користувацькі налаштування з\'єднань і можливість їх зміни одним дотиком.</string>
+    <string name="upsell_panel_profiles_benefit_profiles">Збережені профілі</string>
+    <string name="upsell_panel_profiles_benefit_profiles_unlimited">Без обмежень</string>
+    <string name="upsell_panel_secure_core_title">Два рівні шифрування між вашими пристроями та цільовими вебресурсами</string>
+    <string name="upsell_panel_secure_core_description">Трафік спрямовується через сервери Proton у Швейцарії, Ісландії або Швеції, перш ніж досягти вашої вибраної країни.</string>
     <string name="upsell_panel_secure_core_benefit_secure_core">Secure Core</string>
     <string name="upsell_panel_speed_title">Транслюйте, грайте і завантажуйте швидше</string>
     <string name="upsell_panel_speed_benefit_servers">Високошвидкісні сервери</string>
@@ -600,22 +600,22 @@
     <string name="upsell_panel_speed_benefit_gaming_slow">Повільно</string>
     <string name="upsell_panel_speed_benefit_gaming_fast">Швидко</string>
     <string name="upsell_panel_speed_benefit_video">Відео транслюється без буферування</string>
-    <string name="upsell_panel_speed_benefit_p2p">P2P downloads supported</string>
-    <string name="upsell_panel_split_tunneling_title">Choose which apps use the VPN</string>
-    <string name="upsell_panel_split_tunneling_description">Your browser through the VPN, your banking app around it. You choose, app by app.</string>
-    <string name="upsell_panel_split_tunneling_benefit_split">Split tunneling</string>
+    <string name="upsell_panel_speed_benefit_p2p">Підтримка завантажень P2P</string>
+    <string name="upsell_panel_split_tunneling_title">Вибір програм, які використовують VPN</string>
+    <string name="upsell_panel_split_tunneling_description">Ви визначаєте спосіб з\'єднання для кожної програми. Наприклад, браузер працює через VPN, а банківська програма – ні.</string>
+    <string name="upsell_panel_split_tunneling_benefit_split">Роздільне тунелювання</string>
     <string name="upsell_panel_streaming_title">Переглядайте улюблені сервіси трансляції</string>
-    <string name="upsell_panel_streaming_benefit_shows">Watch shows from any country</string>
+    <string name="upsell_panel_streaming_benefit_shows">Перегляд трансляцій з будь-якої країни</string>
     <!-- The asterisk points to upsell_panel_streaming_footer -->
     <string name="upsell_panel_streaming_benefit_platforms">Підтримуються всі основні платформи потокової трансляції *</string>
     <string name="upsell_panel_streaming_benefit_hd">Потокова трансляція в якості HD без буферування</string>
     <string name="upsell_panel_streaming_benefit_devices">Одночасне під\'єднання пристроїв</string>
     <string name="upsell_panel_streaming_footer">* Потрібна передплата на платформу потокової трансляції.</string>
-    <string name="upsell_panel_streaming_block_title">Upgrade to bypass VPN blocks</string>
-    <string name="upsell_panel_streaming_block_description">VPN Plus servers let you enjoy your favorite movies and TV shows from around the world.</string>
-    <string name="upsell_panel_tor_title">Onion sites, no Tor Browser needed</string>
-    <string name="upsell_panel_tor_description">Reach .onion sites in the browser you already use.</string>
-    <string name="upsell_panel_tor_benefit_tor">Tor over VPN</string>
+    <string name="upsell_panel_streaming_block_title">Передплатіть для обходу блокування VPN</string>
+    <string name="upsell_panel_streaming_block_description">Сервери VPN Plus забезпечують можливість переглядати ваші улюблені фільми й телепрограми з усього світу.</string>
+    <string name="upsell_panel_tor_title">Немає потреби використовувати Tor Browser для сайтів Onion</string>
+    <string name="upsell_panel_tor_description">Встановлення з\'єднань із сайтами .onion у будь-якому звичайному браузері.</string>
+    <string name="upsell_panel_tor_benefit_tor">Tor через VPN</string>
     <string name="upsell_card_countries_title">Світове покриття</string>
     <!-- Parameters:
         %1$d - number of servers rounded up to 100s (e.g. 600, 1200)
@@ -679,33 +679,33 @@
         $100 /year
     -->
     <string name="payment_price_with_period">%1$s /%2$s</string>
-    <string name="payment_price_per_day">day</string>
-    <string name="payment_price_per_week">week</string>
+    <string name="payment_price_per_day">день</string>
+    <string name="payment_price_per_week">тиждень</string>
     <string name="payment_price_per_month">місяць</string>
     <string name="payment_price_per_year">рік</string>
     <plurals name="payment_price_cycle_label_day">
-        <item quantity="one">%1$d day</item>
-        <item quantity="few">%1$d days</item>
-        <item quantity="many">%1$d days</item>
-        <item quantity="other">%1$d days</item>
+        <item quantity="one">%1$d день</item>
+        <item quantity="few">%1$d дні</item>
+        <item quantity="many">%1$d днів</item>
+        <item quantity="other">%1$d днів</item>
     </plurals>
     <plurals name="payment_price_cycle_label_week">
-        <item quantity="one">%1$d week</item>
-        <item quantity="few">%1$d weeks</item>
-        <item quantity="many">%1$d weeks</item>
-        <item quantity="other">%1$d weeks</item>
+        <item quantity="one">%1$d тиждень</item>
+        <item quantity="few">%1$d тижні</item>
+        <item quantity="many">%1$d тижнів</item>
+        <item quantity="other">%1$d тижнів</item>
     </plurals>
     <plurals name="payment_price_cycle_label_month">
-        <item quantity="one">%1$d month</item>
-        <item quantity="few">%1$d months</item>
-        <item quantity="many">%1$d months</item>
-        <item quantity="other">%1$d months</item>
+        <item quantity="one">%1$d місяць</item>
+        <item quantity="few">%1$d місяці</item>
+        <item quantity="many">%1$d місяців</item>
+        <item quantity="other">%1$d місяців</item>
     </plurals>
     <plurals name="payment_price_cycle_label_year">
-        <item quantity="one">%1$d year</item>
-        <item quantity="few">%1$d years</item>
-        <item quantity="many">%1$d years</item>
-        <item quantity="other">%1$d years</item>
+        <item quantity="one">%1$d рік</item>
+        <item quantity="few">%1$d роки</item>
+        <item quantity="many">%1$d років</item>
+        <item quantity="other">%1$d років</item>
     </plurals>
     <string name="payment_select_your_plan">Оберіть тарифний план</string>
     <!-- Label on a button for purchasing a subscription.
@@ -718,73 +718,73 @@
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of days -->
     <plurals name="payment_discount_renewal_price_message_daily">
-        <item quantity="one">Special offer. Auto renews at %1$s/day</item>
-        <item quantity="few">Special offer. Auto renews at %1$s every %2$d days</item>
-        <item quantity="many">Special offer. Auto renews at %1$s every %2$d days</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d days</item>
+        <item quantity="one">Спеціальна пропозиція. Автоматично поновлюється за %1$s/день</item>
+        <item quantity="few">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d дні</item>
+        <item quantity="many">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d днів</item>
+        <item quantity="other">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d днів</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_discount_renewal_price_message_weekly">
-        <item quantity="one">Special offer. Auto renews at %1$s/week</item>
-        <item quantity="few">Special offer. Auto renews at %1$s every %2$d weeks</item>
-        <item quantity="many">Special offer. Auto renews at %1$s every %2$d weeks</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">Спеціальна пропозиція. Автоматично поновлюється за %1$s/тиждень</item>
+        <item quantity="few">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d тижні</item>
+        <item quantity="many">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d тижнів</item>
+        <item quantity="other">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d тижнів</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of months -->
     <plurals name="payment_discount_renewal_price_message_monthly">
-        <item quantity="one">Special offer. Auto renews at %1$s/month</item>
-        <item quantity="few">Special offer. Auto renews at %1$s every %2$d months</item>
-        <item quantity="many">Special offer. Auto renews at %1$s every %2$d months</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d months</item>
+        <item quantity="one">Спеціальна пропозиція. Автоматично поновлюється за %1$s/місяць</item>
+        <item quantity="few">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d місяці</item>
+        <item quantity="many">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d місяців</item>
+        <item quantity="other">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d місяців</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_discount_renewal_price_message_yearly">
-        <item quantity="one">Special offer. Auto renews at %1$s/year</item>
-        <item quantity="few">Special offer. Auto renews at %1$s every %2$d years</item>
-        <item quantity="many">Special offer. Auto renews at %1$s every %2$d years</item>
-        <item quantity="other">Special offer. Auto renews at %1$s every %2$d years</item>
+        <item quantity="one">Спеціальна пропозиція. Автоматично поновлюється за %1$s/рік</item>
+        <item quantity="few">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d роки</item>
+        <item quantity="many">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d років</item>
+        <item quantity="other">Спеціальна пропозиція. Автоматично поновлюється за %1$s кожні %2$d років</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of days -->
     <plurals name="payment_renewal_price_message_daily">
-        <item quantity="one">Subscription auto renews at %1$s/day</item>
-        <item quantity="few">Subscription auto renews at %1$s every %2$d days</item>
-        <item quantity="many">Subscription auto renews at %1$s every %2$d days</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d days</item>
+        <item quantity="one">Передплата автоматично поновлюється за %1$s/день</item>
+        <item quantity="few">Передплата автоматично поновлюється за %1$s кожні %2$d дні</item>
+        <item quantity="many">Передплата автоматично поновлюється за %1$s кожні %2$d днів</item>
+        <item quantity="other">Передплата автоматично поновлюється за %1$s кожні %2$d днів</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_renewal_price_message_weekly">
-        <item quantity="one">Subscription auto renews at %1$s/week</item>
-        <item quantity="few">Subscription auto renews at %1$s every %2$d weeks</item>
-        <item quantity="many">Subscription auto renews at %1$s every %2$d weeks</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">Передплата автоматично поновлюється за %1$s/тиждень</item>
+        <item quantity="few">Передплата автоматично поновлюється за %1$s кожні %2$d тижні</item>
+        <item quantity="many">Передплата автоматично поновлюється за %1$s кожні %2$d тижнів</item>
+        <item quantity="other">Передплата автоматично поновлюється за %1$s кожні %2$d тижнів</item>
     </plurals>
     <!-- Parameters:
          %1$s - replaced with price (e.g. "CHF 100")
          %2$d - replaced with number of months -->
     <plurals name="payment_renewal_price_message_monthly">
-        <item quantity="one">Subscription auto renews at %1$s/month</item>
-        <item quantity="few">Subscription auto renews at %1$s every %2$d months</item>
-        <item quantity="many">Subscription auto renews at %1$s every %2$d months</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d months</item>
+        <item quantity="one">Передплата автоматично поновлюється за %1$s/місяць</item>
+        <item quantity="few">Передплата автоматично поновлюється за %1$s кожні %2$d місяці</item>
+        <item quantity="many">Передплата автоматично поновлюється за %1$s кожні %2$d місяців</item>
+        <item quantity="other">Передплата автоматично поновлюється за %1$s кожні %2$d місяців</item>
     </plurals>
     <!-- Parameters:
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_renewal_price_message_yearly">
-        <item quantity="one">Subscription auto renews at %1$s/year</item>
-        <item quantity="few">Subscription auto renews at %1$s every %2$d years</item>
-        <item quantity="many">Subscription auto renews at %1$s every %2$d years</item>
-        <item quantity="other">Subscription auto renews at %1$s every %2$d years</item>
+        <item quantity="one">Передплата автоматично поновлюється за %1$s/рік</item>
+        <item quantity="few">Передплата автоматично поновлюється за %1$s кожні %2$d роки</item>
+        <item quantity="many">Передплата автоматично поновлюється за %1$s кожні %2$d років</item>
+        <item quantity="other">Передплата автоматично поновлюється за %1$s кожні %2$d років</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -792,10 +792,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_daily">
-        <item quantity="one">%1$s/day</item>
-        <item quantity="few">%1$s every %2$d days</item>
-        <item quantity="many">%1$s every %2$d days</item>
-        <item quantity="other">%1$s every %2$d days</item>
+        <item quantity="one">%1$s/день</item>
+        <item quantity="few">%1$s кожні %2$d дні</item>
+        <item quantity="many">%1$s кожні %2$d днів</item>
+        <item quantity="other">%1$s кожні %2$d днів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -803,10 +803,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_discount_weekly">
-        <item quantity="one">%1$s/week</item>
-        <item quantity="few">%1$s every %2$d weeks</item>
-        <item quantity="many">%1$s every %2$d weeks</item>
-        <item quantity="other">%1$s every %2$d weeks</item>
+        <item quantity="one">%1$s/тиждень</item>
+        <item quantity="few">%1$s кожні %2$d тижні</item>
+        <item quantity="many">%1$s кожні %2$d тижнів</item>
+        <item quantity="other">%1$s кожні %2$d тижнів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -814,10 +814,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_discount_monthly">
-        <item quantity="one">%1$s/month</item>
-        <item quantity="few">%1$s every %2$d months</item>
-        <item quantity="many">%1$s every %2$d months</item>
-        <item quantity="other">%1$s every %2$d months</item>
+        <item quantity="one">%1$s/місяць</item>
+        <item quantity="few">%1$s кожні %2$d місяці</item>
+        <item quantity="many">%1$s кожні %2$d місяців</item>
+        <item quantity="other">%1$s кожні %2$d місяців</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -825,50 +825,50 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_yearly">
-        <item quantity="one">%1$s/year</item>
-        <item quantity="few">%1$s every %2$d years</item>
-        <item quantity="many">%1$s every %2$d years</item>
-        <item quantity="other">%1$s every %2$d years</item>
+        <item quantity="one">%1$s/рік</item>
+        <item quantity="few">%1$s кожні %2$d роки</item>
+        <item quantity="many">%1$s кожні %2$d років</item>
+        <item quantity="other">%1$s кожні %2$d років</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_discount_for_days">
-        <item quantity="one">for the first day</item>
-        <item quantity="few">for the first %1$d days</item>
-        <item quantity="many">for the first %1$d days</item>
-        <item quantity="other">for the first %1$d days</item>
+        <item quantity="one">за перший день</item>
+        <item quantity="few">за перші %1$d дні</item>
+        <item quantity="many">за перші %1$d днів</item>
+        <item quantity="other">за перші %1$d днів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_discount_for_weeks">
-        <item quantity="one">for the first week</item>
-        <item quantity="few">for the first %1$d weeks</item>
-        <item quantity="many">for the first %1$d weeks</item>
-        <item quantity="other">for the first %1$d weeks</item>
+        <item quantity="one">за перший тиждень</item>
+        <item quantity="few">за перші %1$d тижні</item>
+        <item quantity="many">за перші %1$d тижнів</item>
+        <item quantity="other">за перші %1$d тижнів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_discount_for_months">
-        <item quantity="one">for the first month</item>
-        <item quantity="few">for the first %1$d months</item>
-        <item quantity="many">for the first %1$d months</item>
-        <item quantity="other">for the first %1$d months</item>
+        <item quantity="one">за перший місяць</item>
+        <item quantity="few">за перші %1$d місяці</item>
+        <item quantity="many">за перші %1$d місяців</item>
+        <item quantity="other">за перші %1$d місяців</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
      Parameters:
      %1$d - replaced with number of years -->
     <plurals name="payment_multi_renewal_discount_for_years">
-        <item quantity="one">for the first year</item>
-        <item quantity="few">for the first %1$d years</item>
-        <item quantity="many">for the first %1$d years</item>
-        <item quantity="other">for the first %1$d years</item>
+        <item quantity="one">за перший рік</item>
+        <item quantity="few">за перші %1$d роки</item>
+        <item quantity="many">за перші %1$d років</item>
+        <item quantity="other">за перші %1$d років</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -876,10 +876,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of days -->
     <plurals name="payment_multi_renewal_rest_daily">
-        <item quantity="one">then auto renews at %1$s/day</item>
-        <item quantity="few">then auto renews at %1$s every %2$d days</item>
-        <item quantity="many">then auto renews at %1$s every %2$d days</item>
-        <item quantity="other">then auto renews at %1$s every %2$d days</item>
+        <item quantity="one">потім автоматично поновлюється за %1$s/день</item>
+        <item quantity="few">потім автоматично поновлюється за %1$s кожні %2$d дні</item>
+        <item quantity="many">потім автоматично поновлюється за %1$s кожні %2$d днів</item>
+        <item quantity="other">потім автоматично поновлюється за %1$s кожні %2$d днів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -887,10 +887,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of weeks -->
     <plurals name="payment_multi_renewal_rest_weekly">
-        <item quantity="one">then auto renews at %1$s/week</item>
-        <item quantity="few">then auto renews at %1$s every %2$d weeks</item>
-        <item quantity="many">then auto renews at %1$s every %2$d weeks</item>
-        <item quantity="other">then auto renews at %1$s every %2$d weeks</item>
+        <item quantity="one">потім автоматично поновлюється за %1$s/тиждень</item>
+        <item quantity="few">потім автоматично поновлюється за %1$s кожні %2$d тижні</item>
+        <item quantity="many">потім автоматично поновлюється за %1$s кожні %2$d тижнів</item>
+        <item quantity="other">потім автоматично поновлюється за %1$s кожні %2$d тижнів</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -898,10 +898,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of months -->
     <plurals name="payment_multi_renewal_rest_monthly">
-        <item quantity="one">then auto renews at %1$s/month</item>
-        <item quantity="few">then auto renews at %1$s every %2$d months</item>
-        <item quantity="many">then auto renews at %1$s every %2$d months</item>
-        <item quantity="other">then auto renews at %1$s every %2$d months</item>
+        <item quantity="one">потім автоматично поновлюється за %1$s/місяць</item>
+        <item quantity="few">потім автоматично поновлюється за %1$s кожні %2$d місяці</item>
+        <item quantity="many">потім автоматично поновлюється за %1$s кожні %2$d місяців</item>
+        <item quantity="other">потім автоматично поновлюється за %1$s кожні %2$d місяців</item>
     </plurals>
     <!--
      See payment_multi_renewal_template for explanation.
@@ -909,10 +909,10 @@
      %1$s - replaced with price (e.g. "CHF 100")
      %2$d - replaced with number of years -->
     <plurals name="payment_multi_renewal_rest_yearly">
-        <item quantity="one">then auto renews at %1$s/year</item>
-        <item quantity="few">then auto renews at %1$s every %2$d years</item>
-        <item quantity="many">then auto renews at %1$s every %2$d years</item>
-        <item quantity="other">then auto renews at %1$s every %2$d years</item>
+        <item quantity="one">потім автоматично поновлюється за %1$s/рік</item>
+        <item quantity="few">потім автоматично поновлюється за %1$s кожні %2$d роки</item>
+        <item quantity="many">потім автоматично поновлюється за %1$s кожні %2$d років</item>
+        <item quantity="other">потім автоматично поновлюється за %1$s кожні %2$d років</item>
     </plurals>
     <!-- Explains renewal cycle when first there's a discount price for several periods
      (e.g. 2 months) and then the subscription renews at full price.
