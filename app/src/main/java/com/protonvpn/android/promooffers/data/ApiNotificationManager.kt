@@ -41,6 +41,7 @@ import com.protonvpn.android.logging.ProtonLogger
 import com.protonvpn.android.promooffers.ui.PromoOfferImage
 import com.protonvpn.android.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
 import com.protonvpn.android.promooffers.usecase.isIntroductoryPriceOffer
+import com.protonvpn.android.ui.home.GetNetZone
 import com.protonvpn.android.utils.UserPlanManager
 import com.protonvpn.android.utils.getValue
 import com.protonvpn.android.utils.runCatchingCheckedExceptions
@@ -112,6 +113,7 @@ class ApiNotificationManager @Inject constructor(
     appConfig: AppConfig,
     private val apiNotificationsStore: ApiNotificationsStore,
     private val api: ProtonApiRetroFit,
+    private val getNetZone: GetNetZone,
     private val currentUser: CurrentUser,
     private val userPlanManager: UserPlanManager,
     private val generateNotificationsForIntroductoryOffers: GenerateNotificationsForIntroductoryOffers,
@@ -216,7 +218,8 @@ class ApiNotificationManager @Inject constructor(
             val response = api.getApiNotifications(
                 PromoOfferImage.SupportedFormats.entries.map { it.toString() },
                 fullScreenImageSize.width,
-                fullScreenImageSize.height
+                fullScreenImageSize.height,
+                getNetZone(),
             )
             response.valueOrNull?.let { notifications ->
                 replaceNotifications(notifications.notifications, iapIntroOffers = false)

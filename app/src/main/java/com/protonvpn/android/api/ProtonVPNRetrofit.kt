@@ -140,7 +140,8 @@ interface ProtonVPNRetrofit : BaseRetrofitApi {
     suspend fun getApiNotifications(
         @Query("FullScreenImageSupport") supportedFormats: String,
         @Query("FullScreenImageWidth") fullScreenImageWidthPx: Int,
-        @Query("FullScreenImageHeight") fullScreenImageHeightPx: Int
+        @Query("FullScreenImageHeight") fullScreenImageHeightPx: Int,
+        @HeaderMap headers: Map<String, String>,
     ): ApiNotificationsResponse
 
     @GET("core/v4/domains/available")

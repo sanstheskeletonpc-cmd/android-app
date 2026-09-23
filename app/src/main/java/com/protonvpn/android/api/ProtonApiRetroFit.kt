@@ -107,6 +107,7 @@ interface ProtonApiRetroFit {
         supportedFormats: List<String>,
         fullScreenImageWidthPx: Int,
         fullScreenImageHeightPx: Int,
+        netzone: String?,
     ): ApiResult<ApiNotificationsResponse>
 
     suspend fun logout(): ApiResult<GenericResponse>
@@ -204,9 +205,15 @@ class ProtonApiRetroFitImpl @Inject constructor(
     override suspend fun getApiNotifications(
         supportedFormats: List<String>,
         fullScreenImageWidthPx: Int,
-        fullScreenImageHeightPx: Int
+        fullScreenImageHeightPx: Int,
+        netzone: String?,
     ) = manager {
-        getApiNotifications(supportedFormats.joinToString(","), fullScreenImageWidthPx, fullScreenImageHeightPx)
+        getApiNotifications(
+            supportedFormats = supportedFormats.joinToString(","),
+            fullScreenImageWidthPx = fullScreenImageWidthPx,
+            fullScreenImageHeightPx = fullScreenImageHeightPx,
+            headers = createNetZoneHeaders(netzone)
+        )
     }
 
     override suspend fun logout() =

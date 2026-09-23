@@ -119,8 +119,9 @@ class TestProtonApiRetroFitWrapper(private val apiHolder: AtomicReference<Proton
         supportedFormats: List<String>,
         fullScreenImageWidthPx: Int,
         fullScreenImageHeightPx: Int,
+        netzone: String?,
     ): ApiResult<ApiNotificationsResponse> =
-        api.getApiNotifications(supportedFormats, fullScreenImageWidthPx, fullScreenImageHeightPx)
+        api.getApiNotifications(supportedFormats, fullScreenImageWidthPx, fullScreenImageHeightPx, netzone)
 
     override suspend fun logout(): ApiResult<GenericResponse> = api.logout()
 

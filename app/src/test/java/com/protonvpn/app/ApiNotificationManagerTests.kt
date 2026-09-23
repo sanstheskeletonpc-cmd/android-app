@@ -35,6 +35,8 @@ import com.protonvpn.android.promooffers.data.ApiNotificationsStoreProvider
 import com.protonvpn.android.promooffers.data.ImagePrefetcher
 import com.protonvpn.android.promooffers.ui.PromoOfferImage
 import com.protonvpn.android.promooffers.usecase.GenerateNotificationsForIntroductoryOffers
+import com.protonvpn.android.ui.home.GetNetZone
+import com.protonvpn.android.ui.home.ServerListUpdaterPrefs
 import com.protonvpn.android.utils.UserPlanManager
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockFullScreenImagePanel
 import com.protonvpn.test.shared.ApiNotificationTestHelper.mockOffer
@@ -108,7 +110,7 @@ class ApiNotificationManagerTests {
 
     private fun mockResponse(vararg items: ApiNotification) {
         coEvery {
-            mockApi.getApiNotifications(any(), any(), any())
+            mockApi.getApiNotifications(any(), any(), any(), any())
         } returns ApiResult.Success(ApiNotificationsResponse(listOf(*items)))
     }
 
@@ -319,6 +321,7 @@ class ApiNotificationManagerTests {
         appConfig = mockAppConfig,
         apiNotificationsStore = apiNotificationsStore,
         api = mockApi,
+        getNetZone = GetNetZone(ServerListUpdaterPrefs(MockSharedPreferencesProvider())),
         currentUser = currentUser,
         userPlanManager = mockUserPlanManager,
         generateNotificationsForIntroductoryOffers = mockGenerateNotificationsForIntroductoryOffers,
