@@ -84,14 +84,6 @@ object AndroidUtils {
         startActivity(intent, options)
     }
 
-    fun isPackageInstalled(context: Context, packageName: String) =
-            try {
-                context.packageManager.getApplicationInfo(packageName, 0)
-                true
-            } catch (e: PackageManager.NameNotFoundException) {
-                false
-            }
-
     fun Context.registerBroadcastReceiver(
         intentFilter: IntentFilter,
         onReceive: (intent: Intent?) -> Unit
@@ -116,9 +108,6 @@ object AndroidUtils {
         }
     }
 
-    fun playMarketIntentFor(appId: String) =
-            Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appId"))
-
     @JvmStatic
     fun Resources.getFloatRes(@DimenRes id: Int) = TypedValue().also {
         getValue(id, it, true)
@@ -126,17 +115,6 @@ object AndroidUtils {
 
     fun Context.isChromeOS() =
             packageManager.hasSystemFeature("org.chromium.arc.device_management")
-
-    fun deleteSharedPrefs(appContext: Context, name: String) {
-        if (Build.VERSION.SDK_INT >= 24) {
-            appContext.deleteSharedPreferences(name)
-        } else {
-            sharedPrefsFile(appContext, name).delete()
-        }
-    }
-
-    fun sharedPrefsExists(appContext: Context, name: String) =
-        sharedPrefsFile(appContext, name).exists()
 
     private fun sharedPrefsFile(appContext: Context, name: String): File {
         val dir = File(appContext.applicationInfo.dataDir, "shared_prefs")
