@@ -23,6 +23,7 @@ import com.protonvpn.tests.api.FeatureFlagUserCountryTestsIntegration
 import com.protonvpn.tests.login.mobile.RefreshTokenTests
 import com.protonvpn.tests.logging.ProtonLoggerImplTestsIntegration
 import com.protonvpn.tests.login.mobile.LogoutTestsMocked
+import com.protonvpn.tests.promooffer.PromoOfferActivityTestsMocked
 import com.protonvpn.tests.telemetry.TelemetryCacheTestsIntegration
 import com.protonvpn.tests.vpn.VpnConnectionTestsIntegration
 import org.junit.runner.RunWith
@@ -30,7 +31,7 @@ import org.junit.runners.Suite
 
 @RunWith(Suite::class)
 @Suite.SuiteClasses(
-// Tests to update and reenable later:
+// Tests to update and re-enable later:
 //    HomeActivityPromoOfferTests::class,
 //    PartnershipTests::class,
 //    PromoOfferActivityTests::class,
@@ -38,6 +39,7 @@ import org.junit.runners.Suite
     // Note: when we have a lot of isolated tests they can be run in a separate CI job without test orchestrator.
     IsolatedTestsSuite::class,
     LogoutTestsMocked::class,
+    PromoOfferActivityTestsMocked::class,
     ProtonLoggerImplTestsIntegration::class,
     RefreshTokenTests::class,
     TelemetryCacheTestsIntegration::class,
