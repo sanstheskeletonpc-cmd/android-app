@@ -33,8 +33,6 @@ import org.junit.runners.Suite
 @Suite.SuiteClasses(
 // Tests to update and re-enable later:
 //    HomeActivityPromoOfferTests::class,
-//    PartnershipTests::class,
-//    PromoOfferActivityTests::class,
     FeatureFlagUserCountryTestsIntegration::class,
     // Note: when we have a lot of isolated tests they can be run in a separate CI job without test orchestrator.
     IsolatedTestsSuite::class,
