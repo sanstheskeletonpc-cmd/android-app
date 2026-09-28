@@ -147,7 +147,7 @@ class ApiNotificationManager @Inject constructor(
             notifications.filter { it.type == ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING }
         }
         // Onboarding notifications don't have images, so they can be exposed directly.
-        .shareIn(mainScope, SharingStarted.Eagerly, replay = 1)
+        // There's also no need to keep them cached in a hot flow.
 
     private val nonOnboardingNotificationsFlow = allNotificationsFlow
         .map { notifications ->
