@@ -142,25 +142,50 @@ class ApiNotificationManager @Inject constructor(
         }
     }
 
-    private val notificationsFlow = allNotificationsFlow
-        .combine(prefetchTrigger) { notifications, _ -> notifications }
-        .mapLatest { notifications ->
-            notifications.mapNotNullAsync { notification ->
-                notification.takeIf { notification.allRemoteImageUrls().ensureAllPrefetched() }
-            }.also {
-                logDebugRemovedNotifications(notifications, it, "can't load images")
-            }
+    private val onboardingNotificationsFlow = allNotificationsFlow
+        .map { notifications ->
+            notifications.filter { it.type == ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING }
         }
-        .distinctUntilChanged()
-        .flowOn(dispatcherProvider.Io)
+        // Onboarding notifications don't have images, so they can be exposed directly.
         .shareIn(mainScope, SharingStarted.Eagerly, replay = 1)
+
+    private val nonOnboardingNotificationsFlow = allNotificationsFlow
+        .map { notifications ->
+            notifications.filter { it.type != ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING }
+        }
+        .prefetchImages()
+        .shareIn(mainScope, SharingStarted.Eagerly, replay = 1)
+
+    private fun Flow<List<ApiNotification>>.prefetchImages(): Flow<List<ApiNotification>> =
+        this.combine(prefetchTrigger) { notifications, _ -> notifications }
+            .mapLatest { notifications ->
+                notifications.mapNotNullAsync { notification ->
+                    notification.takeIf { notification.allRemoteImageUrls().ensureAllPrefetched() }
+                }.also {
+                    logDebugRemovedNotifications(notifications, it, "can't load images")
+                }
+            }
+            .distinctUntilChanged()
+            .flowOn(dispatcherProvider.Io)
 
     private val updateState: MutableStateFlow<UpdateState<Unit>> = MutableStateFlow(UpdateState.Idle(Unit))
 
     // Active notifications are sorted by end time - the ones that end sooner are first.
-    val activeListFlow = notificationsFlow
+    val activeOnboardingNotificationsFlow = onboardingNotificationsFlow
+        .activeNotifications()
+
+    // Active notifications are sorted by end time - the ones that end sooner are first.
+    val activeNonOnboardingNotificationsFlow = nonOnboardingNotificationsFlow
         .onStart { prefetchTrigger.emit(Unit) }
-        .flatMapLatest { notifications ->
+        .activeNotifications()
+
+    // Active notifications are sorted by end time - the ones that end sooner are first.
+    val activeListFlow = combine(
+        activeOnboardingNotificationsFlow, activeNonOnboardingNotificationsFlow
+    ) { a, b -> (a + b).sortedBy { it.endTime } }
+
+    private fun Flow<List<ApiNotification>>.activeNotifications(): Flow<List<ApiNotification>> =
+        this.flatMapLatest { notifications ->
             flow {
                 var nextUpdateDelayS: Long? = 0
                 while (nextUpdateDelayS != null) {

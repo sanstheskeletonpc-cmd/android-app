@@ -89,7 +89,8 @@ class NotificationTimeOverlapIntegrationTests {
         // way of the notification-selection behavior under test.
         getUpgradeDialogPlansConfig = GetUpgradeDialogPlansConfig(
             isInAppUpgradeAllowed = { true },
-            activeNotificationsFlow = apiNotificationManager.activeListFlow,
+            activeNonOnboardingNotificationsFlow = apiNotificationManager.activeNonOnboardingNotificationsFlow,
+            activeOnboardingNotificationsFlow = apiNotificationManager.activeOnboardingNotificationsFlow,
             awaitNotificationsUpdate = apiNotificationManager::awaitUpdateFinish,
         )
     }

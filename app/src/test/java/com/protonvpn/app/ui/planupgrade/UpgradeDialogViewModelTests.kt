@@ -63,6 +63,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.advanceUntilIdle
@@ -142,7 +143,8 @@ class UpgradeDialogViewModelTests {
         activeNotifications = MutableStateFlow(emptyList())
         getUpgradeDialogPlansConfig = GetUpgradeDialogPlansConfig(
             isInAppUpgradeAllowed = { isInAppAllowed },
-            activeNotificationsFlow = activeNotifications,
+            activeOnboardingNotificationsFlow = activeNotifications.map { it.filter { it.type == ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING }},
+            activeNonOnboardingNotificationsFlow = activeNotifications.map { it.filter { it.type != ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING }},
             awaitNotificationsUpdate = {},
         )
         viewModel = UpgradeDialogViewModel(

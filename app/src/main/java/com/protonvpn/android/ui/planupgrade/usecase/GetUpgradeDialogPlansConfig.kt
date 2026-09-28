@@ -21,6 +21,7 @@ package com.protonvpn.android.ui.planupgrade.usecase
 
 import com.protonvpn.android.promooffers.data.ApiNotification
 import com.protonvpn.android.promooffers.data.ApiNotificationManager
+import com.protonvpn.android.promooffers.data.ApiNotificationTypes
 import com.protonvpn.android.promooffers.ui.NotificationIapParams
 import com.protonvpn.android.ui.planupgrade.IapConstants
 import com.protonvpn.android.ui.planupgrade.IsInAppUpgradeAllowedUseCase
@@ -43,7 +44,8 @@ data class UpgradeDialogLoadPlansConfig(
 @Reusable
 class GetUpgradeDialogPlansConfig(
     private val isInAppUpgradeAllowed: suspend () -> Boolean,
-    private val activeNotificationsFlow: Flow<List<ApiNotification>>,
+    private val activeNonOnboardingNotificationsFlow: Flow<List<ApiNotification>>,
+    private val activeOnboardingNotificationsFlow: Flow<List<ApiNotification>>,
     private val awaitNotificationsUpdate: suspend () -> Unit,
 ) {
 
@@ -52,7 +54,8 @@ class GetUpgradeDialogPlansConfig(
         notificationsManager: ApiNotificationManager
     ) : this(
         isInAppUpgradeAllowed = isInAppUpgradeAllowedUseCase::invoke,
-        activeNotificationsFlow = notificationsManager.activeListFlow,
+        activeNonOnboardingNotificationsFlow = notificationsManager.activeNonOnboardingNotificationsFlow,
+        activeOnboardingNotificationsFlow = notificationsManager.activeOnboardingNotificationsFlow,
         awaitNotificationsUpdate = notificationsManager::awaitUpdateFinish,
     )
 
@@ -68,7 +71,12 @@ class GetUpgradeDialogPlansConfig(
             // ApiNotificationManager starts update on login event which is before the onboarding
             // screen can load. But it's fragile.
             awaitNotificationsUpdate()
-            activeNotificationsFlow
+            val notifications = if (notificationType == ApiNotificationTypes.TYPE_BUILTIN_UPSELL_ONBOARDING) {
+                activeOnboardingNotificationsFlow
+            } else {
+                activeNonOnboardingNotificationsFlow
+            }
+            notifications
                 .first()
                 .firstOrNull { it.type == notificationType }
         }
